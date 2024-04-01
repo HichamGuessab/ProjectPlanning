@@ -4,6 +4,8 @@ import entity.Config;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import model.ViewAndController;
 import model.ViewModes;
@@ -18,9 +20,13 @@ import java.util.ResourceBundle;
 public class HomePageController implements Initializable {
     @FXML
     private AnchorPane calendarAnchorPane;
+    @FXML
+    private ChoiceBox<String> viewModeChoiceBox;
+
     private Calendar calendar = null;
     private List<Event> events;
     private ViewModes viewMode = ViewModes.WEEKLY;
+    private int timePeriod = 0;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Config config = ConfigRetriever.retrieve();
@@ -33,34 +39,100 @@ public class HomePageController implements Initializable {
             System.err.println(e.getMessage());
         }
 
-        selectMonthlyView();
+        viewModeChoiceBox.getItems().addAll("Jour", "Semaine", "Mois");
+        viewModeChoiceBox.setOnAction(event -> handleViewModeChange());
+        selectWeeklyView();
+    }
+
+    @FXML
+    private void onPreviousTimePeriodButtonClick() {
+        timePeriod--;
+        updateCalendarView();
+    }
+
+    @FXML
+    private void onNextTimePeriodButtonClick() {
+        timePeriod++;
+        updateCalendarView();
+    }
+
+    private void handleViewModeChange() {
+        String selectedViewMode = viewModeChoiceBox.getValue();
+        if(selectedViewMode == null) {
+            return;
+        }
+        switch (selectedViewMode) {
+            case "Jour":
+                selectDailyView();
+                break;
+            case "Semaine":
+                selectWeeklyView();
+                break;
+            case "Mois":
+                selectMonthlyView();
+                break;
+        }
     }
 
     private void selectWeeklyView() {
-        this.events = CalendarFilterer.getCurrentWeekEvents(this.calendar);
-        this.viewMode = ViewModes.WEEKLY;
-        int currentWeekOfYear = java.util.Calendar.getInstance().get(java.util.Calendar.WEEK_OF_YEAR);
-        updateCalendarView("weeklyCalendarComponent", currentWeekOfYear);
+        viewModeChoiceBox.setValue("Semaine");
+        timePeriod = java.util.Calendar.getInstance().get(java.util.Calendar.WEEK_OF_YEAR);
+        viewMode = ViewModes.WEEKLY;
+
+        updateCalendarView();
     }
 
     private void selectDailyView() {
-        this.events = CalendarFilterer.getCurrentDayEvents(this.calendar);
-        this.viewMode = ViewModes.DAILY;
-        int currentDayOfMonth = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
-        updateCalendarView("dailyCalendarComponent",currentDayOfMonth);
+        viewModeChoiceBox.setValue("Jour");
+        viewMode = ViewModes.DAILY;
+        timePeriod = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_YEAR);
+        updateCalendarView();
     }
 
     private void selectMonthlyView() {
-        this.events = CalendarFilterer.getCurrentMonthEvents(this.calendar);
-        this.viewMode = ViewModes.MONTHLY;
-        int currentMonth = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
-        updateCalendarView("monthlyCalendarComponent", currentMonth+1);
+        viewModeChoiceBox.setValue("Mois");
+        timePeriod = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH)+1;
+        viewMode = ViewModes.MONTHLY;
+        updateCalendarView();
     }
 
-    private void updateCalendarView(String calendarComponentName, int timePeriod) {
+    private void updateEvents() {
+        switch (this.viewMode) {
+            case DAILY:
+                events = CalendarFilterer.getEventsForDayOfYear(this.calendar, timePeriod);
+                break;
+            case WEEKLY:
+                events = CalendarFilterer.getEventsForWeekOfYear(this.calendar, timePeriod);
+                break;
+            case MONTHLY:
+                events = CalendarFilterer.getEventsForMonthOfYear(this.calendar, timePeriod);
+                break;
+        }
+    }
+
+    private String getCalendarComponentName() {
+        switch (this.viewMode) {
+            case DAILY:
+                return "dailyCalendarComponent";
+            case WEEKLY:
+                return "weeklyCalendarComponent";
+            case MONTHLY:
+                return "monthlyCalendarComponent";
+            default:
+                return null;
+        }
+    }
+
+    private void removeCurrentCalendarView() {
+        calendarAnchorPane.getChildren().clear();
+    }
+
+    private void updateCalendarView() {
+        updateEvents();
+        removeCurrentCalendarView();
         ViewAndController viewAndController = null;
         try {
-            viewAndController = ViewLoader.getViewAndController(calendarComponentName);
+            viewAndController = ViewLoader.getViewAndController(getCalendarComponentName());
         } catch (IOException e) {
             System.err.println("Failed to load calendar component : "+e.getMessage());
         }
