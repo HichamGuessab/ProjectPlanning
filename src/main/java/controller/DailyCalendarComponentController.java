@@ -24,10 +24,19 @@ public class DailyCalendarComponentController implements CalendarController {
 
     public void displayEvents() throws IOException {
         for (Event event : events) {
+            System.out.println("Event: " + event.getSummary());
+
             int startHour = event.getStart().getHours();
-            // Only display events within calendar range
-            if(startHour < 8 || startHour > 20) {
-                continue;
+            int endHour = event.getEnd().getHours();
+
+            System.out.println("Start hour: " + startHour);
+            System.out.println("End hour: " + endHour);
+
+            if(startHour < 8) {
+                startHour = 8;
+            }
+            if(endHour > 18 || endHour < 8) {
+                endHour = 19;
             }
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
@@ -37,8 +46,8 @@ public class DailyCalendarComponentController implements CalendarController {
             eventComponentController.setRoom(event.getLocation());
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
-            int yEndCoordinates = (event.getEnd().getHours() - 8)*2+(event.getEnd().getMinutes()/30);
-            calendarGridPane.add(viewAndController.node, 0, yStartCoordinates, 1, yEndCoordinates-yStartCoordinates);
+            int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);
+            calendarGridPane.add(viewAndController.node, 1, yStartCoordinates+1, 1, yEndCoordinates-yStartCoordinates);
         }
     }
 }
