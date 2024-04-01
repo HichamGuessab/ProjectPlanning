@@ -14,19 +14,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class WeeklyCalendarComponentController implements Initializable, CalendarController {
+public class WeeklyCalendarComponentController extends AbstractCalendarController implements Initializable {
     @FXML
     private GridPane calendarGridPane;
-
-    private List<Event> events;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
     }
 
     public void displayEvents() throws IOException {

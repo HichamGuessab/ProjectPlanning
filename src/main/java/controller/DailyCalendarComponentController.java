@@ -12,15 +12,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DailyCalendarComponentController implements CalendarController {
+public class DailyCalendarComponentController extends AbstractCalendarController {
     @FXML
     private GridPane calendarGridPane;
-
-    private List<Event> events;
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
 
     public void displayEvents() throws IOException {
         for (Event event : events) {

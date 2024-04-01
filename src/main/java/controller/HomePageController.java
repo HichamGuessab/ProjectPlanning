@@ -33,30 +33,35 @@ public class HomePageController implements Initializable {
             System.err.println(e.getMessage());
         }
 
-        this.viewMode = ViewModes.WEEKLY;
-        updateCalendarView();
+        selectMonthlyView();
     }
 
-    private void updateCalendarView() {
-        String calendarComponentName = "";
-        switch (this.viewMode) {
-            case WEEKLY:
-                this.events = CalendarFilterer.getCurrentWeekEvents(this.calendar);
-                calendarComponentName = "weeklyCalendarComponent";
-                break;
-            case DAILY:
-                this.events = CalendarFilterer.getEventsForCurrentDay(this.calendar);
-                calendarComponentName = "dailyCalendarComponent";
-                break;
-        }
+    private void selectWeeklyView() {
+        this.viewMode = ViewModes.WEEKLY;
+        int currentWeekOfYear = java.util.Calendar.getInstance().get(java.util.Calendar.WEEK_OF_YEAR);
+        updateCalendarView("weeklyCalendarComponent", currentWeekOfYear);
+    }
+
+    private void selectDailyView() {
+        this.viewMode = ViewModes.DAILY;
+        int currentDayOfMonth = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+        updateCalendarView("dailyCalendarComponent",currentDayOfMonth);
+    }
+
+    private void selectMonthlyView() {
+        this.viewMode = ViewModes.MONTHLY;
+        int currentMonth = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+        updateCalendarView("monthlyCalendarComponent", currentMonth+1);
+    }
+
+    private void updateCalendarView(String calendarComponentName, int timePeriod) {
         ViewAndController viewAndController = null;
         try {
             viewAndController = ViewLoader.getViewAndController(calendarComponentName);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Failed to load calendar component : "+e.getMessage());
         }
         if(viewAndController == null) {
-            System.err.println("Failed to load view and controller");
             return;
         }
         CalendarController calendarController = (CalendarController) viewAndController.controller;
@@ -65,6 +70,7 @@ public class HomePageController implements Initializable {
             return;
         }
         calendarController.setEvents(this.events);
+        calendarController.setTimePeriod(timePeriod);
         calendarAnchorPane.getChildren().add(viewAndController.node);
         try {
             calendarController.displayEvents();

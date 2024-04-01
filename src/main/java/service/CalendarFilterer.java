@@ -59,6 +59,28 @@ public class CalendarFilterer {
         return componentsToEvents(eventsOfTheDayCollection);
     }
 
+    public static List<Event> getCurrentMonthEvents(Calendar calendar) {
+        if(calendar == null) {
+            return List.of();
+        }
+
+        java.util.Calendar currentMonthStart = java.util.Calendar.getInstance();
+        currentMonthStart.set(java.util.Calendar.DAY_OF_MONTH, 1);
+        currentMonthStart.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        currentMonthStart.set(java.util.Calendar.MINUTE, 0);
+        currentMonthStart.set(java.util.Calendar.SECOND, 0);
+        currentMonthStart.set(java.util.Calendar.MILLISECOND, 0);
+
+        java.util.Calendar currentMonthEnd = (java.util.Calendar) currentMonthStart.clone();
+        currentMonthEnd.set(java.util.Calendar.MONTH, currentMonthStart.get(java.util.Calendar.MONTH) + 1);
+
+        Period period = new Period(new DateTime(currentMonthStart.getTime()), new DateTime(currentMonthEnd.getTime()));
+        Filter filter = new Filter(new PeriodRule(period));
+
+        Collection<Component> eventsOfTheMonthCollection = filter.filter(calendar.getComponents(Component.VEVENT));
+        return componentsToEvents(eventsOfTheMonthCollection);
+    }
+
     public static List<Event> getEventsForCurrentDay(Calendar calendar) {
         return getEventsForDay(calendar, java.util.Calendar.getInstance());
     }
