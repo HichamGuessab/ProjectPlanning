@@ -27,17 +27,17 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
-                "category='" + category + '\'' +
-                ", stamp=" + stamp +
-                ", lastModified=" + lastModified +
-                ", uid='" + uid + '\'' +
-                ", start=" + start +
-                ", end=" + end +
-                ", summary='" + summary + '\'' +
-                ", location='" + location + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return "Event{" + "\n" +
+                "  category='" + category + "\n" +
+                "  stamp=" + stamp + "\n" +
+                "  lastModified=" + lastModified + "\n" +
+                "  uid='" + uid + "\n" +
+                "  start=" + start + "\n" +
+                "  end=" + end + '\'' + "\n" +
+                "  summary='" + summary + '\'' + "\n" +
+                "  location='" + location + '\'' + "\n" +
+                "  description=' \n" + description + '\'' + "\n"
+                + '}';
     }
 
     public String getCategory() {

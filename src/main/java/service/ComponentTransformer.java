@@ -1,5 +1,6 @@
 package service;
 
+import entity.CourseEvent;
 import entity.Event;
 import model.EventProperties;
 import net.fortuna.ical4j.model.Component;
@@ -27,7 +28,13 @@ public class ComponentTransformer {
         String location = getPropertyValueFromName(EventProperties.LOCATION.name(), component);
         String description = getPropertyValueFromName(EventProperties.DESCRIPTION.name(), component);
 
-        return new Event(categories, dtstamp, lastModified, uid, dtstart, dtend, summary, location, description);
+        try {
+            CourseEvent courseEvent = new CourseEvent(categories, dtstamp, lastModified, uid, dtstart, dtend, summary, location, description);
+            return courseEvent;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return new Event(categories, dtstamp, lastModified, uid, dtstart, dtend, summary, location, description);
+        }
     }
 
     private static Date changeDateToCurrentTimeZone(Date date) {
@@ -53,6 +60,9 @@ public class ComponentTransformer {
             return null;
         }
         try {
+            if(dateStr.length() == 8) {
+                dateStr += "T000000Z";
+            }
             return dateFormat.parse(dateStr);
         } catch (ParseException e) {
             System.err.println("Error for "+name+" date parsing to format "+dateFormat.toPattern()+" : "+e.getMessage());
