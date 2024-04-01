@@ -14,7 +14,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label fx:id="subject" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Matière" textAlignment="CENTER" >
+                  <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Matière" textAlignment="CENTER" >
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

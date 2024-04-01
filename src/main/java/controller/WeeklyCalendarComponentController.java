@@ -4,9 +4,6 @@ import entity.CourseEvent;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.GridPane;
 import model.ViewAndController;
 import service.ViewLoader;
@@ -59,11 +56,11 @@ public class WeeklyCalendarComponentController implements Initializable, Calenda
             eventComponentController.setEvent(event);
             if(event.getClass() == CourseEvent.class) {
                 eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
-                eventComponentController.setSubject(((CourseEvent) event).getName());
+                eventComponentController.setName(((CourseEvent) event).getName());
                 eventComponentController.setRoom(event.getLocation());
             } else {
                 eventComponentController.setType(event.getNameBySummary());
-                eventComponentController.setSubject(event.getSummary());
+                eventComponentController.setName(event.getSummary());
                 eventComponentController.setRoom(event.getLocation());
             }
             eventComponentController.setBackGroundColors(event);

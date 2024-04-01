@@ -3,15 +3,12 @@ package controller;
 import entity.CourseEvent;
 import entity.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import model.ViewAndController;
 import service.ViewLoader;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class DailyCalendarComponentController implements CalendarController {
     @FXML
@@ -35,7 +32,7 @@ public class DailyCalendarComponentController implements CalendarController {
             EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
             eventComponentController.setEvent(event);
             eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
-            eventComponentController.setSubject(((CourseEvent) event).getName());
+            eventComponentController.setName(((CourseEvent) event).getName());
             eventComponentController.setRoom(event.getLocation());
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);

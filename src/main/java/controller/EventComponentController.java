@@ -18,10 +18,10 @@ import model.EventType;
 
 public class EventComponentController implements Initializable {
     @FXML
-    private Label type;
+    private Label name;
 
     @FXML
-    private Label subject;
+    private Label type;
 
     @FXML
     private Label room;
@@ -78,7 +78,7 @@ public class EventComponentController implements Initializable {
             promotionsLabel.setStyle("-fx-text-fill: #666;");
             formationsLabel.setStyle("-fx-text-fill: #666;");
         } else {
-            nameLabel.setText("Matière : " + getSubject());
+            nameLabel.setText("Matière : " + getName());
             typeLabel.setText("Type : " + getType());
             roomLabel.setText("Salle : " + getLocation());
         }
@@ -108,8 +108,8 @@ public class EventComponentController implements Initializable {
         this.type.setText(type);
     }
 
-    public void setSubject(String subject) {
-        this.subject.setText(subject);
+    public void setName(String name) {
+        this.name.setText(name);
     }
 
     public void setRoom(String room) {
@@ -120,8 +120,8 @@ public class EventComponentController implements Initializable {
         return this.type.getText();
     }
 
-    public String getSubject() {
-        return this.subject.getText();
+    public String getName() {
+        return this.name.getText();
     }
 
     public String getLocation() {
