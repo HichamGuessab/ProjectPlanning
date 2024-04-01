@@ -1,11 +1,10 @@
 package controller;
 
+import entity.CourseEvent;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import model.ViewAndController;
 import service.ViewLoader;
 
@@ -39,10 +38,6 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
             int startHour = event.getStart().getHours();
             int endHour = event.getEnd().getHours();
 
-            System.out.println("Start hour: " + startHour);
-            System.out.println("End hour: " + endHour);
-            System.out.println("Day of week: " + dayOfWeek);
-
             // Only display events within calendar range
             if(dayOfWeek > 5) {
                 continue;
@@ -57,9 +52,17 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
             EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
-            eventComponentController.setType(event.getCategory());
-            eventComponentController.setSubject(event.getSummary());
-            eventComponentController.setRoom(event.getLocation());
+            eventComponentController.setEvent(event);
+            if(event.getClass() == CourseEvent.class) {
+                eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
+                eventComponentController.setName(((CourseEvent) event).getName());
+                eventComponentController.setRoom(event.getLocation());
+            } else {
+                eventComponentController.setType(event.getNameBySummary());
+                eventComponentController.setName(event.getSummary());
+                eventComponentController.setRoom(event.getLocation());
+            }
+            eventComponentController.setBackGroundColors(event);
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
             int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);

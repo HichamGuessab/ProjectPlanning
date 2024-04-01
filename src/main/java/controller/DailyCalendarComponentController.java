@@ -1,5 +1,6 @@
 package controller;
 
+import entity.CourseEvent;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import model.ViewAndController;
 import service.ViewLoader;
 
 import java.io.IOException;
+import java.util.List;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -42,8 +44,9 @@ public class DailyCalendarComponentController extends AbstractCalendarController
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
             EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
-            eventComponentController.setType(event.getCategory());
-            eventComponentController.setSubject(event.getSummary());
+            eventComponentController.setEvent(event);
+            eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
+            eventComponentController.setName(((CourseEvent) event).getName());
             eventComponentController.setRoom(event.getLocation());
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);

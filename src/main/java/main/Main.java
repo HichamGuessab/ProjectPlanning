@@ -15,5 +15,6 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         MainController controller = MainController.getInstance();
         controller.start(stage);
+        controller.setHostServices(getHostServices());
     }
 }
