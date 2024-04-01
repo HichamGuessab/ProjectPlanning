@@ -10,6 +10,7 @@ import model.ViewAndController;
 import service.ViewLoader;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class MainLayoutController implements Initializable {
@@ -33,7 +34,8 @@ public class MainLayoutController implements Initializable {
 
                 mainPane.setCenter(mainView);
             } catch (Exception e) {
-                System.err.println("ChangeView Error1 :" + e.getMessage());
+                System.err.println(e.getCause());
+                System.err.println("ChangeView error for first page loading :" + e.getMessage());
             }
         } else {
             // Tous les affichages suivants
@@ -53,7 +55,8 @@ public class MainLayoutController implements Initializable {
 
                     mainPane.setCenter(mainView);
                 } catch (Exception e) {
-                    System.err.println("ChangeView Error2 :" + e.getMessage());
+                    System.err.println(e.getCause());
+                    System.err.println("ChangeView error for second page loading :" + e.getMessage());
                 }
             });
         }

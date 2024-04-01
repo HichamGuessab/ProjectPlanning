@@ -3,6 +3,7 @@ package service;
 import entity.Event;
 import model.EventProperties;
 import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.Property;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,47 +11,61 @@ import java.util.Date;
 
 public class ComponentTransformer {
     public static Event componentToEvent(Component component) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+        Date dtstamp = parseDatePropertyFromName(EventProperties.DTSTAMP.name(), component);
+        Date lastModified = parseDatePropertyFromName(EventProperties.LAST_MODIFIED.name(), component);
+        Date dtstart = parseDatePropertyFromName(EventProperties.DTSTART.name(), component);
+        Date dtend = parseDatePropertyFromName(EventProperties.DTEND.name(), component);
 
-        Date dtstamp;
-        try {
-            dtstamp = dateFormat.parse(component.getProperty(EventProperties.DTSTAMP.name()).getValue());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        dtstamp = changeDateToCurrentTimeZone(dtstamp);
+        lastModified = changeDateToCurrentTimeZone(lastModified);
+        dtstart = changeDateToCurrentTimeZone(dtstart);
+        dtend = changeDateToCurrentTimeZone(dtend);
 
-        Date lastModified;
-        try {
-            lastModified = dateFormat.parse(component.getProperty(EventProperties.LAST_MODIFIED.name().replace('_', '-')).getValue());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        Date dtstart;
-        try {
-            dtstart = dateFormat.parse(component.getProperty(EventProperties.DTSTART.name()).getValue());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        Date dtend;
-        try {
-            dtend = dateFormat.parse(component.getProperty(EventProperties.DTEND.name()).getValue());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        dtstamp.setHours(dtstamp.getHours() + 1);
-        lastModified.setHours(lastModified.getHours() + 1);
-        dtstart.setHours(dtstart.getHours() + 1);
-        dtend.setHours(dtend.getHours() + 1);
-
-        String categories = component.getProperty(EventProperties.CATEGORIES.name()).getValue();
-        String uid = component.getProperty(EventProperties.UID.name()).getValue();
-        String summary = component.getProperty(EventProperties.SUMMARY.name()).getValue();
-        String location = component.getProperty(EventProperties.LOCATION.name()).getValue();
-        String description = component.getProperty(EventProperties.DESCRIPTION.name()).getValue();
+        String categories = getPropertyValueFromName(EventProperties.CATEGORIES.name(), component);
+        String uid = getPropertyValueFromName(EventProperties.UID.name(), component);
+        String summary = getPropertyValueFromName(EventProperties.SUMMARY.name(), component);
+        String location = getPropertyValueFromName(EventProperties.LOCATION.name(), component);
+        String description = getPropertyValueFromName(EventProperties.DESCRIPTION.name(), component);
 
         return new Event(categories, dtstamp, lastModified, uid, dtstart, dtend, summary, location, description);
+    }
+
+    private static Date changeDateToCurrentTimeZone(Date date) {
+        if(date == null) {
+            return null;
+        }
+        date.setHours(date.getHours() + 1);
+        return date;
+    }
+
+    private static String getPropertyValueFromName(String name, Component component) {
+        Property property = component.getProperty(name);
+        if(property == null) {
+            return null;
+        }
+        return property.getValue();
+    }
+
+    private static Date parseDatePropertyFromName(String name, Component component) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+        String dateStr = getPropertyValueFromName(name, component);
+        if(dateStr == null) {
+            return null;
+        }
+        try {
+            return dateFormat.parse(dateStr);
+        } catch (ParseException e) {
+            System.err.println("Error for "+name+" date parsing to format "+dateFormat.toPattern()+" : "+e.getMessage());
+        }
+
+        dateFormat = new SimpleDateFormat("yyyyMMdd");
+        try {
+            System.out.println("Parsing "+name+" to format "+dateFormat.toPattern());
+            return dateFormat.parse(dateStr);
+        } catch (ParseException e) {
+            System.err.println("Error for "+name+" date parsing to format "+dateFormat.toPattern()+" : "+e.getMessage());
+        }
+
+        return null;
     }
 }

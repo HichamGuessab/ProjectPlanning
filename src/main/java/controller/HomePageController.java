@@ -4,28 +4,20 @@ import entity.Config;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 import model.ViewAndController;
 import model.ViewModes;
-import net.fortuna.ical4j.filter.Filter;
-import net.fortuna.ical4j.filter.predicate.PeriodRule;
 import net.fortuna.ical4j.model.*;
 import service.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
     @FXML
-    private Pane calendarPane;
-    @FXML
-    private GridPane calendarGridPane;
+    private AnchorPane calendarAnchorPane;
     private Calendar calendar = null;
     private List<Event> events;
     private ViewModes viewMode = ViewModes.WEEKLY;
@@ -37,43 +29,47 @@ public class HomePageController implements Initializable {
         }
         try {
             this.calendar = CalendarRetriever.retrieve(new URL(config.getCalendarUrl()));
-
-            this.events = CalendarFilterer.getCurrentWeekEvents(this.calendar);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+
+        this.events = CalendarFilterer.getCurrentWeekEvents(this.calendar);
+
         this.viewMode = ViewModes.WEEKLY;
-        try {
-            this.displayEvents();
-        } catch (IOException e) {
-            System.err.println(e.getCause());
-            System.err.println(e.getMessage());
-        }
+        updateCalendarView();
     }
 
-    private void displayEvents() throws IOException {
-        for (Event event : events) {
-            int dayOfWeek = event.getStart().getDay();
-            if(dayOfWeek == 0) {
-                dayOfWeek = 7;
-            }
-            dayOfWeek -= 1;
-
-            int startHour = event.getStart().getHours();
-            // Only display events within calendar range
-            if(startHour < 8 || startHour > 20) {
-                continue;
-            }
-
-            ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
-            EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
-            eventComponentController.setType(event.getCategory());
-            eventComponentController.setSubject(event.getSummary());
-            eventComponentController.setRoom(event.getLocation());
-
-            int yStartCoordinates = (startHour - 8)*2+1+(event.getStart().getMinutes()/30);
-            int yEndCoordinates = (event.getEnd().getHours() - 8)*2+1+(event.getEnd().getMinutes()/30);
-            calendarGridPane.add(viewAndController.node, dayOfWeek, yStartCoordinates, 1, yEndCoordinates-yStartCoordinates);
+    private void updateCalendarView() {
+        String calendarComponentName = "";
+        switch (this.viewMode) {
+            case WEEKLY:
+                calendarComponentName = "weeklyCalendarComponent";
+                break;
+            case DAILY:
+                calendarComponentName = "dailyCalendarComponent";
+                break;
+        }
+        ViewAndController viewAndController = null;
+        try {
+            viewAndController = ViewLoader.getViewAndController(calendarComponentName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(viewAndController == null) {
+            // TODO : display an error message to user
+            return;
+        }
+        CalendarController calendarController = (CalendarController) viewAndController.controller;
+        if(calendarController == null) {
+            // TODO : display an error message to user
+            return;
+        }
+        calendarController.setEvents(this.events);
+        calendarAnchorPane.getChildren().add(viewAndController.node);
+        try {
+            calendarController.displayEvents();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
