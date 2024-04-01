@@ -3,7 +3,9 @@ package controller;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import model.ViewAndController;
 import service.ViewLoader;
 
@@ -12,18 +14,25 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class WeeklyCalendarComponentController implements CalendarController {
+public class WeeklyCalendarComponentController implements Initializable, CalendarController {
     @FXML
     private GridPane calendarGridPane;
 
     private List<Event> events;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 
     public void setEvents(List<Event> events) {
         this.events = events;
     }
 
     public void displayEvents() throws IOException {
+        System.out.println("Displaying events");
         for (Event event : events) {
+            System.out.println("Event: " + event.getSummary());
             int dayOfWeek = event.getStart().getDay();
             if(dayOfWeek == 0) {
                 dayOfWeek = 7;
@@ -31,9 +40,22 @@ public class WeeklyCalendarComponentController implements CalendarController {
             dayOfWeek -= 1;
 
             int startHour = event.getStart().getHours();
+            int endHour = event.getEnd().getHours();
+
+            System.out.println("Start hour: " + startHour);
+            System.out.println("End hour: " + endHour);
+            System.out.println("Day of week: " + dayOfWeek);
+
             // Only display events within calendar range
-            if(startHour < 8 || startHour > 20 || dayOfWeek > 5) {
+            if(dayOfWeek > 5) {
                 continue;
+            }
+
+            if(startHour < 8) {
+                startHour = 8;
+            }
+            if(endHour > 18 || endHour < 8) {
+                endHour = 19;
             }
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
@@ -43,8 +65,8 @@ public class WeeklyCalendarComponentController implements CalendarController {
             eventComponentController.setRoom(event.getLocation());
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
-            int yEndCoordinates = (event.getEnd().getHours() - 8)*2+(event.getEnd().getMinutes()/30);
-            calendarGridPane.add(viewAndController.node, dayOfWeek, yStartCoordinates, 1, yEndCoordinates-yStartCoordinates);
+            int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);
+            calendarGridPane.add(viewAndController.node, dayOfWeek+1, yStartCoordinates+1, 1, yEndCoordinates-yStartCoordinates);
         }
     }
 }

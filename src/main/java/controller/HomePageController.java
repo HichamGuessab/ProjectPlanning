@@ -56,12 +56,12 @@ public class HomePageController implements Initializable {
             e.printStackTrace();
         }
         if(viewAndController == null) {
-            // TODO : display an error message to user
+            System.err.println("Failed to load view and controller");
             return;
         }
         CalendarController calendarController = (CalendarController) viewAndController.controller;
         if(calendarController == null) {
-            // TODO : display an error message to user
+            System.err.println("Failed to load controller");
             return;
         }
         calendarController.setEvents(this.events);
