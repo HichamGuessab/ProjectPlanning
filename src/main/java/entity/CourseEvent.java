@@ -33,7 +33,6 @@ public class CourseEvent extends Event {
                 "  formations=" + Arrays.toString(formations) + "\n" +
                 "  promotions=" + Arrays.toString(promotions) + "\n" +
                 "}";
-
     }
 
     private void setName() throws RuntimeException {
@@ -52,7 +51,6 @@ public class CourseEvent extends Event {
         }
     }
 
-    // Throw a runtime exception if the course type is not found
     public void setType() throws RuntimeException {
         String text = super.getDescription();
         Pattern pattern = Pattern.compile("Type : (\\w+)");

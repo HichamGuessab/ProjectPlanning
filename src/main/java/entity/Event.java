@@ -111,4 +111,10 @@ public class Event {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getNameBySummary() {
+        String[] words = this.summary.split(" ");
+        String name = words[words.length - 1];
+        return name.replaceFirst(name.substring(0, 1), name.substring(0, 1).toUpperCase());
+    }
 }

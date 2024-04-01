@@ -1,5 +1,6 @@
 package controller;
 
+import entity.CourseEvent;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,9 +56,15 @@ public class WeeklyCalendarComponentController implements Initializable, Calenda
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
             EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
-            eventComponentController.setType(event.getCategory());
-            eventComponentController.setSubject(event.getSummary());
-            eventComponentController.setRoom(event.getLocation());
+            if(event.getClass() == CourseEvent.class) {
+                eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
+                eventComponentController.setSubject(((CourseEvent) event).getName());
+                eventComponentController.setRoom(event.getLocation());
+            } else {
+                eventComponentController.setType(event.getNameBySummary());
+                eventComponentController.setSubject(event.getSummary());
+                eventComponentController.setRoom(event.getLocation());
+            }
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
             int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);
