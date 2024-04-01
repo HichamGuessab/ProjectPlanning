@@ -33,6 +33,7 @@ public class DailyCalendarComponentController implements CalendarController {
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
             EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
+            eventComponentController.setEvent(event);
             eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
             eventComponentController.setSubject(((CourseEvent) event).getName());
             eventComponentController.setRoom(event.getLocation());

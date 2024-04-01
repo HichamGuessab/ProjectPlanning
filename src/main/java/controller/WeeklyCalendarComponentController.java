@@ -56,6 +56,7 @@ public class WeeklyCalendarComponentController implements Initializable, Calenda
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
             EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
+            eventComponentController.setEvent(event);
             if(event.getClass() == CourseEvent.class) {
                 eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
                 eventComponentController.setSubject(((CourseEvent) event).getName());

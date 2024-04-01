@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 import static model.EventType.*;
 
 import entity.CourseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import model.EventType;
 
 public class EventComponentController implements Initializable {
@@ -27,9 +29,79 @@ public class EventComponentController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
 
+    private Event event;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        anchorPane.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                showEventDetailsPopup();
+            }
+        });
+    }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public void showEventDetailsPopup() {
+        Popup popup = new Popup();
+        VBox content = new VBox(10);
+        content.setStyle("-fx-padding: 10;" +
+                "-fx-border-color: #333;" +
+                "-fx-border-width: 2;" +
+                "-fx-background-color: white;" +
+                "-fx-border-radius: 5;" +
+                "-fx-background-radius: 5;" +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0.5, 0.0, 0.0);");
+
+        content.setMaxWidth(300);
+        content.setMaxHeight(200);
+
+        Label nameLabel = new Label("");
+        Label typeLabel = new Label("");
+        Label roomLabel = new Label("");
+        Label teacherLabel = new Label("");
+        Label promotionsLabel = new Label("");
+        Label formationsLabel = new Label("");
+
+        if(event.getClass() == CourseEvent.class) {
+            CourseEvent courseEvent = (CourseEvent) event;
+            nameLabel.setText("Matière : " + courseEvent.getName());
+            typeLabel.setText("Type : " + courseEvent.getCourseType());
+            roomLabel.setText("Salle : " + courseEvent.getLocation());
+            teacherLabel.setText("Enseignant : " + courseEvent.getTeacher());
+            promotionsLabel.setText("Promotions : " + String.join(", ", courseEvent.getPromotions()));
+            formationsLabel.setText("Formations : " + String.join(", ", courseEvent.getFormations()));
+
+            teacherLabel.setStyle("-fx-text-fill: #666;");
+            promotionsLabel.setStyle("-fx-text-fill: #666;");
+            formationsLabel.setStyle("-fx-text-fill: #666;");
+        } else {
+            nameLabel.setText("Matière : " + getSubject());
+            typeLabel.setText("Type : " + getType());
+            roomLabel.setText("Salle : " + getLocation());
+        }
+
+        nameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
+        typeLabel.setStyle("-fx-text-fill: #666;");
+        roomLabel.setStyle("-fx-text-fill: #666;");
+
+        if(event.getClass() == CourseEvent.class) {
+            content.getChildren().addAll(nameLabel, typeLabel, roomLabel, teacherLabel, promotionsLabel, formationsLabel);
+        } else {
+            content.getChildren().addAll(nameLabel, typeLabel, roomLabel);
+        }
+
+        popup.getContent().add(content);
+
+        anchorPane.setOnMouseEntered(event -> {
+            popup.show(anchorPane.getScene().getWindow(),
+                    event.getScreenX() - popup.getWidth() / 2,
+                    event.getScreenY() - popup.getHeight() - anchorPane.getHeight());
+        });
+
+        anchorPane.setOnMouseExited(event -> popup.hide());
     }
 
     public void setType(String type) {
@@ -52,7 +124,7 @@ public class EventComponentController implements Initializable {
         return this.subject.getText();
     }
 
-    public String getRoom() {
+    public String getLocation() {
         return this.room.getText();
     }
 
