@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -14,6 +15,8 @@ public class MainController {
     private Stage root;
     private AnchorPane rootAnchorPane;
     private MainLayoutController mainLayoutController;
+
+    private static HostServices hostServices;
 
     private MainController() {
 
@@ -30,7 +33,7 @@ public class MainController {
         root = stage;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/mainLayout.fxml"));
-        this.rootAnchorPane = (AnchorPane) loader.load();
+        this.rootAnchorPane = loader.load();
         mainLayoutController = loader.getController();
         Scene scene = new Scene(rootAnchorPane);
         root.setTitle("EDT Turboflex");
@@ -41,5 +44,13 @@ public class MainController {
 
     public void changeView(String scene) {
         this.mainLayoutController.changeView(scene);
+    }
+
+    public void setHostServices(HostServices hostServices) {
+        MainController.hostServices = hostServices;
+    }
+
+    public static HostServices getHostServices() {
+        return hostServices;
     }
 }

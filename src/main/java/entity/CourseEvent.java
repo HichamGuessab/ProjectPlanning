@@ -138,4 +138,8 @@ public class CourseEvent extends Event {
     public String[] getPromotions() {
         return promotions;
     }
+
+    public String getTeacherEmail() {
+        return "mailto:" + teacher.replaceAll(" ", ".") + "@univ-avignon.fr";
+    }
 }
