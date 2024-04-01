@@ -33,8 +33,6 @@ public class HomePageController implements Initializable {
             System.err.println(e.getMessage());
         }
 
-        this.events = CalendarFilterer.getCurrentWeekEvents(this.calendar);
-
         this.viewMode = ViewModes.WEEKLY;
         updateCalendarView();
     }
@@ -43,9 +41,11 @@ public class HomePageController implements Initializable {
         String calendarComponentName = "";
         switch (this.viewMode) {
             case WEEKLY:
+                this.events = CalendarFilterer.getCurrentWeekEvents(this.calendar);
                 calendarComponentName = "weeklyCalendarComponent";
                 break;
             case DAILY:
+                this.events = CalendarFilterer.getEventsForCurrentDay(this.calendar);
                 calendarComponentName = "dailyCalendarComponent";
                 break;
         }
