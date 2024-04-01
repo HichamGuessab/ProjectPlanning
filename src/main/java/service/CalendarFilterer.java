@@ -81,7 +81,7 @@ public class CalendarFilterer {
         return componentsToEvents(eventsOfTheMonthCollection);
     }
 
-    public static List<Event> getEventsForCurrentDay(Calendar calendar) {
+    public static List<Event> getCurrentDayEvents(Calendar calendar) {
         return getEventsForDay(calendar, java.util.Calendar.getInstance());
     }
 

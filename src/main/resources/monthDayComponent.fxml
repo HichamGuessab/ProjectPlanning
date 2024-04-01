@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -24,8 +25,11 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+            <VBox fx:id="eventVBox" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
          </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
       </GridPane>
    </children>
 </AnchorPane>

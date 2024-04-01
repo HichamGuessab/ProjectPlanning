@@ -17,6 +17,9 @@ public class DailyCalendarComponentController extends AbstractCalendarController
     private GridPane calendarGridPane;
 
     public void displayEvents() throws IOException {
+        if(this.events == null) {
+            return;
+        }
         for (Event event : events) {
             System.out.println("Event: " + event.getSummary());
 

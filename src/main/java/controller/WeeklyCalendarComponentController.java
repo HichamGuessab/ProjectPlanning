@@ -24,6 +24,9 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
     }
 
     public void displayEvents() throws IOException {
+        if(this.events == null) {
+            return;
+        }
         System.out.println("Displaying events");
         for (Event event : events) {
             System.out.println("Event: " + event.getSummary());

@@ -9,10 +9,7 @@ import service.ViewLoader;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Vector;
+import java.util.*;
 
 public class MonthlyCalendarComponentController extends AbstractCalendarController implements Initializable {
     @FXML
@@ -80,6 +77,16 @@ public class MonthlyCalendarComponentController extends AbstractCalendarControll
     }
 
     public void displayEvents() throws IOException {
-        System.out.println("Displaying events");
+        if(this.events == null) {
+            return;
+        }
+        for (Event event : events) {
+            Date start = event.getStart();
+            int dayOfMonth = start.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().getDayOfMonth();
+            MonthDayComponentController controller = getDayComponentController(dayOfMonth);
+            if (controller != null) {
+                controller.addEvent(event);
+            }
+        }
     }
 }

@@ -37,18 +37,21 @@ public class HomePageController implements Initializable {
     }
 
     private void selectWeeklyView() {
+        this.events = CalendarFilterer.getCurrentWeekEvents(this.calendar);
         this.viewMode = ViewModes.WEEKLY;
         int currentWeekOfYear = java.util.Calendar.getInstance().get(java.util.Calendar.WEEK_OF_YEAR);
         updateCalendarView("weeklyCalendarComponent", currentWeekOfYear);
     }
 
     private void selectDailyView() {
+        this.events = CalendarFilterer.getCurrentDayEvents(this.calendar);
         this.viewMode = ViewModes.DAILY;
         int currentDayOfMonth = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
         updateCalendarView("dailyCalendarComponent",currentDayOfMonth);
     }
 
     private void selectMonthlyView() {
+        this.events = CalendarFilterer.getCurrentMonthEvents(this.calendar);
         this.viewMode = ViewModes.MONTHLY;
         int currentMonth = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
         updateCalendarView("monthlyCalendarComponent", currentMonth+1);
