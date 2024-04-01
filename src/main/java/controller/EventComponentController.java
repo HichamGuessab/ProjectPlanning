@@ -45,4 +45,20 @@ public class EventComponentController implements Initializable {
     public String getRoom() {
         return this.room.getText();
     }
+
+//    public void setBackGroundColors(CourseEvent event) {
+//        Enum<CourseType> courseType = event.getCourseType();
+//
+//        if (courseType.equals(CM)) {
+//            rootPane.setStyle("-fx-background-color: #ff0000;"); // Red for CM
+//        } else if (courseType.equals(TD)) {
+//            rootPane.setStyle("-fx-background-color: #00ff00;"); // Green for TD
+//        } else if (courseType.equals(TP)) {
+//            rootPane.setStyle("-fx-background-color: #0000ff;"); // Blue for TP
+//        } else if (courseType.equals(EVALUATION)) {
+//            rootPane.setStyle("-fx-background-color: #ffff00;"); // Yellow for EVALUATION
+//        } else {
+//            rootPane.setStyle("-fx-background-color: #ffffff;"); // White for unknown type
+//        }
+//    }
 }

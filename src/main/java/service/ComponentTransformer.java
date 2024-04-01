@@ -29,8 +29,7 @@ public class ComponentTransformer {
         String description = getPropertyValueFromName(EventProperties.DESCRIPTION.name(), component);
 
         try {
-            CourseEvent courseEvent = new CourseEvent(categories, dtstamp, lastModified, uid, dtstart, dtend, summary, location, description);
-            return courseEvent;
+            return new CourseEvent(categories, dtstamp, lastModified, uid, dtstart, dtend, summary, location, description);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             return new Event(categories, dtstamp, lastModified, uid, dtstart, dtend, summary, location, description);
