@@ -1,6 +1,6 @@
 package entity;
 
-import model.CourseType;
+import model.EventType;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class CourseEvent extends Event {
     private String name;
-    private Enum<CourseType> courseType;
+    private Enum<EventType> courseType;
     private String teacher;
     private String[] formations;
     private String[] promotions;
@@ -59,16 +59,16 @@ public class CourseEvent extends Event {
         if (matcher.find()) {
             switch (matcher.group(1)) {
                 case "CM":
-                    this.courseType = CourseType.CM;
+                    this.courseType = EventType.CM;
                     break;
                 case "TD":
-                    this.courseType = CourseType.TD;
+                    this.courseType = EventType.TD;
                     break;
                 case "TP":
-                    this.courseType = CourseType.TP;
+                    this.courseType = EventType.TP;
                     break;
                 case "Evaluation":
-                    this.courseType = CourseType.EVALUATION;
+                    this.courseType = EventType.EVALUATION;
                     break;
             }
         } else {
@@ -123,7 +123,7 @@ public class CourseEvent extends Event {
     public String getName() {
         return name;
     }
-    public Enum<CourseType> getCourseType() {
+    public Enum<EventType> getCourseType() {
         return courseType;
     }
 

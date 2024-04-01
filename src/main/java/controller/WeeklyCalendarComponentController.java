@@ -65,6 +65,7 @@ public class WeeklyCalendarComponentController implements Initializable, Calenda
                 eventComponentController.setSubject(event.getSummary());
                 eventComponentController.setRoom(event.getLocation());
             }
+            eventComponentController.setBackGroundColors(event);
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
             int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);

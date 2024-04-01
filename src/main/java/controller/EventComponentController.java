@@ -1,11 +1,18 @@
 package controller;
 
+import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static model.EventType.*;
+
+import entity.CourseEvent;
+import model.EventType;
 
 public class EventComponentController implements Initializable {
     @FXML
@@ -16,6 +23,9 @@ public class EventComponentController implements Initializable {
 
     @FXML
     private Label room;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,19 +56,24 @@ public class EventComponentController implements Initializable {
         return this.room.getText();
     }
 
-//    public void setBackGroundColors(CourseEvent event) {
-//        Enum<CourseType> courseType = event.getCourseType();
-//
-//        if (courseType.equals(CM)) {
-//            rootPane.setStyle("-fx-background-color: #ff0000;"); // Red for CM
-//        } else if (courseType.equals(TD)) {
-//            rootPane.setStyle("-fx-background-color: #00ff00;"); // Green for TD
-//        } else if (courseType.equals(TP)) {
-//            rootPane.setStyle("-fx-background-color: #0000ff;"); // Blue for TP
-//        } else if (courseType.equals(EVALUATION)) {
-//            rootPane.setStyle("-fx-background-color: #ffff00;"); // Yellow for EVALUATION
-//        } else {
-//            rootPane.setStyle("-fx-background-color: #ffffff;"); // White for unknown type
-//        }
-//    }
+    public void setBackGroundColors(Event event) {
+        Enum<EventType> courseType;
+        if(event.getClass() == CourseEvent.class) {
+            courseType = ((CourseEvent) event).getCourseType();
+        } else {
+            courseType = EventType.OTHER;
+        }
+
+        if (courseType.equals(CM)) {
+            anchorPane.setStyle("-fx-background-color: rgba(255,0,0,0.5);"); // Red for CM
+        } else if (courseType.equals(TD)) {
+            anchorPane.setStyle("-fx-background-color: rgba(0,255,0,0.5);"); // Green for TD
+        } else if (courseType.equals(TP)) {
+            anchorPane.setStyle("-fx-background-color: rgba(0,0,255,0.5);"); // Blue for TP
+        } else if (courseType.equals(EVALUATION)) {
+            anchorPane.setStyle("-fx-background-color: rgba(255,255,0,0.5);"); // Yellow for EVALUATION
+        } else if (courseType.equals(OTHER)){
+            anchorPane.setStyle("-fx-background-color: rgba(133,133,133,0.5);"); // White for unknown type
+        }
+    }
 }
