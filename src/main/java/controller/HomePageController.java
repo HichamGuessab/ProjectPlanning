@@ -4,10 +4,12 @@ import entity.Event;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import model.CalendarType;
 import model.CalendarUrl;
 import model.ViewAndController;
@@ -35,7 +37,7 @@ public class HomePageController implements Initializable {
     @FXML
     private ChoiceBox<String> viewModeChoiceBox;
     @FXML
-    private BorderPane mainBorderpane;
+    private HBox topHBox;
     @FXML
     private TextField searchTextField;
 
@@ -46,6 +48,7 @@ public class HomePageController implements Initializable {
     private final UserManager userManager = UserManager.getInstance();
     private CalendarsManager calendarsManager;
     private CalendarType calendarType = CalendarType.USER;
+    private MainController mainController = MainController.getInstance();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User currentUser = userManager.getCurrentUser();
@@ -90,12 +93,16 @@ public class HomePageController implements Initializable {
         autoCompleteTextField.setAlignment(searchTextField.getAlignment());
         autoCompleteTextField.setFocusTraversable(false);
 
-        mainBorderpane.setTop(autoCompleteTextField);
-        BorderPane.setAlignment(autoCompleteTextField, javafx.geometry.Pos.CENTER);
-        BorderPane.setMargin(autoCompleteTextField, new javafx.geometry.Insets(10, 0, 10, 0));
+        topHBox.getChildren().remove(searchTextField);
+        topHBox.getChildren().add(0, autoCompleteTextField);
 
         searchTextField = autoCompleteTextField;
         autoCompleteTextField.setOnAction(event -> onSearchFieldSubmit());
+    }
+
+    @FXML
+    private void onAddCalendarButtonClick() {
+        mainController.changeView("addCalendarPage");
     }
 
     private void onSearchFieldSubmit() {

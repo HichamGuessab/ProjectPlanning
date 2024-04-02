@@ -13,6 +13,9 @@ import java.net.URLConnection;
 
 public class CalendarRetriever {
     public static Calendar retrieve(URL url) {
+        if(url == null || url.toString().isEmpty()) {
+            throw new IllegalArgumentException("URL is null or empty");
+        }
         try {
             URLConnection urlConnection = url.openConnection();
             InputStream inputStream = urlConnection.getInputStream();
