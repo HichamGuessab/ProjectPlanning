@@ -9,17 +9,20 @@ public class User {
     private String identifier;
     private String password;
     private UserType type;
+    private String calendarUrl;
 
     @JsonCreator
     public User(
             @JsonProperty("id") String name,
             @JsonProperty("identifier") String identifier,
             @JsonProperty("password") String password,
-            @JsonProperty("type") UserType type) {
+            @JsonProperty("type") UserType type,
+            @JsonProperty("calendarUrl") String calendarUrl) {
         this.name = name;
         this.identifier = identifier;
         this.password = password;
         this.type = type;
+        this.calendarUrl = calendarUrl;
     }
 
     @Override
@@ -28,7 +31,8 @@ public class User {
                 "name='" + name + '\'' +
                 ", identifier='" + identifier + '\'' +
                 ", password='" + password + '\'' +
-                ", type=" + type +
+                ", type=" + type + '\'' +
+                ", calendarUrl=" + calendarUrl +
                 '}';
     }
 
@@ -62,5 +66,13 @@ public class User {
 
     public void setType(UserType type) {
         this.type = type;
+    }
+
+    public String getCalendarUrl() {
+        return calendarUrl;
+    }
+
+    public void setCalendarUrl(String calendarUrl) {
+        this.calendarUrl = calendarUrl;
     }
 }

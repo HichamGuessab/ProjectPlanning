@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import service.UserManager;
 import service.UserRetrieverJSON;
 
 import java.net.URL;
@@ -36,9 +37,8 @@ public class LoginPageController implements Initializable {
     @FXML
     public void onLoginButtonClick() {
         this.removeLabelsInVbox();
-        UserRetrieverJSON retriever = new UserRetrieverJSON();
-        User user = retriever.retrieveFromIdentifierAndPassword(identifierTextField.getText(), passwordTextField.getText());
-        if(user == null) {
+        UserManager userManager = UserManager.getInstance();
+        if(!userManager.authenticate(identifierTextField.getText(), passwordTextField.getText())) {
             Label label = new Label();
             label.setText("Identifiant ou mot de passe incorrect");
             label.setTextFill(Color.rgb(255, 0, 0));

@@ -3,12 +3,14 @@
     "name": "Jean Claude",
     "identifier": "jean",
     "password": "123456",
-    "type": "TEACHER"
+    "type": "TEACHER",
+    "calendarUrl": "https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def50200cf99c752cf69a913bf8f4ca3e12b5446581bfd0a57425b61ed9f3dcb59abc536758e9bb42eef63d2fbb594616b4be217a41dfc6c5d0d821b4da74650559b51847bec8732a5e2c8bffa4d7368f292e1ad0c3895cf"
   },
   {
     "name": "Test",
     "identifier": "",
     "password": "",
-    "type": "STUDENT"
+    "type": "STUDENT",
+    "calendarUrl": "https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def50200cf99c752cf69a913bf8f4ca3e12b5446581bfd0a57425b61ed9f3dcb59abc536758e9bb42eef63d2fbb594616b4be217a41dfc6c5d0d821b4da74650559b51847bec8732a5e2c8bffa4d7368f292e1ad0c3895cf"
   }
 ]
