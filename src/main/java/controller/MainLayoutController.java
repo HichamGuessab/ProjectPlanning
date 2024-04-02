@@ -34,8 +34,8 @@ public class MainLayoutController implements Initializable {
 
                 mainPane.setCenter(mainView);
             } catch (Exception e) {
-                System.err.println(e.getCause());
                 System.err.println("ChangeView error for first page loading :" + e.getMessage());
+                e.printStackTrace();
             }
         } else {
             // Tous les affichages suivants
@@ -55,8 +55,8 @@ public class MainLayoutController implements Initializable {
 
                     mainPane.setCenter(mainView);
                 } catch (Exception e) {
-                    System.err.println(e.getCause());
                     System.err.println("ChangeView error for second page loading :" + e.getMessage());
+                    e.printStackTrace();
                 }
             });
         }

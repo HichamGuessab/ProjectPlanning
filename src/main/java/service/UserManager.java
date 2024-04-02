@@ -1,6 +1,8 @@
 package service;
 
 import entity.User;
+import service.retriever.user.UserRetriever;
+import service.retriever.user.UserRetrieverJSON;
 
 public class UserManager {
     private static UserManager INSTANCE;

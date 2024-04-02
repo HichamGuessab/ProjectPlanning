@@ -1,20 +1,31 @@
 package controller;
 
-import entity.Config;
 import entity.Event;
+import entity.Location;
+import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import model.CalendarType;
+import model.CalendarUrl;
 import model.ViewAndController;
 import model.ViewModes;
 import net.fortuna.ical4j.model.*;
+import node.AutoCompleteTextField;
 import service.*;
+import service.retriever.location.LocationRetriever;
+import service.retriever.location.LocationRetrieverJSON;
+import service.retriever.user.UserRetriever;
+import service.retriever.user.UserRetrieverJSON;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
@@ -22,26 +33,89 @@ public class HomePageController implements Initializable {
     private AnchorPane calendarAnchorPane;
     @FXML
     private ChoiceBox<String> viewModeChoiceBox;
+    @FXML
+    private BorderPane mainBorderpane;
+    @FXML
+    private TextField searchTextField;
 
     private Calendar calendar = null;
     private List<Event> events;
     private ViewModes viewMode = ViewModes.WEEKLY;
     private int timePeriod = 0;
+    private final UserManager userManager = UserManager.getInstance();
+    private CalendarsManager calendarsManager;
+    private CalendarType calendarType = CalendarType.USER;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Config config = ConfigRetriever.retrieve();
-        if(config == null) {
+        User currentUser = userManager.getCurrentUser();
+        if(currentUser == null) {
             return;
         }
         try {
-            this.calendar = CalendarRetriever.retrieve(new URL(config.getCalendarUrl()));
+            this.calendar = CalendarRetriever.retrieve(new URL(currentUser.getCalendarUrl()));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
+        LocationRetriever locationRetriever = new LocationRetrieverJSON();
+        UserRetriever userRetriever = new UserRetrieverJSON();
+        calendarsManager = new CalendarsManager(userRetriever, locationRetriever);
+
         viewModeChoiceBox.getItems().addAll("Jour", "Semaine", "Mois");
         viewModeChoiceBox.setOnAction(event -> handleViewModeChange());
         selectWeeklyView();
+        initSearchTextField();
+    }
+
+    private void initSearchTextField() {
+        AutoCompleteTextField autoCompleteTextField = new AutoCompleteTextField();
+
+        List<String> suggestions = new ArrayList<>(calendarsManager.getAllCalendarNames());
+
+        autoCompleteTextField.setSuggestions(suggestions);
+
+        autoCompleteTextField.setLayoutX(searchTextField.getLayoutX());
+        autoCompleteTextField.setLayoutY(searchTextField.getLayoutY());
+        autoCompleteTextField.setPrefWidth(searchTextField.getPrefWidth());
+        autoCompleteTextField.setPrefHeight(searchTextField.getPrefHeight());
+        autoCompleteTextField.setPromptText(searchTextField.getPromptText());
+        autoCompleteTextField.setMaxWidth(searchTextField.getMaxWidth());
+        autoCompleteTextField.setMaxHeight(searchTextField.getMaxHeight());
+        autoCompleteTextField.setMinWidth(searchTextField.getMinWidth());
+        autoCompleteTextField.setMinHeight(searchTextField.getMinHeight());
+        autoCompleteTextField.setId(searchTextField.getId());
+        autoCompleteTextField.getStyleClass().addAll(searchTextField.getStyleClass());
+        autoCompleteTextField.setAlignment(searchTextField.getAlignment());
+        autoCompleteTextField.setFocusTraversable(false);
+
+        mainBorderpane.setTop(autoCompleteTextField);
+        BorderPane.setAlignment(autoCompleteTextField, javafx.geometry.Pos.CENTER);
+        BorderPane.setMargin(autoCompleteTextField, new javafx.geometry.Insets(10, 0, 10, 0));
+
+        searchTextField = autoCompleteTextField;
+        autoCompleteTextField.setOnAction(event -> onSearchFieldSubmit());
+    }
+
+    private void onSearchFieldSubmit() {
+        String selectedCalendarName = searchTextField.getText();
+        if(selectedCalendarName == null || selectedCalendarName.isEmpty()) {
+            return;
+        }
+
+        CalendarUrl calendarUrl = calendarsManager.getCalendarUrlAndTypeFromName(selectedCalendarName);
+        if(calendarUrl == null) {
+            return;
+        }
+        try {
+            this.calendar = CalendarRetriever.retrieve(new URL(calendarUrl.url));
+            switch (viewMode) {
+                case DAILY -> selectDailyView();
+                case WEEKLY -> selectWeeklyView();
+                case MONTHLY -> selectMonthlyView();
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @FXML

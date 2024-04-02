@@ -1,0 +1,10 @@
+[
+  {
+    "name": "c137",
+    "calendarUrl": "https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def50200756157f7cd435a5c4ea23a680dfe363c3f507973be65885eec1a51d7c515cca5c266f53e16b177664b0178d6385398ae953e46056daefd423e02fcdf9144fad12f4701e711aa1160d732c549363485bce21da36a45443b8692c8"
+  },
+  {
+    "name": "amphi blaise",
+    "calendarUrl": "https://edt-api.univ-avignon.fr/api/exportAgenda/salle/def502003e90d3eae5094357fe21cfbf56159f59c029bece5832dd148aa4c048d4aeb661ac42dcf744a2bdaa57aae2f961158506cf62107dee8be413dff364b10d86200ab46140bb2741f5e0b27c605c996362023744eddf6237fa20de56f1"
+  }
+]

@@ -1,6 +1,5 @@
 package controller;
 
-import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -11,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import service.UserManager;
-import service.UserRetrieverJSON;
 
 import java.net.URL;
 import java.util.List;
