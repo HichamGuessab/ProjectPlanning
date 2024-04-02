@@ -1,0 +1,10 @@
+[
+  {
+    "name": "m2 ilsen",
+    "calendarUrl": "https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def5020074698974dcd6cd4c2eed889a997acbd580dabe4724fc44be1ea31c63681baaf4694a44ee9db5b0ca7c549b7bf5c1f3e0778ab301f88d0b82de605352ddd6229bdf8235841b79944b5ff9dbc81146b18cec8b1cdc0b0db7b67b1f59c0b3370e78b9e146c8a909271f32b06992329d6775261dc845a6fd4160c7aa2d717502c7ab63de574f2b780a16d83e376563d10722"
+  },
+  {
+    "name": "m1 ilsen",
+    "calendarUrl": "https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def50200133b6f97c11ecd1487f9df1228b82e4035778bf29cfbe5da4d1822d370dac1b0233e55de73bd6a4957ad0da80e6e82bbd674dc438957573e65b1f8894ce82d64e79ff30f5ddcc314fbe99248d841d5c97d7e7bce21ca6f738c3e9bd7ae098d0b9d8bec"
+  }
+]

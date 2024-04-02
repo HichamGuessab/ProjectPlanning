@@ -5,10 +5,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.User;
 import main.Main;
-import service.JsonReader;
+import service.FileReader;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class UserRetrieverJSON implements UserRetriever{
 
     @Override
     public User retrieveFromIdentifierAndPassword(String identifier, String password) {
-        String json = JsonReader.readJsonFile(this.pathToJSONUsers);
+        String json = FileReader.readFile(this.pathToJSONUsers);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             List<User> users = objectMapper.readValue(json, new TypeReference<List<User>>() {});
@@ -49,7 +48,7 @@ public class UserRetrieverJSON implements UserRetriever{
 
     @Override
     public Map<String, String> retrieveUserNamesAndCalendarUrls() {
-        String json = JsonReader.readJsonFile(this.pathToJSONUsers);
+        String json = FileReader.readFile(this.pathToJSONUsers);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             List<User> users = objectMapper.readValue(json, new TypeReference<List<User>>() {});

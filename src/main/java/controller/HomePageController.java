@@ -1,7 +1,6 @@
 package controller;
 
 import entity.Event;
-import entity.Location;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,8 +15,11 @@ import model.ViewModes;
 import net.fortuna.ical4j.model.*;
 import node.AutoCompleteTextField;
 import service.*;
+import service.retriever.calendar.CalendarRetriever;
 import service.retriever.location.LocationRetriever;
 import service.retriever.location.LocationRetrieverJSON;
+import service.retriever.promotion.PromotionRetriever;
+import service.retriever.promotion.PromotionRetrieverJSON;
 import service.retriever.user.UserRetriever;
 import service.retriever.user.UserRetrieverJSON;
 
@@ -25,7 +27,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
@@ -59,7 +60,8 @@ public class HomePageController implements Initializable {
 
         LocationRetriever locationRetriever = new LocationRetrieverJSON();
         UserRetriever userRetriever = new UserRetrieverJSON();
-        calendarsManager = new CalendarsManager(userRetriever, locationRetriever);
+        PromotionRetriever promotionRetriever = new PromotionRetrieverJSON();
+        calendarsManager = new CalendarsManager(userRetriever, locationRetriever, promotionRetriever);
 
         viewModeChoiceBox.getItems().addAll("Jour", "Semaine", "Mois");
         viewModeChoiceBox.setOnAction(event -> handleViewModeChange());
@@ -106,6 +108,7 @@ public class HomePageController implements Initializable {
         if(calendarUrl == null) {
             return;
         }
+        calendarType = calendarUrl.type;
         try {
             this.calendar = CalendarRetriever.retrieve(new URL(calendarUrl.url));
             switch (viewMode) {

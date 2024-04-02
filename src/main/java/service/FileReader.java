@@ -1,12 +1,11 @@
 package service;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
-public class JsonReader {
-    public static String readJsonFile(String filePath) {
-        try (FileReader fileReader = new FileReader(filePath);
+public class FileReader {
+    public static String readFile(String filePath) {
+        try (java.io.FileReader fileReader = new java.io.FileReader(filePath);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
 
             StringBuilder stringBuilder = new StringBuilder();

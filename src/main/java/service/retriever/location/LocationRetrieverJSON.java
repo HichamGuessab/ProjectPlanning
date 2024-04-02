@@ -4,9 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Location;
-import entity.User;
 import main.Main;
-import service.JsonReader;
+import service.FileReader;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,12 +38,11 @@ public class LocationRetrieverJSON implements LocationRetriever {
 
     @Override
     public List<Location> retrieveAll() {
-        String json = JsonReader.readJsonFile(this.pathToJSONLocations);
+        String json = FileReader.readFile(this.pathToJSONLocations);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            List<Location> locations = objectMapper.readValue(json, new TypeReference<List<Location>>() {});
 
-            return locations;
+            return objectMapper.readValue(json, new TypeReference<List<Location>>() {});
         } catch (JsonProcessingException e) {
             System.err.println(e.getMessage());
         }
