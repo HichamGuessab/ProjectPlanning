@@ -1,5 +1,6 @@
 package service;
 
+import entity.CourseEvent;
 import entity.Event;
 import net.fortuna.ical4j.filter.Filter;
 import net.fortuna.ical4j.filter.predicate.PeriodRule;
@@ -8,9 +9,8 @@ import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Period;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class CalendarFilterer {
     public static List<Event> getEventsForWeekOfYear(Calendar calendar, int weekOfYear) {
@@ -68,12 +68,56 @@ public class CalendarFilterer {
         return getEvents(calendar, currentMonth, nextMonth.getTime());
     }
 
+    public static List<CourseEvent> getAllCourseEvents(Calendar calendar) {
+        Filter filter = new Filter();
+
+        List<Event> events = componentsToEvents(filter.filter(calendar.getComponents(Component.VEVENT)));
+        List<CourseEvent> courseEvents = new ArrayList<>();
+        for (Event event : events) {
+            if(event instanceof CourseEvent) {
+                courseEvents.add((CourseEvent) event);
+            }
+        }
+        return courseEvents;
+    }
+
     private static List<Event> getEvents(Calendar calendar, java.util.Calendar currentDay, Date time) {
         Period period = new Period(new DateTime(currentDay.getTime()), new DateTime(time));
         Filter filter = new Filter(new PeriodRule(period));
 
         Collection<Component> eventsOfTheDayCollection = filter.filter(calendar.getComponents(Component.VEVENT));
         return componentsToEvents(eventsOfTheDayCollection);
+    }
+
+    public static List<Event> filterEvents(Map<String, String> filters, List<Event> events) {
+        Class<CourseEvent> cls = CourseEvent.class;
+        List<Method> methods = new ArrayList<>();
+        for (Map.Entry<String, String> filter : filters.entrySet()) {
+            try {
+                methods.add(cls.getMethod("get" + filter.getKey().substring(0, 1).toUpperCase() + filter.getKey().substring(1)));
+            } catch (NoSuchMethodException e) {
+                System.err.println("No such method: " + e.getMessage());
+            }
+        }
+
+        List<Event> filteredEvents = new ArrayList<>(events);
+
+        for (Event event : events) {
+            for (Method method : methods) {
+                try {
+                    String value = (String) method.invoke(event);
+                    if(value == null) {
+                        continue;
+                    }
+                    if (!value.equals(filters.get(method.getName().substring(3).toLowerCase()))) {
+                        filteredEvents.remove(event);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error while filtering event: " + e.getMessage());
+                }
+            }
+        }
+        return filteredEvents;
     }
 
     private static List<Event> componentsToEvents(Collection<Component> components) {

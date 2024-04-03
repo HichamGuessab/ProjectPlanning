@@ -26,9 +26,7 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
         if(this.events == null) {
             return;
         }
-        System.out.println("Displaying events");
         for (Event event : events) {
-            System.out.println("Event: " + event.getSummary());
             int dayOfWeek = event.getStart().getDay();
             if(dayOfWeek == 0) {
                 dayOfWeek = 7;

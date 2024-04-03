@@ -1,5 +1,6 @@
 package controller;
 
+import entity.CourseEvent;
 import entity.Event;
 import entity.User;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import model.CalendarUrl;
 import model.ViewAndController;
 import model.ViewModes;
 import net.fortuna.ical4j.model.*;
+import net.fortuna.ical4j.model.Calendar;
 import node.AutoCompleteTextField;
 import service.*;
 import service.retriever.calendar.CalendarRetriever;
@@ -27,9 +29,7 @@ import service.retriever.user.UserRetrieverJSON;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class HomePageController implements Initializable {
     @FXML
@@ -40,6 +40,14 @@ public class HomePageController implements Initializable {
     private HBox topHBox;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private ChoiceBox<String> nameFilterChoiceBox;
+    @FXML
+    private ChoiceBox<String> locationFilterChoiceBox;
+    @FXML
+    private ChoiceBox<String> promotionFilterChoiceBox;
+    @FXML
+    private ChoiceBox<String> courseTypeFilterChoiceBox;
 
     private Calendar calendar = null;
     private List<Event> events;
@@ -49,6 +57,8 @@ public class HomePageController implements Initializable {
     private CalendarsManager calendarsManager;
     private CalendarType calendarType = CalendarType.USER;
     private MainController mainController = MainController.getInstance();
+    private final String allFilterTag = "Tous";
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User currentUser = userManager.getCurrentUser();
@@ -67,7 +77,26 @@ public class HomePageController implements Initializable {
         calendarsManager = new CalendarsManager(userRetriever, locationRetriever, promotionRetriever);
 
         viewModeChoiceBox.getItems().addAll("Jour", "Semaine", "Mois");
-        viewModeChoiceBox.setOnAction(event -> handleViewModeChange());
+        viewModeChoiceBox.setOnAction(event -> updateView());
+
+        List<CourseEvent> allEvents = CalendarFilterer.getAllCourseEvents(calendar);
+        nameFilterChoiceBox.getItems().addAll(FiltersManager.getCourseNames(allEvents));
+        nameFilterChoiceBox.getItems().add(0, allFilterTag);
+        nameFilterChoiceBox.setValue(allFilterTag);
+        nameFilterChoiceBox.setOnAction(event -> updateView());
+        locationFilterChoiceBox.getItems().addAll(FiltersManager.getLocations(allEvents));
+        locationFilterChoiceBox.getItems().add(0, allFilterTag);
+        locationFilterChoiceBox.setValue(allFilterTag);
+        locationFilterChoiceBox.setOnAction(event -> updateView());
+        promotionFilterChoiceBox.getItems().addAll(FiltersManager.getPromotions(allEvents));
+        promotionFilterChoiceBox.getItems().add(0, allFilterTag);
+        promotionFilterChoiceBox.setValue(allFilterTag);
+        promotionFilterChoiceBox.setOnAction(event -> updateView());
+        courseTypeFilterChoiceBox.getItems().addAll(FiltersManager.getCourseTypes(allEvents));
+        courseTypeFilterChoiceBox.getItems().add(0, allFilterTag);
+        courseTypeFilterChoiceBox.setValue(allFilterTag);
+        courseTypeFilterChoiceBox.setOnAction(event -> updateView());
+
         selectWeeklyView();
         initSearchTextField();
     }
@@ -140,7 +169,7 @@ public class HomePageController implements Initializable {
         updateCalendarView();
     }
 
-    private void handleViewModeChange() {
+    private void updateView() {
         String selectedViewMode = viewModeChoiceBox.getValue();
         if(selectedViewMode == null) {
             return;
@@ -182,16 +211,11 @@ public class HomePageController implements Initializable {
 
     private void updateEvents() {
         switch (this.viewMode) {
-            case DAILY:
-                events = CalendarFilterer.getEventsForDayOfYear(this.calendar, timePeriod);
-                break;
-            case WEEKLY:
-                events = CalendarFilterer.getEventsForWeekOfYear(this.calendar, timePeriod);
-                break;
-            case MONTHLY:
-                events = CalendarFilterer.getEventsForMonthOfYear(this.calendar, timePeriod);
-                break;
+            case DAILY -> events = CalendarFilterer.getEventsForDayOfYear(this.calendar, timePeriod);
+            case WEEKLY -> events = CalendarFilterer.getEventsForWeekOfYear(this.calendar, timePeriod);
+            case MONTHLY -> events = CalendarFilterer.getEventsForMonthOfYear(this.calendar, timePeriod);
         }
+        events = CalendarFilterer.filterEvents(getFilters(), events);
     }
 
     private String getCalendarComponentName() {
@@ -236,5 +260,22 @@ public class HomePageController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Map<String, String> getFilters() {
+        Map<String, String> filters = new HashMap<>();
+        if(!nameFilterChoiceBox.getValue().equals(allFilterTag)) {
+            filters.put("name", nameFilterChoiceBox.getValue());
+        }
+        if(!locationFilterChoiceBox.getValue().equals(allFilterTag)) {
+            filters.put("location", locationFilterChoiceBox.getValue());
+        }
+        if(!promotionFilterChoiceBox.getValue().equals(allFilterTag)) {
+            filters.put("promotion", promotionFilterChoiceBox.getValue());
+        }
+        if(!courseTypeFilterChoiceBox.getValue().equals(allFilterTag)) {
+            filters.put("courseType", courseTypeFilterChoiceBox.getValue());
+        }
+        return filters;
     }
 }

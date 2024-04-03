@@ -27,13 +27,8 @@ public class DailyCalendarComponentController extends AbstractCalendarController
             return;
         }
         for (Event event : events) {
-            System.out.println("Event: " + event.getSummary());
-
             int startHour = event.getStart().getHours();
             int endHour = event.getEnd().getHours();
-
-            System.out.println("Start hour: " + startHour);
-            System.out.println("End hour: " + endHour);
 
             if(startHour < 8) {
                 startHour = 8;
