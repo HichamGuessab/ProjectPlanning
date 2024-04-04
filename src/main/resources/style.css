@@ -1,0 +1,25 @@
+.rounded-border {
+    -fx-border-color: black;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-width: 2;
+    -fx-background-color: white;
+}
+
+.title-row {
+    -fx-background-color: #d2d2d2;
+    -fx-font-weight: bold;
+}
+
+.last-title-row {
+    -fx-background-color: #d2d2d2;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 0 10 0 0;
+}
+
+.hour-separator {
+    -fx-border-color: transparent transparent #a0a0a0 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-opacity: 0.1;
+}

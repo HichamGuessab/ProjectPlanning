@@ -173,13 +173,13 @@ public class EventComponentController implements Initializable {
         }
 
         if (courseType.equals(CM)) {
-            anchorPane.setStyle("-fx-background-color: rgba(255,0,0,0.5);"); // Red for CM
+            anchorPane.setStyle("-fx-background-color: rgba(255,220,60,0.5);"); // Red for CM
         } else if (courseType.equals(TD)) {
-            anchorPane.setStyle("-fx-background-color: rgba(0,255,0,0.5);"); // Green for TD
+            anchorPane.setStyle("-fx-background-color: rgba(0,255,255,0.5);"); // Green for TD
         } else if (courseType.equals(TP)) {
-            anchorPane.setStyle("-fx-background-color: rgba(0,0,255,0.5);"); // Blue for TP
+            anchorPane.setStyle("-fx-background-color: rgba(32,32,255,0.5);"); // Blue for TP
         } else if (courseType.equals(EVALUATION)) {
-            anchorPane.setStyle("-fx-background-color: rgba(255,255,0,0.5);"); // Yellow for EVALUATION
+            anchorPane.setStyle("-fx-background-color: rgba(255,0,0,0.5);"); // Yellow for EVALUATION
         } else if (courseType.equals(OTHER)){
             anchorPane.setStyle("-fx-background-color: rgba(133,133,133,0.5);"); // White for unknown type
         }
