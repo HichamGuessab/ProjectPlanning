@@ -23,3 +23,10 @@
     -fx-border-width: 0 0 1 0;
     -fx-opacity: 0.1;
 }
+
+.event {
+    -fx-border-color: #c4c4c4;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
