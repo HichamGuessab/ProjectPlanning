@@ -30,3 +30,19 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }
+
+.choice-box-style {
+    -fx-background-color: #a0a0a0;
+    -fx-mark-color: #000000;
+    -fx-border-color: #000000;
+    -fx-border-radius: 4;
+}
+
+.navigation-button-style {
+    -fx-background-radius: 4;
+    -fx-background-color: #a0a0a0;
+    -fx-border-color: #000000;
+    -fx-border-radius: 4;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
