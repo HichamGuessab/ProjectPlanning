@@ -21,7 +21,7 @@
 .hour-separator {
     -fx-border-color: transparent transparent #a0a0a0 transparent;
     -fx-border-width: 0 0 1 0;
-    -fx-opacity: 0.1;
+    -fx-opacity: 0.2;
 }
 
 .event {
