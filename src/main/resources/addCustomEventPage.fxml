@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomEventPageController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Label prefHeight="56.0" prefWidth="230.0" text="Ajout d'un évènemment" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </top>
+         <center>
+            <GridPane hgap="10.0" prefWidth="600.0" vgap="10.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.20001220703125" minWidth="10.0" prefWidth="199.6000122070312" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="426.4000244140625" minWidth="10.0" prefWidth="369.1999877929687" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox fx:id="formVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <TextField fx:id="customEventNameTextField" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="300.0" promptText="Nom" />
+                        <TextField fx:id="customEventDescriptionTextField" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="300.0" promptText="Description" />
+                        <TextField fx:id="customEventLocationTextField" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="300.0" promptText="Lieu" />
+                        <ColorPicker fx:id="customEventColorPicker" />
+                        <DatePicker fx:id="customEventDayDatePicker" promptText="Jour" />
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <TextField promptText="Début" />
+                              <Label text="-" />
+                              <TextField promptText="Fin" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="addCustomEventButton" mnemonicParsing="false" text="Ajouter" />
+                     </children>
+                  </VBox>
+                  <Pane fx:id="customEventPreviewPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                  </Pane>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

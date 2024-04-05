@@ -4,39 +4,51 @@ import entity.Event;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static model.EventType.*;
 
 import entity.CourseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import main.Main;
 import model.EventType;
 
 public class EventComponentController implements Initializable {
     @FXML
-    private Label name;
-
+    private Label nameLabel;
     @FXML
-    private Label type;
-
+    private Label typeLabel;
     @FXML
-    private Label room;
-
+    private Label locationLabel;
     @FXML
     private AnchorPane anchorPane;
 
-    private Event event;
-
     private Popup popup;
     private VBox content;
+
+    private Color backgroundColor = null;
+    private String name;
+    private String type;
+    private String location;
+    private String popupName;
+    private String popupType;
+    private String popupLocation;
+    private final List<Map<String, String>> additionalInformations = new ArrayList<>();
+
     private boolean isMouseOverPopup = false;
 
     @Override
@@ -51,50 +63,53 @@ public class EventComponentController implements Initializable {
         });
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     public void updatePopupContent() {
         content.getChildren().clear();
 
-        Label nameLabel = new Label("");
-        Label typeLabel = new Label("");
-        Label roomLabel = new Label("");
-        Hyperlink teacherLabel = new Hyperlink("");
-        Label promotionsLabel = new Label("");
-        Label formationsLabel = new Label("");
+        List<Node> nodes = new ArrayList<>();
 
-        if (event != null && event.getClass() == CourseEvent.class) {
-            CourseEvent courseEvent = (CourseEvent) event;
-            nameLabel.setText("Matière : " + courseEvent.getName());
-            typeLabel.setText("Type : " + courseEvent.getCourseType());
-            roomLabel.setText("Salle : " + courseEvent.getLocation());
-            teacherLabel.setText("Enseignant : " + courseEvent.getTeacher());
-            teacherLabel.setOnAction(e -> {
-                if(MainController.getHostServices() != null) {
-                    MainController.getHostServices().showDocument("mailto:" + courseEvent.getTeacherEmail());
-                }
-            });
-            promotionsLabel.setText("Promotions : " + String.join(", ", courseEvent.getPromotions()));
-            formationsLabel.setText("Formations : " + String.join(", ", courseEvent.getFormations()));
-
-            teacherLabel.setStyle("-fx-text-fill: #666;");
-            promotionsLabel.setStyle("-fx-text-fill: #666;");
-            formationsLabel.setStyle("-fx-text-fill: #666;");
-
-            content.getChildren().addAll(nameLabel, typeLabel, roomLabel, teacherLabel, promotionsLabel, formationsLabel);
-        } else {
-            nameLabel.setText("Matière : " + getName());
-            typeLabel.setText("Type : " + getType());
-            roomLabel.setText("Salle : " + getLocation());
-
-            content.getChildren().addAll(nameLabel, typeLabel, roomLabel);
+        if(popupName != null && !popupName.isEmpty()) {
+            Label nameLabel = new Label(popupName);
+            nameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
+            nodes.add(nameLabel);
+        }
+        if(popupType != null && !popupType.isEmpty()) {
+            Label typeLabel = new Label(popupType);
+            typeLabel.setStyle("-fx-text-fill: #666;");
+            nodes.add(typeLabel);
+        }
+        if(popupLocation != null && !popupLocation.isEmpty()) {
+            Label locationLabel = new Label(popupLocation);
+            locationLabel.setStyle("-fx-text-fill: #666;");
+            nodes.add(locationLabel);
         }
 
-        nameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
-        typeLabel.setStyle("-fx-text-fill: #666;");
-        roomLabel.setStyle("-fx-text-fill: #666;");
+        Pattern pattern = Pattern.compile("\\[(.*?)\\]");
+        for (Map<String, String> information : additionalInformations) {
+            for (Map.Entry<String, String> entry : information.entrySet()) {
+                Matcher matcher = pattern.matcher(entry.getValue());
+                Node node;
+                if(matcher.find()) {
+                    String link = matcher.group(1);
+                    String entryValue = entry.getValue().replace("[" + link + "]", "");
+                    Hyperlink hyperlink = new Hyperlink(entry.getKey() + " : " + entryValue);
+                    hyperlink.setOnAction(e -> {
+                        if(MainController.getHostServices() != null) {
+                            MainController.getHostServices().showDocument("mailto:" + link);
+                        }
+                    });
+                    node = hyperlink;
+                } else {
+                    node = new Label(entry.getKey() + " : " + entry.getValue());
+                }
+                node.setStyle("-fx-text-fill: #666;");
+                nodes.add(node);
+            }
+        }
+
+        for (Node node : nodes) {
+            content.getChildren().add(node);
+        }
     }
 
     private void initializePopup() {
@@ -140,48 +155,39 @@ public class EventComponentController implements Initializable {
         }).start();
     }
 
-    public void setType(String type) {
-        this.type.setText(type);
+    public void setBackGroundColor(Color color) {
+        this.backgroundColor = color;
+        anchorPane.setStyle("-fx-background-color: rgba(" + (int) (backgroundColor.getRed() * 255) + "," + (int) (backgroundColor.getGreen() * 255) + "," + (int) (backgroundColor.getBlue() * 255) + ",0.5);");
     }
 
     public void setName(String name) {
-        this.name.setText(name);
+        this.name = name;
+        nameLabel.setText(name);
     }
 
-    public void setRoom(String room) {
-        this.room.setText(room);
+    public void setType(String type) {
+        this.type = type;
+        typeLabel.setText(type);
     }
 
-    public String getType() {
-        return this.type.getText();
+    public void setLocation(String location) {
+        this.location = location;
+        locationLabel.setText(location);
     }
 
-    public String getName() {
-        return this.name.getText();
+    public void setPopupName(String popupName) {
+        this.popupName = popupName;
     }
 
-    public String getLocation() {
-        return this.room.getText();
+    public void setPopupType(String popupType) {
+        this.popupType = popupType;
     }
 
-    public void setBackGroundColors(Event event) {
-        Enum<EventType> courseType;
-        if(event.getClass() == CourseEvent.class) {
-            courseType = ((CourseEvent) event).getCourseType();
-        } else {
-            courseType = EventType.OTHER;
-        }
+    public void setPopupLocation(String popupLocation) {
+        this.popupLocation = popupLocation;
+    }
 
-        if (courseType.equals(CM)) {
-            anchorPane.setStyle("-fx-background-color: rgba(255,0,0,0.5);"); // Red for CM
-        } else if (courseType.equals(TD)) {
-            anchorPane.setStyle("-fx-background-color: rgba(0,255,0,0.5);"); // Green for TD
-        } else if (courseType.equals(TP)) {
-            anchorPane.setStyle("-fx-background-color: rgba(0,0,255,0.5);"); // Blue for TP
-        } else if (courseType.equals(EVALUATION)) {
-            anchorPane.setStyle("-fx-background-color: rgba(255,255,0,0.5);"); // Yellow for EVALUATION
-        } else if (courseType.equals(OTHER)){
-            anchorPane.setStyle("-fx-background-color: rgba(133,133,133,0.5);"); // White for unknown type
-        }
+    public void addAdditionalInformation(Map<String, String> information) {
+        additionalInformations.add(information);
     }
 }

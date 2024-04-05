@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import model.ViewAndController;
 import service.ViewLoader;
+import service.eventComponentStylizer.EventComponentStylizer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,17 +51,8 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
             EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
-            eventComponentController.setEvent(event);
-            if(event.getClass() == CourseEvent.class) {
-                eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
-                eventComponentController.setName(((CourseEvent) event).getName());
-                eventComponentController.setRoom(event.getLocation());
-            } else {
-                eventComponentController.setType(event.getNameBySummary());
-                eventComponentController.setName(event.getSummary());
-                eventComponentController.setRoom(event.getLocation());
-            }
-            eventComponentController.setBackGroundColors(event);
+            EventComponentStylizer eventComponentStylizer = new EventComponentStylizer();
+            eventComponentStylizer.applyStyleToEventComponentController(event, eventComponentController);
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
             int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);

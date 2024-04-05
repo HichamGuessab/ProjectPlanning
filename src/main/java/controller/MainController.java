@@ -52,4 +52,12 @@ public class MainController {
     public static HostServices getHostServices() {
         return hostServices;
     }
+
+    public AnchorPane getRootAnchorPane() {
+        return rootAnchorPane;
+    }
+
+    public void openModalWindow(String windowName, String fxmlFileName) throws IOException {
+        mainLayoutController.openModalWindow(windowName, fxmlFileName);
+    }
 }

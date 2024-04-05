@@ -130,6 +130,13 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
+    private void onDependentActionButtonClick() throws IOException {
+        switch (calendarType) {
+            case USER -> mainController.openModalWindow("Ajout d'évènement", "addCustomEventPage");
+        }
+    }
+
+    @FXML
     private void onAddCalendarButtonClick() {
         mainController.changeView("addCalendarPage");
     }

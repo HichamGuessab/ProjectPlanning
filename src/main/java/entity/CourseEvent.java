@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class CourseEvent extends Event {
     private String name;
-    private Enum<EventType> courseType;
+    private EventType courseType;
     private String teacher;
     private String[] formations;
     private String[] promotions;
@@ -123,7 +123,7 @@ public class CourseEvent extends Event {
     public String getName() {
         return name;
     }
-    public Enum<EventType> getCourseType() {
+    public EventType getCourseType() {
         return courseType;
     }
 

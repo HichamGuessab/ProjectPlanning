@@ -1,14 +1,21 @@
 package controller;
 
 import javafx.animation.FadeTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.ViewAndController;
 import service.ViewLoader;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -60,5 +67,36 @@ public class MainLayoutController implements Initializable {
                 }
             });
         }
+    }
+
+    public void openModalWindow(String windowName, String fxmlFileName) throws IOException {
+        ViewAndController viewAndController = ViewLoader.getViewAndController(fxmlFileName);
+        Object controller = viewAndController.controller;
+        Scene scene = new Scene((AnchorPane) viewAndController.node);
+        Stage stage = new Stage();
+        stage.setAlwaysOnTop(true);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(windowName);
+        stage.setScene(scene);
+        stage.setResizable(false);
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                enableMainWindow();
+            }
+        });
+
+        stage.show();
+        mainController.getRootAnchorPane().getStyle();
+        disableMainWindow();
+    }
+
+    public void disableMainWindow(){
+        mainController.getRootAnchorPane().setStyle("-fx-background-color: rgba(0, 0, 0, 0.8)");
+    }
+
+    public void enableMainWindow(){
+        mainController.getRootAnchorPane().setStyle("-fx-background-color: rgba(0, 0, 0, 0.05)");
     }
 }

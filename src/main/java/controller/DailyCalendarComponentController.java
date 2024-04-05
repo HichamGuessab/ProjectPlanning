@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.ViewAndController;
 import service.ViewLoader;
+import service.eventComponentStylizer.EventComponentStylizer;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,10 +40,8 @@ public class DailyCalendarComponentController extends AbstractCalendarController
 
             ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
             EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
-            eventComponentController.setEvent(event);
-            eventComponentController.setType(((CourseEvent) event).getCourseType().toString());
-            eventComponentController.setName(((CourseEvent) event).getName());
-            eventComponentController.setRoom(event.getLocation());
+            EventComponentStylizer eventComponentStylizer = new EventComponentStylizer();
+            eventComponentStylizer.applyStyleToEventComponentController(event, eventComponentController);
 
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
             int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);
