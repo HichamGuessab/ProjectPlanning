@@ -4,6 +4,9 @@ import controller.EventComponentController;
 import entity.CustomEvent;
 import entity.Event;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CustomEventComponentStylizer extends AbstractEventComponentStylizer {
     @Override
     public boolean supportsEvent(Event event) {
@@ -19,6 +22,8 @@ public class CustomEventComponentStylizer extends AbstractEventComponentStylizer
         eventComponentController.setName(customEvent.getSummary());
         eventComponentController.setType("Personnel");
         eventComponentController.setLocation(customEvent.getLocation());
+
+        eventComponentController.addAdditionalInformation(new HashMap<>(Map.of("Description", customEvent.getDescription())));
         eventComponentController.setBackGroundColor(customEvent.getColor());
     }
 }
