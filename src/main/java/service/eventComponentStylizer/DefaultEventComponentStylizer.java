@@ -18,6 +18,6 @@ public class DefaultEventComponentStylizer extends AbstractEventComponentStylize
         eventComponentController.setName(event.getSummary());
         eventComponentController.setType("");
         eventComponentController.setLocation(event.getLocation());
-        eventComponentController.setBackGroundColor(new Color(133, 133, 133, 0.5));
+        eventComponentController.setBackGroundColor(Color.rgb(133, 133, 133, 0.5));
     }
 }
