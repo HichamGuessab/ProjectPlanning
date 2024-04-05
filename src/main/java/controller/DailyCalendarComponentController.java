@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import model.ViewAndController;
 import service.ViewLoader;
 import service.eventComponentStylizer.EventComponentStylizer;
@@ -46,6 +47,13 @@ public class DailyCalendarComponentController extends AbstractCalendarController
             int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
             int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);
             calendarGridPane.add(viewAndController.node, 1, yStartCoordinates+1, 1, yEndCoordinates-yStartCoordinates);
+        }
+
+        for (int hour = 8; hour <= 19; hour++) {
+            Pane hourSeparator = new Pane();
+            hourSeparator.getStyleClass().add("hour-separator");
+            int rowIndex = (hour - 8) * 2 + 1;
+            calendarGridPane.add(hourSeparator, 1, rowIndex, GridPane.REMAINING, 1);
         }
     }
 
