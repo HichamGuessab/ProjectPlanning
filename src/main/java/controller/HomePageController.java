@@ -85,19 +85,19 @@ public class HomePageController implements Initializable {
         nameFilterChoiceBox.getItems().addAll(FiltersManager.getCourseNames(allEvents));
         nameFilterChoiceBox.getItems().add(0, allFilterTag);
         nameFilterChoiceBox.setValue(allFilterTag);
-        nameFilterChoiceBox.setOnAction(event -> updateView());
+        nameFilterChoiceBox.setOnAction(event -> updateCalendarView());
         locationFilterChoiceBox.getItems().addAll(FiltersManager.getLocations(allEvents));
         locationFilterChoiceBox.getItems().add(0, allFilterTag);
         locationFilterChoiceBox.setValue(allFilterTag);
-        locationFilterChoiceBox.setOnAction(event -> updateView());
+        locationFilterChoiceBox.setOnAction(event -> updateCalendarView());
         promotionFilterChoiceBox.getItems().addAll(FiltersManager.getPromotions(allEvents));
         promotionFilterChoiceBox.getItems().add(0, allFilterTag);
         promotionFilterChoiceBox.setValue(allFilterTag);
-        promotionFilterChoiceBox.setOnAction(event -> updateView());
+        promotionFilterChoiceBox.setOnAction(event -> updateCalendarView());
         courseTypeFilterChoiceBox.getItems().addAll(FiltersManager.getCourseTypes(allEvents));
         courseTypeFilterChoiceBox.getItems().add(0, allFilterTag);
         courseTypeFilterChoiceBox.setValue(allFilterTag);
-        courseTypeFilterChoiceBox.setOnAction(event -> updateView());
+        courseTypeFilterChoiceBox.setOnAction(event -> updateCalendarView());
 
         selectWeeklyView();
         initSearchTextField();
