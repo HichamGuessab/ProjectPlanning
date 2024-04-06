@@ -5,6 +5,7 @@ import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import model.ViewAndController;
 import service.ViewLoader;
 import service.eventComponentStylizer.EventComponentStylizer;
@@ -54,9 +55,18 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
             EventComponentStylizer eventComponentStylizer = new EventComponentStylizer();
             eventComponentStylizer.applyStyleToEventComponentController(event, eventComponentController);
 
-            int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
-            int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);
-            calendarGridPane.add(viewAndController.node, dayOfWeek+1, yStartCoordinates+1, 1, yEndCoordinates-yStartCoordinates);
+            int yStartCoordinates = (startHour - 8) * 2 + (event.getStart().getMinutes() / 30);
+            int yEndCoordinates = (endHour - 8) * 2 + (event.getEnd().getMinutes() / 30);
+            calendarGridPane.add(viewAndController.node, dayOfWeek + 1, yStartCoordinates + 1, 1, yEndCoordinates - yStartCoordinates);
+
+            for (int hour = startHour; hour <= endHour; hour++) {
+                int rowIndex = (hour - 8) * 2 + 1;
+                if (rowIndex > 0 && rowIndex < calendarGridPane.getRowConstraints().size()) {
+                    Pane line = new Pane();
+                    line.getStyleClass().add("hour-separator");
+                    calendarGridPane.add(line, 1, rowIndex, GridPane.REMAINING, 1); // Span across all columns
+                }
+            }
         }
     }
 }

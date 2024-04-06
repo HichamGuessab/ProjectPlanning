@@ -39,19 +39,19 @@ public class CourseEventComponentStylizer extends AbstractEventComponentStylizer
     private Color getColorByCourseType(EventType courseType) {
         switch (courseType) {
             case CM -> {
-                return Color.rgb(255, 0, 0, 0.5);
+                return Color.rgb(186, 255, 162, 0.5);
             }
             case TD -> {
-                return Color.rgb(0, 255, 0, 0.5);
+                return Color.rgb(142, 255, 220, 0.5);
             }
             case TP -> {
                 return Color.rgb(0, 0, 255, 0.5);
             }
             case EVALUATION -> {
-                return Color.rgb(255, 255, 0, 0.5);
+                return Color.rgb(255, 0, 0, 0.5);
             }
             default -> {
-                return Color.rgb(133, 133, 133, 0.5);
+                return Color.rgb(133, 133, 133, 0.4);
             }
         }
     }

@@ -1,0 +1,56 @@
+.rounded-border {
+    -fx-border-color: black;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-width: 2;
+    -fx-background-color: white;
+}
+
+.title-row {
+    -fx-background-color: #d2d2d2;
+    -fx-font-weight: bold;
+}
+
+.last-title-row {
+    -fx-background-color: #d2d2d2;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 0 10 0 0;
+}
+
+.hour-separator {
+    -fx-border-color: transparent transparent #a0a0a0 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-opacity: 0.2;
+}
+
+.event {
+    -fx-border-color: #c4c4c4;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.choice-box-style {
+    -fx-background-color: #a0a0a0;
+    -fx-mark-color: #000000;
+    -fx-border-color: #000000;
+    -fx-border-radius: 4;
+}
+
+.navigation-button-style {
+    -fx-background-radius: 4;
+    -fx-background-color: #a0a0a0;
+    -fx-border-color: #000000;
+    -fx-border-radius: 4;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.month-event {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #c4c4c4;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}

@@ -157,7 +157,12 @@ public class EventComponentController implements Initializable {
 
     public void setBackGroundColor(Color color) {
         this.backgroundColor = color;
-        anchorPane.setStyle("-fx-background-color: rgba(" + (int) (backgroundColor.getRed() * 255) + "," + (int) (backgroundColor.getGreen() * 255) + "," + (int) (backgroundColor.getBlue() * 255) + ",0.5);");
+        anchorPane.setStyle(
+                "-fx-background-color: rgba(" +
+                        (int) (backgroundColor.getRed() * 255) + "," +
+                        (int) (backgroundColor.getGreen() * 255) + "," +
+                        (int) (backgroundColor.getBlue() * 255) + ",0.5" + ");"
+        );
     }
 
     public void setName(String name) {
