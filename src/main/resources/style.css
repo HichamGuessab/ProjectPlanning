@@ -48,9 +48,6 @@
 }
 
 .month-event {
-    -fx-background-color: #f0f0f0;
-    -fx-border-color: #c4c4c4;
-    -fx-border-width: 1;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }

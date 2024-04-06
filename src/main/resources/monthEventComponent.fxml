@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MonthEventComponentController">
+<AnchorPane fx:id="anchorPane" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MonthEventComponentController">
    <children>
-      <Label fx:id="eventNameLabel" alignment="CENTER" contentDisplay="CENTER" text="Event name" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label fx:id="nameLabel" styleClass="month-event" alignment="CENTER" contentDisplay="CENTER" text="Event name" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
