@@ -36,10 +36,7 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
         for(int i=1; i<6; i++) {
             List<Event> currentDayEvents = getAllEventsForDayOfWeek(i);
             dayEventComponentBuilder.buildDay(calendarGridPane, i, 1, 24, currentDayEvents);
-        }
-
-        /*
-            for (int hour = startHour; hour <= endHour; hour++) {
+            for (int hour = 8; hour <= 20; hour++) {
                 int rowIndex = (hour - 8) * 2;
                 if (rowIndex > 0 && rowIndex < calendarGridPane.getRowConstraints().size()) {
                     Pane line = new Pane();
@@ -47,7 +44,7 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
                     calendarGridPane.add(line, 1, rowIndex, GridPane.REMAINING, 1); // Span across all columns
                 }
             }
-        */
+        }
     }
 
     private List<Event> getAllEventsForDayOfWeek(int dayOfWeek) {

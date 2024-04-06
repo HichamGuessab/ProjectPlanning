@@ -39,7 +39,6 @@ public class DayEventComponentBuilder {
 
         // Build a gridpane with as many rows as yEndCoordinate - yStartCoordinate and as many columns as maxDepth
         GridPane dayGridPane = new GridPane();
-        dayGridPane.setGridLinesVisible(true);
         for(int i=0; i<=maxDepth; i++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
             columnConstraints.setHgrow(Priority.SOMETIMES);
