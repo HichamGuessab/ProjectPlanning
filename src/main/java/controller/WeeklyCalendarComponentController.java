@@ -40,7 +40,7 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
 
         /*
             for (int hour = startHour; hour <= endHour; hour++) {
-                int rowIndex = (hour - 8) * 2 + 1;
+                int rowIndex = (hour - 8) * 2;
                 if (rowIndex > 0 && rowIndex < calendarGridPane.getRowConstraints().size()) {
                     Pane line = new Pane();
                     line.getStyleClass().add("hour-separator");

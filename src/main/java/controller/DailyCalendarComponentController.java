@@ -36,7 +36,7 @@ public class DailyCalendarComponentController extends AbstractCalendarController
         for (int hour = 8; hour <= 19; hour++) {
             Pane hourSeparator = new Pane();
             hourSeparator.getStyleClass().add("hour-separator");
-            int rowIndex = (hour - 8) * 2 + 1;
+            int rowIndex = (hour - 8) * 2;
             calendarGridPane.add(hourSeparator, 1, rowIndex, GridPane.REMAINING, 1);
         }
     }

@@ -15,7 +15,7 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="53.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="20.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -42,62 +42,62 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="8h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="8h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="9h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="9h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="10h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="10h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="11h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="11h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="12h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="12h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="13h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="13h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="14h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="14h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="15h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="15h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="16h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="17" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="16h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="17h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="19" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="17h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="18" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="18h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="21" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="18h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="20" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="19h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="23" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+            <Label text="19h" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="22" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
