@@ -283,7 +283,7 @@ public class HomePageController implements Initializable {
             filters.put("location", locationFilterChoiceBox.getValue());
         }
         if(!promotionFilterChoiceBox.getValue().equals(allFilterTag)) {
-            filters.put("promotion", promotionFilterChoiceBox.getValue());
+            filters.put("promotions", promotionFilterChoiceBox.getValue());
         }
         if(!courseTypeFilterChoiceBox.getValue().equals(allFilterTag)) {
             filters.put("courseType", courseTypeFilterChoiceBox.getValue());

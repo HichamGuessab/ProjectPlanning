@@ -2,6 +2,7 @@ package service;
 
 import entity.CourseEvent;
 import entity.Event;
+import model.EventType;
 import net.fortuna.ical4j.filter.Filter;
 import net.fortuna.ical4j.filter.predicate.PeriodRule;
 import net.fortuna.ical4j.model.Calendar;
@@ -104,20 +105,53 @@ public class CalendarFilterer {
 
         for (Event event : events) {
             for (Method method : methods) {
-                try {
-                    String value = (String) method.invoke(event);
-                    if(value == null) {
-                        continue;
-                    }
-                    if (!value.equals(filters.get(method.getName().substring(3).toLowerCase()))) {
-                        filteredEvents.remove(event);
-                    }
-                } catch (Exception e) {
-                    System.err.println("Error while filtering event: " + e.getMessage());
+                if(!methodReturnedValueCorrespondToFilter(method, event, filters)) {
+                    filteredEvents.remove(event);
                 }
             }
         }
         return filteredEvents;
+    }
+
+    private static boolean methodReturnedValueCorrespondToFilter(Method method, Event event, Map<String, String> filters) {
+        System.out.println(method.getReturnType());
+        if (method.getReturnType().equals(String.class)) {
+            return stringMethodReturnedValueCorrespondToFilter(method, event, filters);
+        } else if (method.getReturnType().equals(String[].class)) {
+            return stringArrayMethodReturnedValueCorrespondToFilter(method, event, filters);
+        } else if (method.getReturnType().equals(EventType.class)) {
+            return eventTypeMethodReturnedValueCorrespondToFilter(method, event, filters);
+        }
+        return false;
+    }
+
+    private static boolean stringMethodReturnedValueCorrespondToFilter(Method method, Event event, Map<String, String> filters) {
+        try {
+            return method.invoke(event).equals(filters.get(getValueNameFromMethodName(method.getName())));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean stringArrayMethodReturnedValueCorrespondToFilter(Method method, Event event, Map<String, String> filters) {
+        try {
+            return Arrays.asList((String[]) method.invoke(event)).contains(filters.get(getValueNameFromMethodName(method.getName())));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean eventTypeMethodReturnedValueCorrespondToFilter(Method method, Event event, Map<String, String> filters) {
+        try {
+            return method.invoke(event).equals(EventType.valueOf(filters.get(getValueNameFromMethodName(method.getName()))));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static String getValueNameFromMethodName(String methodName) {
+        String valueName = methodName.substring(3);
+        return valueName.substring(0, 1).toLowerCase() + valueName.substring(1);
     }
 
     private static List<Event> componentsToEvents(Collection<Component> components) {
