@@ -36,6 +36,8 @@ public class EventComponentController implements Initializable {
     private Label locationLabel;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private VBox vBox;
 
     private Popup popup;
     private VBox content;
@@ -59,6 +61,18 @@ public class EventComponentController implements Initializable {
                 showPopup();
             } else {
                 hidePopupWithDelay();
+            }
+        });
+
+        anchorPane.heightProperty().addListener((observable, oldValue, newValue) -> {
+            Double height = (Double) newValue;
+            vBox.getChildren().remove(typeLabel);
+            vBox.getChildren().remove(locationLabel);
+            nameLabel.setWrapText(false);
+            if(height >= 80) {
+                nameLabel.setWrapText(true);
+                vBox.getChildren().add(typeLabel);
+                vBox.getChildren().add(locationLabel);
             }
         });
     }

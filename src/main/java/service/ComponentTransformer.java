@@ -40,7 +40,7 @@ public class ComponentTransformer {
         if(date == null) {
             return null;
         }
-        date.setHours(date.getHours() + 1);
+        date.setHours(date.getHours() + 2);
         return date;
     }
 
