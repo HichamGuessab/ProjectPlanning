@@ -1,6 +1,7 @@
 package controller;
 
 import entity.CourseEvent;
+import entity.CustomEvent;
 import entity.Event;
 import entity.User;
 import javafx.fxml.FXML;
@@ -226,7 +227,9 @@ public class HomePageController implements Initializable {
             case MONTHLY -> newEvents.addAll(CalendarFilterer.getEventsForMonthOfYear(this.calendar, timePeriod));
         }
         CustomEventRetriever customEventRetriever = new CustomEventRetrieverJSON();
-        newEvents.addAll(customEventRetriever.retrieveFromUserIdentifier(userManager.getCurrentUser().getIdentifier()));
+        List<Event> customEvents = new ArrayList<>();
+        customEvents.addAll(customEventRetriever.retrieveFromUserIdentifier(userManager.getCurrentUser().getIdentifier()));
+        newEvents.addAll(CalendarFilterer.filterEventsByPeriod(this.viewMode, timePeriod, customEvents));
         events = CalendarFilterer.filterEvents(getFilters(), newEvents);
     }
 

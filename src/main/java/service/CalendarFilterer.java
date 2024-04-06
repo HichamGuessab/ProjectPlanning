@@ -3,6 +3,7 @@ package service;
 import entity.CourseEvent;
 import entity.Event;
 import model.EventType;
+import model.ViewModes;
 import net.fortuna.ical4j.filter.Filter;
 import net.fortuna.ical4j.filter.predicate.PeriodRule;
 import net.fortuna.ical4j.model.Calendar;
@@ -88,6 +89,78 @@ public class CalendarFilterer {
 
         Collection<Component> eventsOfTheDayCollection = filter.filter(calendar.getComponents(Component.VEVENT));
         return componentsToEvents(eventsOfTheDayCollection);
+    }
+
+    public static List<Event> filterEventsByPeriod(ViewModes viewMode, int timePeriod, List<Event> events) {
+        List<Event> filteredEvents = new ArrayList<>();
+        Date startDate = new Date();
+        Date endDate = new Date();
+        switch (viewMode) {
+            case DAILY -> {
+                java.util.Calendar start = java.util.Calendar.getInstance();
+                start.set(java.util.Calendar.DAY_OF_YEAR, timePeriod);
+                start.set(java.util.Calendar.HOUR_OF_DAY, 1);
+                start.set(java.util.Calendar.MINUTE, 0);
+                start.set(java.util.Calendar.SECOND, 0);
+                start.set(java.util.Calendar.MILLISECOND, 0);
+
+                startDate = start.getTime();
+
+                java.util.Calendar end = (java.util.Calendar) start.clone();
+                end.set(java.util.Calendar.HOUR_OF_DAY, 23);
+                end.set(java.util.Calendar.MINUTE, 59);
+                end.set(java.util.Calendar.SECOND, 59);
+
+                endDate = end.getTime();
+            }
+            case WEEKLY -> {
+                java.util.Calendar start = java.util.Calendar.getInstance();
+                start.set(java.util.Calendar.WEEK_OF_YEAR, timePeriod);
+                start.set(java.util.Calendar.DAY_OF_WEEK, java.util.Calendar.MONDAY);
+                start.set(java.util.Calendar.HOUR_OF_DAY, 1);
+                start.set(java.util.Calendar.MINUTE, 0);
+                start.set(java.util.Calendar.SECOND, 0);
+                start.set(java.util.Calendar.MILLISECOND, 0);
+
+                startDate = start.getTime();
+
+                java.util.Calendar end = (java.util.Calendar) start.clone();
+                end.set(java.util.Calendar.DAY_OF_WEEK, java.util.Calendar.SATURDAY);
+                end.set(java.util.Calendar.HOUR_OF_DAY, 23);
+                end.set(java.util.Calendar.MINUTE, 59);
+                end.set(java.util.Calendar.SECOND, 59);
+
+                endDate = end.getTime();
+            }
+            case MONTHLY -> {
+                java.util.Calendar start = java.util.Calendar.getInstance();
+                start.set(java.util.Calendar.MONTH, timePeriod);
+                start.set(java.util.Calendar.DAY_OF_MONTH, 1);
+                start.set(java.util.Calendar.HOUR_OF_DAY, 1);
+                start.set(java.util.Calendar.MINUTE, 0);
+                start.set(java.util.Calendar.SECOND, 0);
+                start.set(java.util.Calendar.MILLISECOND, 0);
+
+                startDate = start.getTime();
+
+                java.util.Calendar end = (java.util.Calendar) start.clone();
+                end.add(java.util.Calendar.MONTH, 1);
+                end.set(java.util.Calendar.DAY_OF_MONTH, 1);
+                end.add(java.util.Calendar.DAY_OF_MONTH, -1);
+                end.set(java.util.Calendar.HOUR_OF_DAY, 23);
+                end.set(java.util.Calendar.MINUTE, 59);
+                end.set(java.util.Calendar.SECOND, 59);
+
+                endDate = end.getTime();
+            }
+        }
+
+        for (Event event : events) {
+            if(event.getStart().after(startDate) && event.getEnd().before(endDate)) {
+                filteredEvents.add(event);
+            }
+        }
+        return filteredEvents;
     }
 
     public static List<Event> filterEvents(Map<String, String> filters, List<Event> events) {
