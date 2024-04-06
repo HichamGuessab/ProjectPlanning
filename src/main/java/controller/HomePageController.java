@@ -1,22 +1,18 @@
 package controller;
 
 import entity.CourseEvent;
-import entity.CustomEvent;
 import entity.Event;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.CalendarType;
 import model.CalendarUrl;
 import model.ViewAndController;
 import model.ViewModes;
-import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.Calendar;
 import node.AutoCompleteTextField;
 import service.*;
@@ -35,6 +31,7 @@ import java.net.URL;
 import java.util.*;
 
 public class HomePageController implements Initializable {
+    public HBox searchHBox;
     @FXML
     private AnchorPane calendarAnchorPane;
     @FXML
@@ -125,8 +122,8 @@ public class HomePageController implements Initializable {
         autoCompleteTextField.setAlignment(searchTextField.getAlignment());
         autoCompleteTextField.setFocusTraversable(false);
 
-        topHBox.getChildren().remove(searchTextField);
-        topHBox.getChildren().add(0, autoCompleteTextField);
+        searchHBox.getChildren().remove(searchTextField);
+        searchHBox.getChildren().add(1, autoCompleteTextField);
 
         searchTextField = autoCompleteTextField;
         autoCompleteTextField.setOnAction(event -> onSearchFieldSubmit());

@@ -74,3 +74,22 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }
+
+.text-field {
+    -fx-border-radius: 100px;
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.text-field-connection {
+    -fx-border-radius: 100px;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: #c9c9c9;
+}
+
+.search-hbox {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #c9c9c9;
+    -fx-border-radius: 100px;
+    -fx-background-radius: 100px;
+    -fx-border-width: 1;
+}

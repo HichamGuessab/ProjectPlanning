@@ -24,8 +24,8 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                   </ImageView>
-                  <TextField fx:id="identifierTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" promptText="Identifiant" />
-                  <PasswordField fx:id="passwordTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" promptText="Mot de passe" />
+                  <TextField styleClass="text-field-connection" fx:id="identifierTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" promptText="Identifiant" />
+                  <PasswordField styleClass="text-field-connection" fx:id="passwordTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" promptText="Mot de passe" />
                   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Se connecter" />
                </children>
                <opaqueInsets>
