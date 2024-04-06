@@ -1,5 +1,9 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class Event {
@@ -13,7 +17,18 @@ public class Event {
     private String location;
     private String description;
 
-    public Event(String category, Date stamp, Date lastModified, String uid, Date start, Date end, String summary, String location, String description) {
+    @JsonCreator
+    public Event(
+            @JsonProperty("category") String category,
+            @JsonProperty("stamp") Date stamp,
+            @JsonProperty("lastModified") Date lastModified,
+            @JsonProperty("uid") String uid,
+            @JsonProperty("start") Date start,
+            @JsonProperty("end") Date end,
+            @JsonProperty("summary") String summary,
+            @JsonProperty("location") String location,
+            @JsonProperty("description") String description
+    ) {
         this.category = category;
         this.stamp = stamp;
         this.lastModified = lastModified;
@@ -112,6 +127,7 @@ public class Event {
         this.description = description;
     }
 
+    @JsonIgnore
     public String getNameBySummary() {
         String[] words = this.summary.split(" ");
         String name = words[words.length - 1];

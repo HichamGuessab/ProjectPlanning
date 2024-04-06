@@ -3,6 +3,7 @@ package service.eventComponentStylizer;
 import controller.EventComponentController;
 import entity.CustomEvent;
 import entity.Event;
+import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,6 @@ public class CustomEventComponentStylizer extends AbstractEventComponentStylizer
         eventComponentController.setLocation(customEvent.getLocation());
 
         eventComponentController.addAdditionalInformation(new HashMap<>(Map.of("Description", customEvent.getDescription())));
-        eventComponentController.setBackGroundColor(customEvent.getColor());
+        eventComponentController.setBackGroundColor(Color.web(customEvent.getColorHex()));
     }
 }

@@ -60,4 +60,12 @@ public class MainController {
     public void openModalWindow(String windowName, String fxmlFileName) throws IOException {
         mainLayoutController.openModalWindow(windowName, fxmlFileName);
     }
+
+    public void enableMainWindow() {
+        mainLayoutController.enableMainWindow();
+    }
+
+    public void disableMainWindow() {
+        mainLayoutController.disableMainWindow();
+    }
 }

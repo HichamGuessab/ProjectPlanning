@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class CustomEvent extends Event {
     private String creatorIdentifier;
-    private Color color;
+    private String colorHex;
 
     @JsonCreator
     public CustomEvent(
@@ -22,10 +22,26 @@ public class CustomEvent extends Event {
             @JsonProperty("location") String location,
             @JsonProperty("description") String description,
             @JsonProperty("creatorIdentifier") String creatorIdentifier,
-            @JsonProperty("color") String color) {
+            @JsonProperty("colorHex") String colorHex) {
         super(category, stamp, lastModified, uid, start, end, summary, location, description);
         this.creatorIdentifier = creatorIdentifier;
-        this.color = Color.web(color);
+        this.colorHex = colorHex;
+    }
+
+    public String toString() {
+        return "CustomEvent{" + "\n" +
+                "  category='" + getCategory() + "\n" +
+                "  stamp=" + getStamp() + "\n" +
+                "  lastModified=" + getLastModified() + "\n" +
+                "  uid='" + getUid() + "\n" +
+                "  start=" + getStart() + "\n" +
+                "  end=" + getEnd() + '\'' + "\n" +
+                "  summary='" + getSummary() + '\'' + "\n" +
+                "  location='" + getLocation() + '\'' + "\n" +
+                "  description=' \n" + getDescription() + '\'' + "\n" +
+                "  creatorIdentifier='" + creatorIdentifier + '\'' + "\n" +
+                "  colorHex='" + colorHex + '\'' + "\n"
+                + '}';
     }
 
     public String getCreatorIdentifier() {
@@ -36,11 +52,11 @@ public class CustomEvent extends Event {
         this.creatorIdentifier = creatorIdentifier;
     }
 
-    public Color getColor() {
-        return color;
+    public String getColorHex() {
+        return colorHex;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColorHex(String colorHex) {
+        this.colorHex = colorHex;
     }
 }

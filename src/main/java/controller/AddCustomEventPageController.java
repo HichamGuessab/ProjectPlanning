@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.EventType;
 import model.ViewAndController;
 import service.UserManager;
@@ -49,6 +50,7 @@ public class AddCustomEventPageController implements Initializable {
     private String errorMessage = "";
     private Label errorMessageLabel = null;
     private CustomEvent customEvent;
+    private MainController mainController = MainController.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -107,7 +109,18 @@ public class AddCustomEventPageController implements Initializable {
         }
         formVBox.getChildren().remove(errorMessageLabel);
         CustomEventPersister customEventPersister = new CustomEventPersisterJSON();
-        customEventPersister.persist(customEvent);
+        if(customEventPersister.persist(customEvent)) {
+            System.out.println("Custom event persisted");
+        } else {
+            System.err.println("Error while persisting custom event");
+        }
+        closeWindow();
+    }
+
+    private void closeWindow(){
+        Stage stage = (Stage) customEventNameTextField.getScene().getWindow();
+        mainController.enableMainWindow();
+        stage.close();
     }
 
     private boolean verifyFields() {
@@ -131,20 +144,35 @@ public class AddCustomEventPageController implements Initializable {
             errorMessage = "La date de l'événement ne peut pas être vide";
             return false;
         }
-        if(customEventStartTimeTextField.getText().isEmpty()) {
-            errorMessage = "L'heure de début de l'événement ne peut pas être vide";
+        if(!areStartAndEndCorrect()) {
             return false;
         }
-        if(customEventEndTimeTextField.getText().isEmpty()) {
-            errorMessage = "L'heure de fin de l'événement ne peut pas être vide";
+        return true;
+    }
+
+    private boolean areStartAndEndCorrect() {
+        if(!isStringCorrectTimeFormat(customEventStartTimeTextField.getText()) || !isStringCorrectTimeFormat(customEventEndTimeTextField.getText())) {
             return false;
         }
-        if(!isStringCorrectTimeFormat(customEventStartTimeTextField.getText())) {
+        String[] startTimeParts = customEventStartTimeTextField.getText().split(":");
+        String[] endTimeParts = customEventEndTimeTextField.getText().split(":");
+        int startHour = Integer.parseInt(startTimeParts[0]);
+        int startMinute = Integer.parseInt(startTimeParts[1]);
+        int endHour = Integer.parseInt(endTimeParts[0]);
+        int endMinute = Integer.parseInt(endTimeParts[1]);
+        if(startHour > endHour) {
+            errorMessage = "L'heure de début doit être avant l'heure de fin";
             return false;
         }
-        if(!isStringCorrectTimeFormat(customEventEndTimeTextField.getText())) {
+        if(startHour == endHour && startMinute >= endMinute) {
+            errorMessage = "L'heure de début doit être avant l'heure de fin";
             return false;
         }
+        if(startHour < 8 || endHour > 20 || (endHour == 20 && endMinute > 0)) {
+            errorMessage = "Les événements doivent être entre 8h et 20h";
+            return false;
+        }
+
         return true;
     }
 
