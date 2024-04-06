@@ -52,16 +52,13 @@ public class CourseEvent extends Event {
         }
     }
 
-    public void setType() throws RuntimeException {
+    public void setType() {
         String text = super.getDescription();
         Pattern pattern = Pattern.compile("Type : (\\w+)");
         Matcher matcher = pattern.matcher(text);
 
         if (matcher.find()) {
             switch (matcher.group(1)) {
-                case "CM":
-                    this.courseType = EventType.CM;
-                    break;
                 case "TD":
                     this.courseType = EventType.TD;
                     break;
@@ -71,13 +68,16 @@ public class CourseEvent extends Event {
                 case "Evaluation":
                     this.courseType = EventType.EVALUATION;
                     break;
+                default:
+                    this.courseType = EventType.CM;
+                    break;
             }
         } else {
-            throw new RuntimeException("Course type not found");
+            this.courseType = EventType.OTHER;
         }
     }
 
-    public void setTeacher() throws RuntimeException {
+    public void setTeacher() {
         String text = super.getDescription();
         Pattern pattern = Pattern.compile("Enseignant : (.*)");
         Matcher matcher = pattern.matcher(text);
@@ -85,11 +85,11 @@ public class CourseEvent extends Event {
         if (matcher.find()) {
             this.teacher = matcher.group(1);
         } else {
-            throw new RuntimeException("Teacher not found");
+            this.teacher = "";
         }
     }
 
-    public void setPromotions() throws RuntimeException {
+    public void setPromotions() {
         String text = super.getDescription();
         Pattern pattern = Pattern.compile("TD : (.+)");
         Matcher matcher = pattern.matcher(text);
@@ -102,12 +102,12 @@ public class CourseEvent extends Event {
             if (matcher.find()) {
                 this.promotions = matcher.group(1).split(", ");
             } else {
-                throw new RuntimeException("Promotions not found");
+                this.promotions = new String[0];
             }
         }
     }
 
-    public void setFormations() throws RuntimeException {
+    public void setFormations() {
         HashSet<String> formationsSet = new HashSet<>();
         for (String promotion : this.promotions) {
             String formation;

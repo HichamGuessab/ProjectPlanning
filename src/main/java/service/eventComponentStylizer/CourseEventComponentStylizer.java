@@ -22,11 +22,19 @@ public class CourseEventComponentStylizer extends AbstractEventComponentStylizer
     ) {
         CourseEvent courseEvent = (CourseEvent) event;
         eventComponentController.setName(courseEvent.getNameBySummary());
-        eventComponentController.setType(courseEvent.getCourseType().name());
+        if (courseEvent.getCourseType().toString().equals(EventType.OTHER.toString())){
+            eventComponentController.setType("");
+        } else {
+            eventComponentController.setType(courseEvent.getCourseType().name());
+        }
         eventComponentController.setLocation(courseEvent.getLocation());
 
-        eventComponentController.setPopupName("Matière : "+courseEvent.getSummary());
-        eventComponentController.setPopupType("Type : "+courseEvent.getCourseType().name());
+        eventComponentController.setPopupName("Matière : "+courseEvent.getNameBySummary());
+        if (courseEvent.getCourseType().toString().equals(EventType.OTHER.toString())){
+            eventComponentController.setPopupType("Type : Non définit");
+        } else {
+            eventComponentController.setPopupType("Type : "+courseEvent.getCourseType().name());
+        }
         eventComponentController.setPopupLocation("Salle : "+courseEvent.getLocation());
 
         eventComponentController.addAdditionalInformation(new HashMap<>(Map.of("Enseignant", courseEvent.getTeacher()+"["+courseEvent.getTeacherEmail()+"]")));

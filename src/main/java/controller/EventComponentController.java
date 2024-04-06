@@ -1,7 +1,5 @@
 package controller;
 
-import entity.Event;
-import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -9,7 +7,6 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +15,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static model.EventType.*;
-
-import entity.CourseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
-import main.Main;
-import model.EventType;
 
 public class EventComponentController implements Initializable {
     @FXML
