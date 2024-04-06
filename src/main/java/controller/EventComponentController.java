@@ -84,17 +84,17 @@ public class EventComponentController implements Initializable {
 
         if(popupName != null && !popupName.isEmpty()) {
             Label nameLabel = new Label(popupName);
-            nameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
+            nameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #334;");
             nodes.add(nameLabel);
         }
         if(popupType != null && !popupType.isEmpty()) {
             Label typeLabel = new Label(popupType);
-            typeLabel.setStyle("-fx-text-fill: #666;");
+            typeLabel.setStyle("-fx-text-fill: #667;");
             nodes.add(typeLabel);
         }
         if(popupLocation != null && !popupLocation.isEmpty()) {
             Label locationLabel = new Label(popupLocation);
-            locationLabel.setStyle("-fx-text-fill: #666;");
+            locationLabel.setStyle("-fx-text-fill: #667;");
             nodes.add(locationLabel);
         }
 
@@ -116,7 +116,7 @@ public class EventComponentController implements Initializable {
                 } else {
                     node = new Label(entry.getKey() + " : " + entry.getValue());
                 }
-                node.setStyle("-fx-text-fill: #666;");
+                node.setStyle("-fx-text-fill: #667;");
                 nodes.add(node);
             }
         }
