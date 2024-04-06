@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class MainController {
     private static MainController INSTANCE;
@@ -16,6 +17,7 @@ public class MainController {
     private MainLayoutController mainLayoutController;
 
     private static HostServices hostServices;
+    private String locationReservation;
 
     private MainController() {
 
@@ -67,5 +69,13 @@ public class MainController {
 
     public void disableMainWindow() {
         mainLayoutController.disableMainWindow();
+    }
+
+    public void setLocationReservation(String locationReservation) {
+        this.locationReservation = locationReservation;
+    }
+
+    public String getLocationReservation() {
+        return locationReservation;
     }
 }

@@ -12,10 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import model.CalendarType;
-import model.CalendarUrl;
-import model.ViewAndController;
-import model.ViewModes;
+import model.*;
 import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.Calendar;
 import node.AutoCompleteTextField;
@@ -51,6 +48,8 @@ public class HomePageController implements Initializable {
     private ChoiceBox<String> promotionFilterChoiceBox;
     @FXML
     private ChoiceBox<String> courseTypeFilterChoiceBox;
+    @FXML
+    private Button dependentActionButton;
 
     private Calendar calendar = null;
     private List<Event> events;
@@ -59,6 +58,7 @@ public class HomePageController implements Initializable {
     private final UserManager userManager = UserManager.getInstance();
     private CalendarsManager calendarsManager;
     private CalendarType calendarType = CalendarType.USER;
+    private String calendarName;
     private MainController mainController = MainController.getInstance();
     private final String allFilterTag = "Tous";
 
@@ -102,6 +102,7 @@ public class HomePageController implements Initializable {
 
         selectWeeklyView();
         initSearchTextField();
+        updateDependentActionButtonText();
     }
 
     private void initSearchTextField() {
@@ -136,6 +137,10 @@ public class HomePageController implements Initializable {
     private void onDependentActionButtonClick() throws IOException {
         switch (calendarType) {
             case USER -> mainController.openModalWindow("Ajout d'évènement", "addCustomEventPage");
+            case LOCATION -> {
+                mainController.setLocationReservation(calendarName);
+                mainController.openModalWindow("Réserver une salle", "addCourseEventPage");
+            }
         }
     }
 
@@ -154,7 +159,9 @@ public class HomePageController implements Initializable {
         if(calendarUrl == null) {
             return;
         }
+        calendarName = selectedCalendarName;
         calendarType = calendarUrl.type;
+        updateDependentActionButtonText();
         try {
             this.calendar = CalendarRetriever.retrieve(new URL(calendarUrl.url));
             switch (viewMode) {
@@ -177,6 +184,22 @@ public class HomePageController implements Initializable {
     private void onNextTimePeriodButtonClick() {
         timePeriod++;
         updateCalendarView();
+    }
+
+    private void updateDependentActionButtonText() {
+        dependentActionButton.setVisible(true);
+        switch (calendarType) {
+            case USER -> {
+                dependentActionButton.setText("Ajouter un évènement");
+            }
+            case LOCATION -> {
+                if(userManager.getCurrentUser().getType() == UserType.TEACHER) {
+                    dependentActionButton.setText("Réserver une salle");
+                } else {
+                    dependentActionButton.setVisible(false);
+                }
+            }
+        }
     }
 
     private void updateView() {

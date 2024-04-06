@@ -6,17 +6,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.EventType;
 import model.ViewAndController;
+import service.UniqueIdentifierCreator;
 import service.UserManager;
 import service.ViewLoader;
 import service.eventComponentStylizer.EventComponentStylizer;
 import service.persister.customEvent.CustomEventPersister;
 import service.persister.customEvent.CustomEventPersisterJSON;
+import service.verification.TimeFieldsVerificator;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,6 +74,12 @@ public class AddCustomEventPageController implements Initializable {
 
     @FXML
     private void onFieldChange() {
+        if(!verifyFields()) {
+            showErrorMessage();
+            return;
+        }
+        formVBox.getChildren().remove(errorMessageLabel);
+
         updatePreview();
     }
 
@@ -81,12 +87,6 @@ public class AddCustomEventPageController implements Initializable {
         if(previewViewAndController == null) {
             return;
         }
-
-        if(!verifyFields()) {
-            showErrorMessage();
-            return;
-        }
-        formVBox.getChildren().remove(errorMessageLabel);
 
         gridPane.getChildren().removeIf(node -> !(node instanceof VBox));
 
@@ -144,47 +144,8 @@ public class AddCustomEventPageController implements Initializable {
             errorMessage = "La date de l'événement ne peut pas être vide";
             return false;
         }
-        if(!areStartAndEndCorrect()) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean areStartAndEndCorrect() {
-        if(!isStringCorrectTimeFormat(customEventStartTimeTextField.getText()) || !isStringCorrectTimeFormat(customEventEndTimeTextField.getText())) {
-            return false;
-        }
-        String[] startTimeParts = customEventStartTimeTextField.getText().split(":");
-        String[] endTimeParts = customEventEndTimeTextField.getText().split(":");
-        int startHour = Integer.parseInt(startTimeParts[0]);
-        int startMinute = Integer.parseInt(startTimeParts[1]);
-        int endHour = Integer.parseInt(endTimeParts[0]);
-        int endMinute = Integer.parseInt(endTimeParts[1]);
-        if(startHour > endHour) {
-            errorMessage = "L'heure de début doit être avant l'heure de fin";
-            return false;
-        }
-        if(startHour == endHour && startMinute >= endMinute) {
-            errorMessage = "L'heure de début doit être avant l'heure de fin";
-            return false;
-        }
-        if(startHour < 8 || endHour > 20 || (endHour == 20 && endMinute > 0)) {
-            errorMessage = "Les événements doivent être entre 8h et 20h";
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean isStringCorrectTimeFormat(String time) {
-        if(!time.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) {
-            errorMessage = "Le temps doit être au format HH:MM";
-            return false;
-        }
-        String[] timeParts = time.split(":");
-        int minutes = Integer.parseInt(timeParts[1]);
-        if(minutes % 30 != 0) {
-            errorMessage = "Les minutes doivent être 00 ou 30";
+        errorMessage = TimeFieldsVerificator.getErrorMessage(customEventStartTimeTextField.getText(), customEventEndTimeTextField.getText());
+        if(!errorMessage.isEmpty()) {
             return false;
         }
         return true;
@@ -211,7 +172,7 @@ public class AddCustomEventPageController implements Initializable {
                 "HYPERPLANING",
                 new Date(),
                 new Date(),
-                createUniqueIdentifier(),
+                UniqueIdentifierCreator.create(),
                 startDate,
                 endDate,
                 customEventNameTextField.getText(),
@@ -220,9 +181,5 @@ public class AddCustomEventPageController implements Initializable {
                 UserManager.getInstance().getCurrentUser().getIdentifier(),
                 customEventColorPicker.getValue().toString()
         );
-    }
-
-    private String createUniqueIdentifier() {
-        return UserManager.getInstance().getCurrentUser().getIdentifier() + System.currentTimeMillis();
     }
 }
