@@ -130,9 +130,10 @@ public class Event {
 
     @JsonIgnore
     public String getNameBySummary() {
-        String[] words = this.summary.split(" ");
-        String name = words[words.length - 1];
-        return name.replaceFirst(name.substring(0, 1), name.substring(0, 1).toUpperCase());
+        String[] parts = this.summary.split(" - ");
+        String namePart = parts.length > 1 ? parts[0] : this.summary;
+        String cleanName = namePart.replaceAll("UCE \\d+", "").trim();
+        return cleanName.substring(0, 1).toUpperCase() + cleanName.substring(1);
     }
 
     @Override

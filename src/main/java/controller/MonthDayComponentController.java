@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.ViewAndController;
 import service.ViewLoader;
+import service.eventComponentStylizer.EventComponentStylizer;
+import service.monthEventComponentStylizer.MonthEventComponentStylizer;
 
 public class MonthDayComponentController {
     @FXML
@@ -32,9 +34,10 @@ public class MonthDayComponentController {
             e.printStackTrace();
         }
 
-        MonthEventComponentController controller = (MonthEventComponentController) viewAndController.controller;
-        // TODO : set event name or something
-        controller.setEventName(event.getCategory());
+        MonthEventComponentController monthEventComponentController = (MonthEventComponentController) viewAndController.controller;
+        MonthEventComponentStylizer monthEventComponentStylizer = new MonthEventComponentStylizer();
+        monthEventComponentStylizer.applyStyleToEventComponentController(event, monthEventComponentController);
+        monthEventComponentController.setName(event.getNameBySummary());
         eventVBox.getChildren().add(viewAndController.node);
     }
 }

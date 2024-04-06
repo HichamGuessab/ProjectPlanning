@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import model.ViewAndController;
 import service.ViewLoader;
+import service.eventComponentStylizer.EventComponentStylizer;
 
 import java.io.IOException;
 import java.net.URL;
