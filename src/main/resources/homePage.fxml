@@ -16,11 +16,11 @@
    <children>
       <BorderPane fx:id="mainBorderpane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <SplitPane dividerPositions="0.3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="349.0" prefWidth="560.0" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.175" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="349.0" prefWidth="560.0" BorderPane.alignment="CENTER">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="166.0">
                      <children>
-                        <VBox alignment="TOP_CENTER" layoutX="-28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="TOP_CENTER" layoutX="-28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="50.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Filtres" textAlignment="CENTER">
                                  <font>
@@ -52,9 +52,9 @@
                      <top>
                         <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="534.0" BorderPane.alignment="CENTER">
                            <children>
-                               <Button fx:id="previousTimePeriodButton" mnemonicParsing="false" onAction="#onPreviousTimePeriodButtonClick" text="&lt;" styleClass="navigation-button-style" />
-                               <ChoiceBox fx:id="viewModeChoiceBox" prefWidth="150.0" styleClass="choice-box-style" />
-                               <Button fx:id="nextTimePeriodButton" mnemonicParsing="false" onAction="#onNextTimePeriodButtonClick" text="&gt;" styleClass="navigation-button-style" />
+                               <Button fx:id="previousTimePeriodButton" mnemonicParsing="false" onAction="#onPreviousTimePeriodButtonClick" text="&lt;" />
+                               <ChoiceBox fx:id="viewModeChoiceBox" prefWidth="150.0" styleClass="choice-box" />
+                               <Button fx:id="nextTimePeriodButton" mnemonicParsing="false" onAction="#onNextTimePeriodButtonClick" text="&gt;" />
                            </children>
                         </HBox>
                      </top>

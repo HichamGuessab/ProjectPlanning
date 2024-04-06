@@ -1,25 +1,27 @@
-.rounded-border {
-    -fx-border-color: black;
-    -fx-border-radius: 10;
+.calendar {
+    -fx-background-color: #f2f2f2;
     -fx-background-radius: 10;
-    -fx-border-width: 2;
-    -fx-background-color: white;
+    -fx-border-color: #c9c9c9;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
 }
 
 .title-row {
-    -fx-background-color: #d2d2d2;
+    -fx-background-color: #f2f2f2;
     -fx-font-weight: bold;
 }
 
 .last-title-row {
-    -fx-background-color: #d2d2d2;
+    -fx-background-color: #f2f2f2;
     -fx-font-weight: bold;
     -fx-border-radius: 10;
     -fx-background-radius: 0 10 0 0;
 }
 
 .hour-separator {
-    -fx-border-color: transparent transparent #a0a0a0 transparent;
+    -fx-border-color: transparent transparent #a4a4a4 transparent;
     -fx-border-width: 0 0 1 0;
     -fx-opacity: 0.2;
 }
@@ -31,20 +33,41 @@
     -fx-background-radius: 5;
 }
 
-.choice-box-style {
-    -fx-background-color: #a0a0a0;
-    -fx-mark-color: #000000;
-    -fx-border-color: #000000;
+.button {
+    -fx-background-color: #cfe6fd;
+    -fx-border-color: #646464;
     -fx-border-radius: 4;
+    -fx-text-fill: #282828;
+    -fx-font-weight: bold;
+    -fx-background-insets: 3px;
+    -fx-border-insets: 3px;
+    -fx-font: 12px "System";
 }
 
-.navigation-button-style {
-    -fx-background-radius: 4;
-    -fx-background-color: #a0a0a0;
-    -fx-border-color: #000000;
-    -fx-border-radius: 4;
-    -fx-text-fill: #000000;
-    -fx-font-weight: bold;
+.button:hover {
+    -fx-background-color: #c8e4ff;
+}
+
+.button:pressed {
+    -fx-background-color: #dbedff;
+}
+
+.choice-box {
+    -fx-background-color: #cfe6fd;
+    -fx-mark-color: #282828;
+    -fx-border-color: #696969;
+    -fx-border-radius: 5;
+    -fx-text-alignment: center;
+    -fx-context-menu-enabled: false;
+}
+
+.choice-box:hover {
+    -fx-background-color: #c8e4ff;
+}
+
+.month-day {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #c9c9c9;
 }
 
 .month-event {
