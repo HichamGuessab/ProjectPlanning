@@ -21,7 +21,7 @@ public class CourseEventComponentStylizer extends AbstractEventComponentStylizer
             EventComponentController eventComponentController
     ) {
         CourseEvent courseEvent = (CourseEvent) event;
-        eventComponentController.setName(courseEvent.getSummary());
+        eventComponentController.setName(courseEvent.getNameBySummary());
         eventComponentController.setType(courseEvent.getCourseType().name());
         eventComponentController.setLocation(courseEvent.getLocation());
 
