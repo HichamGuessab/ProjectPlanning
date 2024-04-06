@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Event {
     private String category;
@@ -132,5 +133,22 @@ public class Event {
         String[] words = this.summary.split(" ");
         String name = words[words.length - 1];
         return name.replaceFirst(name.substring(0, 1), name.substring(0, 1).toUpperCase());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        if (!Objects.equals(category, event.category)) return false;
+        if (!Objects.equals(stamp, event.stamp)) return false;
+        if (!Objects.equals(lastModified, event.lastModified)) return false;
+        if (!Objects.equals(start, event.start)) return false;
+        if (!Objects.equals(end, event.end)) return false;
+        if (!Objects.equals(summary, event.summary)) return false;
+        if (!Objects.equals(location, event.location)) return false;
+        return Objects.equals(description, event.description);
     }
 }

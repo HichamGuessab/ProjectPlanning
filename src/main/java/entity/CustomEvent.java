@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.paint.Color;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class CustomEvent extends Event {
     private String creatorIdentifier;
