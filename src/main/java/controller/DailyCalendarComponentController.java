@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import model.ViewAndController;
+import service.DayEventComponentBuilder;
 import service.ViewLoader;
 import service.eventComponentStylizer.EventComponentStylizer;
 
@@ -28,26 +29,9 @@ public class DailyCalendarComponentController extends AbstractCalendarController
         if(this.events == null) {
             return;
         }
-        for (Event event : events) {
-            int startHour = event.getStart().getHours();
-            int endHour = event.getEnd().getHours();
 
-            if(startHour < 8) {
-                startHour = 8;
-            }
-            if(endHour > 18 || endHour < 8) {
-                endHour = 19;
-            }
-
-            ViewAndController viewAndController = ViewLoader.getViewAndController("eventComponent");
-            EventComponentController eventComponentController = (EventComponentController) viewAndController.controller;
-            EventComponentStylizer eventComponentStylizer = new EventComponentStylizer();
-            eventComponentStylizer.applyStyleToEventComponentController(event, eventComponentController);
-
-            int yStartCoordinates = (startHour - 8)*2+(event.getStart().getMinutes()/30);
-            int yEndCoordinates = (endHour - 8)*2+(event.getEnd().getMinutes()/30);
-            calendarGridPane.add(viewAndController.node, 1, yStartCoordinates+1, 1, yEndCoordinates-yStartCoordinates);
-        }
+        DayEventComponentBuilder dayEventComponentBuilder = new DayEventComponentBuilder();
+        dayEventComponentBuilder.buildDay(calendarGridPane, 1, 1, 24, events);
 
         for (int hour = 8; hour <= 19; hour++) {
             Pane hourSeparator = new Pane();
