@@ -24,7 +24,7 @@ public class MonthlyCalendarComponentController extends AbstractCalendarControll
 
     private void putDayComponentsInGridPane() {
         monthDayComponentControllers = new ArrayList<>();
-        int numberOfDaysInMonth = java.time.YearMonth.of(java.time.Year.now().getValue(), timePeriod).lengthOfMonth();
+        int numberOfDaysInMonth = java.time.YearMonth.of(java.time.Year.now().getValue(), timePeriod+1).lengthOfMonth();
         for (int i = 0; i < numberOfDaysInMonth; i++) {
             int dayOfMonth = i + 1;
             ViewAndController viewAndController = null;
@@ -52,7 +52,8 @@ public class MonthlyCalendarComponentController extends AbstractCalendarControll
     }
 
     private int[] calculateGridCoordinatesForDayOfMonth(int dayOfMonth) {
-        int firstDayOfWeekOfMonth = java.time.LocalDate.of(java.time.Year.now().getValue(), timePeriod, 1).getDayOfWeek().getValue();
+        int firstDayOfWeekOfMonth = java.time.LocalDate.of(java.time.Year.now().getValue(), timePeriod+1, 1).getDayOfWeek().getValue();
+
         firstDayOfWeekOfMonth -= 1;
         int day = dayOfMonth + firstDayOfWeekOfMonth - 1;
         int y = (day / 7)+1;
@@ -83,7 +84,7 @@ public class MonthlyCalendarComponentController extends AbstractCalendarControll
         }
         for (Event event : events) {
             Date start = event.getStart();
-            int dayOfMonth = start.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate().getDayOfMonth();
+            int dayOfMonth = start.getDate();
             MonthDayComponentController controller = getDayComponentController(dayOfMonth);
             if (controller != null) {
                 controller.addEvent(event);

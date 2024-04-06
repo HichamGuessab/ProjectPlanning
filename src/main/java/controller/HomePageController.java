@@ -214,7 +214,7 @@ public class HomePageController implements Initializable {
 
     private void selectMonthlyView() {
         viewModeChoiceBox.setValue("Mois");
-        timePeriod = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH)+1;
+        timePeriod = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
         viewMode = ViewModes.MONTHLY;
         updateCalendarView();
     }
