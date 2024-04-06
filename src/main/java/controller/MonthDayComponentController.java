@@ -33,8 +33,8 @@ public class MonthDayComponentController {
         }
 
         MonthEventComponentController controller = (MonthEventComponentController) viewAndController.controller;
-        // TODO : set event name or something
-        controller.setEventName(event.getCategory());
+
+        controller.setEventName(event.getNameBySummary());
         eventVBox.getChildren().add(viewAndController.node);
     }
 }
