@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Promotion;
 import main.Main;
 import service.FileReader;
+import service.retriever.JSONRetriever;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,13 +40,6 @@ public class PromotionRetrieverJSON implements PromotionRetriever {
 
     @Override
     public List<Promotion> retrieveAll() {
-        String json = FileReader.readFile(this.pathToJSONPromotions);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.readValue(json, new TypeReference<List<Promotion>>() {});
-        } catch (JsonProcessingException e) {
-            System.err.println(e.getMessage());
-        }
-        return new ArrayList<>();
+        return JSONRetriever.retrieveAll(this.pathToJSONPromotions, Promotion.class);
     }
 }

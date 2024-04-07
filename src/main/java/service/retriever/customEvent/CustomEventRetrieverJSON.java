@@ -8,6 +8,7 @@ import entity.Event;
 import entity.Location;
 import main.Main;
 import service.FileReader;
+import service.retriever.JSONRetriever;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,15 +26,7 @@ public class CustomEventRetrieverJSON implements CustomEventRetriever {
     }
     @Override
     public List<CustomEvent> retrieveAll() {
-
-        String json = FileReader.readFile(this.pathToJSONCustomEvents);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.readValue(json, new TypeReference<List<CustomEvent>>() {});
-        } catch (JsonProcessingException e) {
-            System.err.println(e.getMessage());
-        }
-        return new ArrayList<>();
+        return JSONRetriever.retrieveAll(this.pathToJSONCustomEvents, CustomEvent.class);
     }
 
     @Override
