@@ -56,7 +56,6 @@ public class AddCourseEventPageController implements Initializable {
     private VBox formVBox;
     @FXML
     private GridPane gridPane;
-    private ViewAndController previewViewAndController = null;
     private String errorMessage = "";
     private Label errorMessageLabel = null;
     private CourseEvent courseEvent;
@@ -68,13 +67,6 @@ public class AddCourseEventPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            previewViewAndController = ViewLoader.getViewAndController("dailyCalendarComponent");
-        } catch (IOException e) {
-            System.err.println("Error loading preview.");
-            e.printStackTrace();
-        }
-
         CalendarsManager calendarsManager = new CalendarsManager(
                 new UserRetrieverJSON(),
                 new LocationRetrieverJSON(),

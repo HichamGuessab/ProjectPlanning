@@ -1,6 +1,7 @@
 package controller;
 
 import entity.CustomEvent;
+import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -9,17 +10,23 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.CalendarUrl;
 import model.ViewAndController;
-import service.UniqueIdentifierCreator;
-import service.UserManager;
-import service.ViewLoader;
+import net.fortuna.ical4j.model.Calendar;
+import service.*;
 import service.eventComponentStylizer.EventComponentStylizer;
 import service.persister.customEvent.CustomEventPersister;
 import service.persister.customEvent.CustomEventPersisterJSON;
+import service.retriever.calendar.CalendarRetriever;
+import service.retriever.location.LocationRetrieverJSON;
+import service.retriever.promotion.PromotionRetrieverJSON;
+import service.retriever.user.UserRetrieverJSON;
 import service.verification.TimeFieldsVerificator;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,21 +52,23 @@ public class AddCustomEventPageController implements Initializable {
     private TextField customEventStartTimeTextField;
     @FXML
     private TextField customEventEndTimeTextField;
-
-    private ViewAndController previewViewAndController;
     private String errorMessage = "";
     private Label errorMessageLabel = null;
     private CustomEvent customEvent;
     private MainController mainController = MainController.getInstance();
+    private Calendar calendar = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ViewAndController viewAndController = null;
+        CalendarsManager calendarsManager = new CalendarsManager(
+                new UserRetrieverJSON(),
+                new LocationRetrieverJSON(),
+                new PromotionRetrieverJSON()
+        );
         try {
-            previewViewAndController = ViewLoader.getViewAndController("eventComponent");
-        } catch (IOException e) {
-            System.err.println("Error loading event preview.");
-            e.printStackTrace();
+            calendar = CalendarRetriever.retrieve(new URL(UserManager.getInstance().getCurrentUser().getCalendarUrl()));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
         }
 
         // Link onFieldChange function to name field change event
@@ -79,25 +88,40 @@ public class AddCustomEventPageController implements Initializable {
             return;
         }
         formVBox.getChildren().remove(errorMessageLabel);
-
         updatePreview();
     }
 
     private void updatePreview() {
-        if(previewViewAndController == null) {
+        ViewAndController viewAndController = null;
+        try {
+            viewAndController = ViewLoader.getViewAndController("dailyCalendarComponent");
+        } catch (IOException e) {
+            System.err.println("Failed to load preview calendar component : "+e.getMessage());
+        }
+
+        if(viewAndController == null || calendar == null) {
             return;
         }
 
-        gridPane.getChildren().removeIf(node -> !(node instanceof VBox));
+        CalendarController calendarController = (CalendarController) viewAndController.controller;
 
-        EventComponentController eventComponentController = (EventComponentController) previewViewAndController.controller;
+        if(calendarController == null) {
+            System.err.println("Failed to load controller");
+            return;
+        }
 
-        customEvent = buildCustomEvent();
-        EventComponentStylizer eventComponentStylizer = new EventComponentStylizer();
-        eventComponentStylizer.applyStyleToEventComponentController(customEvent, eventComponentController);
-        eventComponentController.updatePopupContent();
+        int timePeriod = customEventDayDatePicker.getValue().getDayOfYear();
+        List<Event> events = new ArrayList<>(CalendarFilterer.getEventsForDayOfYear(calendar, timePeriod));
+        events.add(buildCustomEvent());
 
-        gridPane.add(previewViewAndController.node, 1, 0);
+        calendarController.setEvents(events);
+        calendarController.setTimePeriod(timePeriod);
+        gridPane.add(viewAndController.node, 1, 0);
+        try {
+            calendarController.displayEvents();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -168,7 +192,7 @@ public class AddCustomEventPageController implements Initializable {
     private CustomEvent buildCustomEvent() {
         Date startDate = new Date(customEventDayDatePicker.getValue().getYear() - 1900, customEventDayDatePicker.getValue().getMonthValue() - 1, customEventDayDatePicker.getValue().getDayOfMonth(), Integer.parseInt(customEventStartTimeTextField.getText().split(":")[0]), Integer.parseInt(customEventStartTimeTextField.getText().split(":")[1]));
         Date endDate = new Date(customEventDayDatePicker.getValue().getYear() - 1900, customEventDayDatePicker.getValue().getMonthValue() - 1, customEventDayDatePicker.getValue().getDayOfMonth(), Integer.parseInt(customEventEndTimeTextField.getText().split(":")[0]), Integer.parseInt(customEventEndTimeTextField.getText().split(":")[1]));
-        return new CustomEvent(
+        customEvent = new CustomEvent(
                 "HYPERPLANING",
                 new Date(),
                 new Date(),
@@ -181,5 +205,6 @@ public class AddCustomEventPageController implements Initializable {
                 UserManager.getInstance().getCurrentUser().getIdentifier(),
                 customEventColorPicker.getValue().toString()
         );
+        return customEvent;
     }
 }
