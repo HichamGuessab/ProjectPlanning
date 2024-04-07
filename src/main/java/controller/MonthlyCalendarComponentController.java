@@ -14,9 +14,11 @@ import java.net.URL;
 import java.util.*;
 
 public class MonthlyCalendarComponentController extends AbstractCalendarController implements Initializable {
+    @FXML
     public AnchorPane monthlyAnchorPane;
     @FXML
     private Label currentMonthLabel;
+    @FXML
     private GridPane monthlyCalendarGridPane;
 
     @Override

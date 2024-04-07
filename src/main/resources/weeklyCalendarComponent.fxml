@@ -124,7 +124,7 @@
          <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
                 maxWidth="1.7976931348623157E308" styleClass="title-row" text="Lundi" textAlignment="CENTER"
                 GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="CENTER"
-                GridPane.valignment="CENTER">
+                GridPane.valignment="CENTER" fx:id="mondayLabel">
             <font>
                <Font name="System Bold" size="15.0"/>
             </font>
@@ -132,7 +132,7 @@
          <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
                 maxWidth="1.7976931348623157E308" styleClass="title-row" text="Mardi" textAlignment="CENTER"
                 GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.halignment="CENTER"
-                GridPane.valignment="CENTER">
+                GridPane.valignment="CENTER" fx:id="tuesdayLabel">
             <font>
                <Font name="System Bold" size="15.0"/>
             </font>
@@ -140,7 +140,7 @@
          <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
                 maxWidth="1.7976931348623157E308" styleClass="title-row" text="Mercredi" textAlignment="CENTER"
                 GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.halignment="CENTER"
-                GridPane.valignment="CENTER">
+                GridPane.valignment="CENTER" fx:id="wednesdayLabel">
             <font>
                <Font name="System Bold" size="15.0"/>
             </font>
@@ -148,7 +148,7 @@
          <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
                 maxWidth="1.7976931348623157E308" styleClass="title-row" text="Jeudi" textAlignment="CENTER"
                 GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.halignment="CENTER"
-                GridPane.valignment="CENTER">
+                GridPane.valignment="CENTER" fx:id="thursdayLabel">
             <font>
                <Font name="System Bold" size="15.0"/>
             </font>
@@ -156,7 +156,7 @@
          <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
                 maxWidth="1.7976931348623157E308" styleClass="last-title-row" text="Vendredi" textAlignment="CENTER"
                 GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.halignment="CENTER"
-                GridPane.valignment="CENTER">
+                GridPane.valignment="CENTER" fx:id="fridayLabel">
             <font>
                <Font name="System Bold" size="15.0"/>
             </font>
