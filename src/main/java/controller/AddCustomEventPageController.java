@@ -6,11 +6,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.CalendarUrl;
+import model.Themes;
 import model.ViewAndController;
 import net.fortuna.ical4j.model.Calendar;
 import service.*;
@@ -31,7 +33,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AddCustomEventPageController implements Initializable {
+public class AddCustomEventPageController implements Initializable, ThemeApplyer {
     @FXML
     private TextField customEventNameTextField;
     @FXML
@@ -52,6 +54,9 @@ public class AddCustomEventPageController implements Initializable {
     private TextField customEventStartTimeTextField;
     @FXML
     private TextField customEventEndTimeTextField;
+    @FXML
+    private AnchorPane anchorPane;
+
     private String errorMessage = "";
     private Label errorMessageLabel = null;
     private CustomEvent customEvent;
@@ -206,5 +211,15 @@ public class AddCustomEventPageController implements Initializable {
                 customEventColorPicker.getValue().toString()
         );
         return customEvent;
+    }
+
+    @Override
+    public void applyTheme(Color[] colors, Themes theme) {
+        anchorPane.getStylesheets().clear();
+        if(theme == Themes.LIGHT) {
+            anchorPane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        } else {
+            anchorPane.getStylesheets().add(getClass().getResource("/styleDark.css").toExternalForm());
+        }
     }
 }

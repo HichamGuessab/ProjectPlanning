@@ -9,9 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.CalendarType;
+import model.Themes;
 import service.persister.location.LocationPersister;
 import service.persister.location.LocationPersisterJSON;
 import service.persister.promotion.PromotionPersister;
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AddCalendarPageController implements Initializable {
+public class AddCalendarPageController implements Initializable, ThemeApplyer {
     @FXML
     private TextField calendarUrlTextField;
     @FXML
@@ -36,6 +38,8 @@ public class AddCalendarPageController implements Initializable {
     private Button addCalendarButton;
     @FXML
     private Button backButton;
+    @FXML
+    private AnchorPane anchorPane;
 
     private Label errorMessageLabel = null;
     private String errorMessage = "";
@@ -120,5 +124,15 @@ public class AddCalendarPageController implements Initializable {
         vboxChildren.add(calendarNameTextFieldIndex, label);
         errorMessageLabel = label;
         addCalendarButton.setDisable(false);
+    }
+
+    @Override
+    public void applyTheme(Color[] colors, Themes theme) {
+        anchorPane.getStylesheets().clear();
+        if(theme == Themes.LIGHT) {
+            anchorPane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        } else {
+            anchorPane.getStylesheets().add(getClass().getResource("/styleDark.css").toExternalForm());
+        }
     }
 }

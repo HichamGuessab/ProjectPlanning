@@ -45,7 +45,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #c8e4ff;
+    -fx-background-color: #3d9fff;
 }
 
 .button:pressed {
@@ -53,16 +53,17 @@
 }
 
 .choice-box {
-    -fx-background-color: #cfe6fd;
-    -fx-mark-color: #282828;
-    -fx-border-color: #696969;
+    -fx-background-color: #0583fd;
+    -fx-mark-color: #000000;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #000000;
     -fx-border-radius: 5;
     -fx-text-alignment: center;
     -fx-context-menu-enabled: false;
 }
 
 .choice-box:hover {
-    -fx-background-color: #c8e4ff;
+    -fx-background-color: #3d9fff;
 }
 
 .month-day {
@@ -90,7 +91,7 @@
 }
 
 .search-hbox {
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: #545454;
     -fx-border-color: #c9c9c9;
     -fx-border-radius: 100px;
     -fx-background-radius: 100px;
@@ -107,4 +108,12 @@
 
 .layout-background {
     -fx-background-color: #3a3a3a;
+}
+
+.text {
+    -fx-text-fill: #ffffff;
+}
+
+.transparent-background {
+    -fx-background-color: rgba(0,0,0,0);
 }

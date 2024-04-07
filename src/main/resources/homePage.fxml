@@ -24,18 +24,18 @@
                      <children>
                         <VBox alignment="TOP_CENTER" layoutX="-28.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="50.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Filtres" textAlignment="CENTER">
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="text" text="Filtres" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Matière" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="text" text="Matière" />
                               <ChoiceBox fx:id="nameFilterChoiceBox" prefWidth="150.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Groupe" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="text" text="Groupe" />
                               <ChoiceBox fx:id="promotionFilterChoiceBox" prefWidth="150.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Salle" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="text" text="Salle" />
                               <ChoiceBox fx:id="locationFilterChoiceBox" prefWidth="150.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Type de cours" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="text" text="Type de cours" />
                               <ChoiceBox fx:id="courseTypeFilterChoiceBox" prefWidth="150.0" />
                            </children>
                            <padding>
@@ -43,7 +43,7 @@
                            </padding>
                         </VBox>
                      </children></AnchorPane>
-                  <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                  <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="secondary-background">
                      <center>
                         <AnchorPane fx:id="calendarAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="521.0" BorderPane.alignment="CENTER">
                            <padding>

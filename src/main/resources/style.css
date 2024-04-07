@@ -37,7 +37,7 @@
     -fx-background-color: #cfe6fd;
     -fx-border-color: #646464;
     -fx-border-radius: 4;
-    -fx-text-fill: #282828;
+    -fx-text-fill: #000000;
     -fx-font-weight: bold;
     -fx-background-insets: 3px;
     -fx-border-insets: 3px;
@@ -56,6 +56,7 @@
     -fx-background-color: #cfe6fd;
     -fx-mark-color: #282828;
     -fx-border-color: #696969;
+    -fx-text-fill: #000000;
     -fx-border-radius: 5;
     -fx-text-alignment: center;
     -fx-context-menu-enabled: false;
@@ -98,13 +99,21 @@
 }
 
 .background {
-    -fx-background-color: #dedede;
+    -fx-background-color: #ffffff;
 }
 
 .secondary-background {
-    -fx-background-color: #c7c7c7;
+    -fx-background-color: #ececec;
 }
 
 .layout-background {
-    -fx-background-color: #c7c7c7;
+    -fx-background-color: #e8e8e8;
+}
+
+.text {
+    -fx-text-fill: #000000;
+}
+
+.transparent-background {
+    -fx-background-color: rgba(0,0,0,0);
 }

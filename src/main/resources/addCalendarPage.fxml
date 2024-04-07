@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCalendarPageController">
+<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCalendarPageController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <VBox fx:id="vbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Ajout d'un calendrier">
+                  <Label styleClass="text" text="Ajout d'un calendrier">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
@@ -29,7 +29,7 @@
                   <TextField fx:id="calendarUrlTextField" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="453.0" promptText="URL du calendrier au format ICS" />
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="600.0">
                      <children>
-                        <Label text="Type du calendrier">
+                        <Label styleClass="text" text="Type du calendrier">
                            <font>
                               <Font size="16.0" />
                            </font>

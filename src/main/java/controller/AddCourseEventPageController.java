@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -14,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.CalendarUrl;
 import model.EventType;
+import model.Themes;
 import model.ViewAndController;
 import net.fortuna.ical4j.model.Calendar;
 import service.*;
@@ -33,7 +35,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AddCourseEventPageController implements Initializable {
+public class AddCourseEventPageController implements Initializable, ThemeApplyer {
     @FXML
     private TextField courseEventNameTextField;
     @FXML
@@ -56,6 +58,9 @@ public class AddCourseEventPageController implements Initializable {
     private VBox formVBox;
     @FXML
     private GridPane gridPane;
+    @FXML
+    private AnchorPane anchorPane;
+
     private String errorMessage = "";
     private Label errorMessageLabel = null;
     private CourseEvent courseEvent;
@@ -129,6 +134,7 @@ public class AddCourseEventPageController implements Initializable {
             line.setSpacing(5);
 
             Label label = new Label(promotion);
+            label.getStyleClass().add("text");
             Button deleteButton = new Button("-");
             deleteButton.setOnAction(event -> {
                 promotions.remove(promotion);
@@ -264,5 +270,15 @@ public class AddCourseEventPageController implements Initializable {
         vboxChildren.add(courseEventNameTextFieldIndex, label);
         errorMessageLabel = label;
         addCourseEventButton.setDisable(false);
+    }
+
+    @Override
+    public void applyTheme(Color[] colors, Themes theme) {
+        anchorPane.getStylesheets().clear();
+        if(theme == Themes.LIGHT) {
+            anchorPane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        } else {
+            anchorPane.getStylesheets().add(getClass().getResource("/styleDark.css").toExternalForm());
+        }
     }
 }
