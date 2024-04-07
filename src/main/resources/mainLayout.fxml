@@ -7,11 +7,20 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainLayoutController">
-    <children>
+<?import javafx.scene.control.Button?>
+<AnchorPane fx:id="anchorPane" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainLayoutController" stylesheets="lightTheme.css">
+   <children>
       <BorderPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="22.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="22.0" prefWidth="600.0" BorderPane.alignment="CENTER" >
+                <children>
+                    <HBox alignment="CENTER" prefHeight="22.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                           <Button fx:id="themeButton" text="Change Theme"/>
+                        </children>
+                    </HBox>
+                </children>
+            </AnchorPane>
          </top>
          <bottom>
             <BorderPane prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">

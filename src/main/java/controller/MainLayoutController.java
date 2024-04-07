@@ -5,7 +5,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -18,17 +20,26 @@ import service.ViewLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainLayoutController implements Initializable {
+    @FXML
+    public AnchorPane anchorPane;
     @FXML
     private BorderPane mainPane;
     private Node mainView;
     private Object mainViewController;
     private MainController mainController = MainController.getInstance();
+    @FXML
+    private Button themeButton;
+
+    private boolean lightTheme = true;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeView("loginPage");
+        themeButton.setOnAction(actionEvent -> changeTheme());
     }
 
     public void changeView(String viewName) {
@@ -66,6 +77,27 @@ public class MainLayoutController implements Initializable {
                     e.printStackTrace();
                 }
             });
+        }
+    }
+
+    public void applyThemeToNodeAndChildren(Node node, String themeCssFile) {
+        node.getScene().getStylesheets().clear();
+        node.getScene().getStylesheets().add(themeCssFile);
+
+        if (node instanceof Parent) {
+            Parent parent = (Parent) node;
+            for (Node child : parent.getChildrenUnmodifiable()) {
+                applyThemeToNodeAndChildren(child, themeCssFile);
+            }
+        }
+    }
+
+    public void changeTheme() {
+        Scene scene = anchorPane.getScene();
+        if (scene != null) {
+            lightTheme = !lightTheme;
+            String themeCssFile = lightTheme ? getClass().getResource("/lightTheme.css").toExternalForm() : getClass().getResource("/darkTheme.css").toExternalForm();
+            applyThemeToNodeAndChildren(scene.getRoot(), themeCssFile);
         }
     }
 

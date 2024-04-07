@@ -7,7 +7,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.ViewAndController;
 import service.ViewLoader;
-import service.eventComponentStylizer.EventComponentStylizer;
 import service.monthEventComponentStylizer.MonthEventComponentStylizer;
 
 public class MonthDayComponentController {
@@ -46,7 +45,7 @@ public class MonthDayComponentController {
     }
 
     private void adjustScrollBarVisibility() {
-        boolean needsScroll = (eventVBox.getChildren().size() > 3);
+        boolean needsScroll = (eventVBox.getChildren().size() > 2);
         eventScrollPane.setVbarPolicy(needsScroll ? ScrollPane.ScrollBarPolicy.AS_NEEDED : ScrollPane.ScrollBarPolicy.NEVER);
     }
 }
