@@ -32,18 +32,67 @@
     -fx-background-insets: 5px;
 }
 
+#searchTextField {
+    -fx-border-radius: 100px;
+    -fx-background-radius: 100px;
+    -fx-background-color: #444;
+    -fx-text-fill: #EEE;
+    -fx-prompt-text-fill: #666;
+}
+
+#searchHBox {
+    -fx-background-color: #444;
+}
+
+#calendarAnchorPane {
+    -fx-background-color: #333;
+}
+
+#monthlyCalendarGridPane, #monthlyCalendarGridPane > .label {
+    -fx-background-color: #333;
+}
+
+#monthDayComponent {
+    -fx-background-color: #333;
+}
+
+#monthlyAnchorPane {
+    -fx-background-color: #333;
+}
+
+#weeklyAnchorPane {
+    -fx-background-color: #333;
+}
+
+#weeklyCalendarGridPane, #weeklyCalendarGridPane > .label {
+    -fx-background-color: #333;
+}
+
+#weeklyCalendarView {
+    -fx-background-color: #333;
+    -fx-text-fill: #000000;
+}
+
+#dailyCalendarAnchorPane, #dailyCalendarAnchorPane > .label{
+    -fx-background-color: #333;
+}
+
+#dayLabel {
+    -fx-background-color: #333;
+}
+
+#dailyCalendarGridPane {
+    -fx-background-color: #333;
+}
+
+.scroll-bar {
+    -fx-background-color: #333;
+}
+
 .text-field {
     -fx-text-fill: #EEE;
     -fx-prompt-text-fill: #666;
     -fx-background-color: #444;
-}
-
-.title-row, .last-title-row {
-    -fx-background-color: #555;
-    -fx-font-weight: bold;
-    -fx-text-fill: #EEE;
-    -fx-border-radius: 0;
-    -fx-background-radius: 0;
 }
 
 .hour-separator {
@@ -78,7 +127,7 @@
 }
 
 .button:pressed {
-    -fx-background-color: #666;
+    -fx-background-color: #667;
 }
 
 .choice-box, .choice-box > .label, .choice-box > .arrow-button {
@@ -108,7 +157,7 @@
 
 .text-field, .text-field-connection {
     -fx-text-fill: #ffffff;
-    -fx-prompt-text-fill: #666;
+    -fx-prompt-text-fill: #667;
     -fx-background-color: transparent;
 }
 
@@ -122,4 +171,16 @@
 
 .scroll-pane .scroll-bar:vertical .thumb {
     -fx-background-color: #444;
+}
+
+.title-row {
+    -fx-background-color: #444;
+    -fx-font-weight: bold;
+}
+
+.last-title-row {
+    -fx-background-color: #444;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 0 10 0 0;
 }

@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import service.DayEventComponentBuilder;
@@ -12,8 +13,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class DailyCalendarComponentController extends AbstractCalendarController {
+    public AnchorPane dailyCalendarAnchorPane;
     @FXML
-    private GridPane calendarGridPane;
+    private GridPane dailyCalendarGridPane;
     @FXML
     private Label dayLabel;
 
@@ -23,13 +25,13 @@ public class DailyCalendarComponentController extends AbstractCalendarController
         }
 
         DayEventComponentBuilder dayEventComponentBuilder = new DayEventComponentBuilder();
-        dayEventComponentBuilder.buildDay(calendarGridPane, 1, 1, 26, events);
+        dayEventComponentBuilder.buildDay(dailyCalendarGridPane, 1, 1, 26, events);
 
         for (int hour = 8; hour <= 19; hour++) {
             Pane hourSeparator = new Pane();
             hourSeparator.getStyleClass().add("hour-separator");
             int rowIndex = (hour - 8) * 2 + 2;
-            calendarGridPane.add(hourSeparator, 1, rowIndex, GridPane.REMAINING, 1);
+            dailyCalendarGridPane.add(hourSeparator, 1, rowIndex, GridPane.REMAINING, 1);
         }
     }
 

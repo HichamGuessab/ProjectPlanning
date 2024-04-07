@@ -3,6 +3,7 @@ package controller;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import service.DayEventComponentBuilder;
@@ -14,8 +15,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class WeeklyCalendarComponentController extends AbstractCalendarController implements Initializable {
+    public AnchorPane weeklyAnchorPane;
     @FXML
-    private GridPane calendarGridPane;
+    private GridPane weeklyCalendarGridPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -31,13 +33,13 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
 
         for(int i=1; i<6; i++) {
             List<Event> currentDayEvents = getAllEventsForDayOfWeek(i);
-            dayEventComponentBuilder.buildDay(calendarGridPane, i, 1, 26, currentDayEvents);
+            dayEventComponentBuilder.buildDay(weeklyCalendarGridPane, i, 1, 26, currentDayEvents);
             for (int hour = 8; hour <= 19; hour++) {
                 int rowIndex = (hour - 8) * 2 + 2;
-                if (rowIndex > 0 && rowIndex < calendarGridPane.getRowConstraints().size()) {
+                if (rowIndex > 0 && rowIndex < weeklyCalendarGridPane.getRowConstraints().size()) {
                     Pane line = new Pane();
                     line.getStyleClass().add("hour-separator");
-                    calendarGridPane.add(line, 1, rowIndex, GridPane.REMAINING, 1); // Span across all columns
+                    weeklyCalendarGridPane.add(line, 1, rowIndex, GridPane.REMAINING, 1); // Span across all columns
                 }
             }
         }
