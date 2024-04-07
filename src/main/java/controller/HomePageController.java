@@ -138,6 +138,16 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
+    private void onTodayButtonClick() {
+        switch (viewMode) {
+            case DAILY -> timePeriod = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_YEAR);
+            case WEEKLY -> timePeriod = java.util.Calendar.getInstance().get(java.util.Calendar.WEEK_OF_YEAR);
+            case MONTHLY -> timePeriod = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+        }
+        updateCalendarView();
+    }
+
+    @FXML
     private void onDependentActionButtonClick() throws IOException {
         switch (calendarType) {
             case USER -> mainController.openModalWindow("Ajout d'évènement", "addCustomEventPage");
