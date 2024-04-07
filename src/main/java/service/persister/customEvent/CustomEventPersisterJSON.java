@@ -3,6 +3,7 @@ package service.persister.customEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.CustomEvent;
 import main.Main;
+import service.persister.JSONPersister;
 import service.retriever.customEvent.CustomEventRetrieverJSON;
 
 import java.io.File;
@@ -22,18 +23,6 @@ public class CustomEventPersisterJSON implements CustomEventPersister {
     }
     @Override
     public boolean persist(CustomEvent customEvent) {
-        System.out.println("Persisting custom event");
-
-        CustomEventRetrieverJSON customEventRetrieverJSON = new CustomEventRetrieverJSON();
-        List<CustomEvent> customEvents = customEventRetrieverJSON.retrieveAll();
-        customEvents.add(customEvent);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(new File(this.pathToJSONCustomEvents), customEvents);
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error while persisting : "+e.getMessage());
-        }
-        return false;
+        return JSONPersister.persist(this.pathToJSONCustomEvents, customEvent, CustomEvent.class);
     }
 }

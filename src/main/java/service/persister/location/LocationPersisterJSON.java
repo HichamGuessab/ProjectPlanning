@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Location;
 import main.Main;
+import service.persister.JSONPersister;
 import service.retriever.location.LocationRetrieverJSON;
 
 import java.io.File;
@@ -25,16 +26,6 @@ public class LocationPersisterJSON implements LocationPersister {
 
     @Override
     public boolean persist(Location location) {
-        LocationRetrieverJSON locationRetriever = new LocationRetrieverJSON();
-        List<Location> locations = locationRetriever.retrieveAll();
-        locations.add(location);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(new File(this.pathToJSONLocations), locations);
-            return true;
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
+        return JSONPersister.persist(this.pathToJSONLocations, location, Location.class);
     }
 }

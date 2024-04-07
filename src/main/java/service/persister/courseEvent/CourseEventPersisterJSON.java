@@ -3,6 +3,7 @@ package service.persister.courseEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.CourseEvent;
 import main.Main;
+import service.persister.JSONPersister;
 import service.retriever.courseEvent.CourseEventRetrieverJSON;
 
 import java.io.File;
@@ -23,18 +24,6 @@ public class CourseEventPersisterJSON implements CourseEventPersister {
 
     @Override
     public boolean persist(CourseEvent courseEvent) {
-        System.out.println("Persisting course event");
-
-        CourseEventRetrieverJSON courseEventRetrieverJSON = new CourseEventRetrieverJSON();
-        List<CourseEvent> courseEvents = courseEventRetrieverJSON.retrieveAll();
-        courseEvents.add(courseEvent);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(new File(this.pathToJSONCourseEvents), courseEvents);
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error while persisting : "+e.getMessage());
-        }
-        return false;
+        return JSONPersister.persist(this.pathToJSONCourseEvents, courseEvent, CourseEvent.class);
     }
 }
