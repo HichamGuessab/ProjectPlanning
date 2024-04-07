@@ -34,6 +34,8 @@ public class AddCalendarPageController implements Initializable {
     private VBox vbox;
     @FXML
     private Button addCalendarButton;
+    @FXML
+    private Button backButton;
 
     private Label errorMessageLabel = null;
     private String errorMessage = "";
@@ -43,6 +45,7 @@ public class AddCalendarPageController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         calendarTypeChoiceBox.getItems().addAll("Salle", "Formation");
         calendarTypeChoiceBox.setValue("Salle");
+        backButton.setOnAction(actionEvent -> mainController.changeView("homePage"));
     }
 
     @FXML
