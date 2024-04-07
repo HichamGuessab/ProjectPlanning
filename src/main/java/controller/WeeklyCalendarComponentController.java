@@ -1,15 +1,11 @@
 package controller;
 
-import entity.CourseEvent;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import model.ViewAndController;
 import service.DayEventComponentBuilder;
-import service.ViewLoader;
-import service.eventComponentStylizer.EventComponentStylizer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,9 +31,9 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
 
         for(int i=1; i<6; i++) {
             List<Event> currentDayEvents = getAllEventsForDayOfWeek(i);
-            dayEventComponentBuilder.buildDay(calendarGridPane, i, 1, 24, currentDayEvents);
-            for (int hour = 8; hour <= 20; hour++) {
-                int rowIndex = (hour - 8) * 2;
+            dayEventComponentBuilder.buildDay(calendarGridPane, i, 1, 26, currentDayEvents);
+            for (int hour = 8; hour <= 19; hour++) {
+                int rowIndex = (hour - 8) * 2 + 2;
                 if (rowIndex > 0 && rowIndex < calendarGridPane.getRowConstraints().size()) {
                     Pane line = new Pane();
                     line.getStyleClass().add("hour-separator");
