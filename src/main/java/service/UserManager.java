@@ -46,4 +46,8 @@ public class UserManager {
     public User getCurrentUser() {
         return this.currentUser;
     }
+
+    public void disconnect() {
+        this.currentUser = null;
+    }
 }

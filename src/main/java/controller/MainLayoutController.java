@@ -6,13 +6,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import main.Main;
 import model.ViewAndController;
+import service.UserManager;
 import service.ViewLoader;
 
 import java.io.IOException;
@@ -23,12 +28,37 @@ import java.util.ResourceBundle;
 public class MainLayoutController implements Initializable {
     @FXML
     private BorderPane mainPane;
+    @FXML
+    private Button disconnectButton;
+
     private Node mainView;
     private Object mainViewController;
     private MainController mainController = MainController.getInstance();
+    private UserManager userManager = UserManager.getInstance();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         changeView("loginPage");
+
+        initDisconnectButton();
+    }
+
+    private void initDisconnectButton() {
+        try {
+            URL url = Main.class.getResource("/images/icons/logout.png");
+            ImageView imageView = new ImageView(new Image(url.toString()));
+            imageView.setPreserveRatio(true);
+            imageView.setFitHeight(15);
+            disconnectButton.setGraphic(imageView);
+        } catch (Exception e) {
+            System.err.println("Error while setting the disconnect button icon: " + e.getMessage());
+            disconnectButton.setText("Disconnect");
+        }
+
+        disconnectButton.setOnAction(actionEvent -> {
+            userManager.disconnect();
+            changeView("loginPage");
+        });
     }
 
     public void changeView(String viewName) {
