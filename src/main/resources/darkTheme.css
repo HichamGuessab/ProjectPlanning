@@ -1,0 +1,186 @@
+.root {
+    -fx-background-color: #333;
+}
+
+.split-pane {
+    -fx-background-color: #333;
+}
+
+.label {
+    -fx-text-fill: #EEE;
+}
+
+.grid-pane {
+    -fx-background-color: #333;
+}
+
+.border-pane {
+    -fx-background-color: #333;
+}
+
+.anchor-pane {
+    -fx-background-color: #333;
+}
+
+.calendar {
+    -fx-background-color: #333;
+    -fx-background-radius: 10;
+    -fx-border-color: #444;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+#searchTextField {
+    -fx-border-radius: 100px;
+    -fx-background-radius: 100px;
+    -fx-background-color: #444;
+    -fx-text-fill: #EEE;
+    -fx-prompt-text-fill: #666;
+}
+
+#searchHBox {
+    -fx-background-color: #444;
+}
+
+#calendarAnchorPane {
+    -fx-background-color: #333;
+}
+
+#monthlyCalendarGridPane, #monthlyCalendarGridPane > .label {
+    -fx-background-color: #333;
+}
+
+#monthDayComponent {
+    -fx-background-color: #333;
+}
+
+#monthlyAnchorPane {
+    -fx-background-color: #333;
+}
+
+#weeklyAnchorPane {
+    -fx-background-color: #333;
+}
+
+#weeklyCalendarGridPane, #weeklyCalendarGridPane > .label {
+    -fx-background-color: #333;
+}
+
+#weeklyCalendarView {
+    -fx-background-color: #333;
+    -fx-text-fill: #000000;
+}
+
+#dailyCalendarAnchorPane, #dailyCalendarAnchorPane > .label{
+    -fx-background-color: #333;
+}
+
+#dayLabel {
+    -fx-background-color: #333;
+}
+
+#dailyCalendarGridPane {
+    -fx-background-color: #333;
+}
+
+.scroll-bar {
+    -fx-background-color: #333;
+}
+
+.text-field {
+    -fx-text-fill: #EEE;
+    -fx-prompt-text-fill: #666;
+    -fx-background-color: #444;
+}
+
+.hour-separator {
+    -fx-border-color: transparent transparent #777 transparent;
+    -fx-border-width: 0.5;
+    -fx-opacity: 0.5;
+}
+
+.event {
+    -fx-background-color: #222;
+    -fx-border-color: #555;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-text-fill: #CCC;
+}
+
+.button {
+    -fx-background-color: #444;
+    -fx-border-color: #666;
+    -fx-border-radius: 4;
+    -fx-background-radius: 5;
+    -fx-text-fill: #AAA;
+    -fx-font-weight: bold;
+    -fx-background-insets: 3px;
+    -fx-border-insets: 3px;
+    -fx-font: 12px "System";
+}
+
+.button:hover {
+    -fx-background-color: #555;
+}
+
+.button:pressed {
+    -fx-background-color: #667;
+}
+
+.choice-box, .choice-box > .label, .choice-box > .arrow-button {
+    -fx-background-color: #cfe6fd;
+    -fx-mark-color: #282828;
+    -fx-border-color: #696969;
+    -fx-border-radius: 5;
+    -fx-background-radius: 4;
+    -fx-text-alignment: center;
+    -fx-context-menu-enabled: false;
+    -fx-text-fill: #3f3f3f;
+}
+
+.choice-box:hover {
+    -fx-background-color: #555;
+}
+
+.month-day {
+    -fx-background-color: #333;
+    -fx-border-color: #444;
+}
+
+.month-event {
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.text-field, .text-field-connection {
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #667;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: #2c2c2c;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #444;
+}
+
+.title-row {
+    -fx-background-color: #444;
+    -fx-font-weight: bold;
+}
+
+.last-title-row {
+    -fx-background-color: #444;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 0 10 0 0;
+}

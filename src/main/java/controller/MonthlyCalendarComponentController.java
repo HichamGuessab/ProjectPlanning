@@ -4,20 +4,20 @@ import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import model.ViewAndController;
 import service.ViewLoader;
-import service.eventComponentStylizer.EventComponentStylizer;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public class MonthlyCalendarComponentController extends AbstractCalendarController implements Initializable {
-    @FXML
-    private GridPane calendarGridPane;
+    public AnchorPane monthlyAnchorPane;
     @FXML
     private Label currentMonthLabel;
+    private GridPane monthlyCalendarGridPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,7 +50,7 @@ public class MonthlyCalendarComponentController extends AbstractCalendarControll
             MonthDayComponentController controller = (MonthDayComponentController) viewAndController.controller;
             controller.setDay(dayOfMonth);
             monthDayComponentControllers.add(controller);
-            calendarGridPane.add(viewAndController.node, coordinates[0], coordinates[1]);
+            monthlyCalendarGridPane.add(viewAndController.node, coordinates[0], coordinates[1]);
         }
     }
 

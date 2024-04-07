@@ -26,7 +26,7 @@ public class CourseMonthEventComponentStylizer extends AbstractMonthEventCompone
         monthEventComponentController.setType(courseEvent.getCourseType().name());
         monthEventComponentController.setLocation(courseEvent.getLocation());
 
-        monthEventComponentController.setPopupName("Matière : "+courseEvent.getSummary());
+        monthEventComponentController.setPopupName(courseEvent.getNameBySummary());
         monthEventComponentController.setPopupType("Type : "+courseEvent.getCourseType().name());
         monthEventComponentController.setPopupLocation("Salle : "+courseEvent.getLocation());
 

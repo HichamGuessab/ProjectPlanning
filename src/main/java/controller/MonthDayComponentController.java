@@ -3,10 +3,10 @@ package controller;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.ViewAndController;
 import service.ViewLoader;
-import service.eventComponentStylizer.EventComponentStylizer;
 import service.monthEventComponentStylizer.MonthEventComponentStylizer;
 
 public class MonthDayComponentController {
@@ -14,6 +14,8 @@ public class MonthDayComponentController {
     private Label dayLabel;
     @FXML
     private VBox eventVBox;
+    @FXML
+    private ScrollPane eventScrollPane;
 
     private int dayOfMonth = 0;
 
@@ -39,5 +41,11 @@ public class MonthDayComponentController {
         monthEventComponentStylizer.applyStyleToEventComponentController(event, monthEventComponentController);
         monthEventComponentController.setName(event.getNameBySummary());
         eventVBox.getChildren().add(viewAndController.node);
+        adjustScrollBarVisibility();
+    }
+
+    private void adjustScrollBarVisibility() {
+        boolean needsScroll = (eventVBox.getChildren().size() > 2);
+        eventScrollPane.setVbarPolicy(needsScroll ? ScrollPane.ScrollBarPolicy.AS_NEEDED : ScrollPane.ScrollBarPolicy.NEVER);
     }
 }

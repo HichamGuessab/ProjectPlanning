@@ -29,7 +29,7 @@ public class CourseEventComponentStylizer extends AbstractEventComponentStylizer
         }
         eventComponentController.setLocation(courseEvent.getLocation());
 
-        eventComponentController.setPopupName("Matière : "+courseEvent.getNameBySummary());
+        eventComponentController.setPopupName(courseEvent.getNameBySummary());
         if (courseEvent.getCourseType().toString().equals(EventType.OTHER.toString())){
             eventComponentController.setPopupType("Type : Non définit");
         } else {

@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class MainController {
     private static MainController INSTANCE;
