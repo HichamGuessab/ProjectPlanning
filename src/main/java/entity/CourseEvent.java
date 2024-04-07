@@ -1,5 +1,8 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import model.EventType;
 
 import java.util.Arrays;
@@ -16,7 +19,18 @@ public class CourseEvent extends Event {
     private String[] formations;
     private String[] promotions;
 
-    public CourseEvent(String category, Date stamp, Date lastModified, String uid, Date start, Date end, String summary, String location, String description) {
+    @JsonCreator
+    public CourseEvent(
+            @JsonProperty("category") String category,
+            @JsonProperty("stamp") Date stamp,
+            @JsonProperty("lastModified") Date lastModified,
+            @JsonProperty("uid") String uid,
+            @JsonProperty("start") Date start,
+            @JsonProperty("end") Date end,
+            @JsonProperty("summary") String summary,
+            @JsonProperty("location") String location,
+            @JsonProperty("description") String description
+    ) {
         super(category, stamp, lastModified, uid, start, end, summary, location, description);
         setName();
         setType();
@@ -52,7 +66,7 @@ public class CourseEvent extends Event {
         }
     }
 
-    public void setType() {
+    private void setType() {
         String text = super.getDescription();
         Pattern pattern = Pattern.compile("Type : (\\w+)");
         Matcher matcher = pattern.matcher(text);
@@ -77,7 +91,7 @@ public class CourseEvent extends Event {
         }
     }
 
-    public void setTeacher() {
+    private void setTeacher() {
         String text = super.getDescription();
         Pattern pattern = Pattern.compile("Enseignant : (.*)");
         Matcher matcher = pattern.matcher(text);
@@ -89,7 +103,7 @@ public class CourseEvent extends Event {
         }
     }
 
-    public void setPromotions() {
+    private void setPromotions() {
         String text = super.getDescription();
         Pattern pattern = Pattern.compile("TD : (.+)");
         Matcher matcher = pattern.matcher(text);
@@ -107,7 +121,7 @@ public class CourseEvent extends Event {
         }
     }
 
-    public void setFormations() {
+    private void setFormations() {
         HashSet<String> formationsSet = new HashSet<>();
         for (String promotion : this.promotions) {
             String formation;
@@ -140,6 +154,7 @@ public class CourseEvent extends Event {
         return promotions;
     }
 
+    @JsonIgnore
     public String getTeacherEmail() {
         return "mailto:" + teacher.replaceAll(" ", ".") + "@univ-avignon.fr";
     }

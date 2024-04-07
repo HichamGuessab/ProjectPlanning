@@ -17,6 +17,8 @@ import model.EventType;
 import model.ViewAndController;
 import net.fortuna.ical4j.model.Calendar;
 import service.*;
+import service.persister.courseEvent.CourseEventPersister;
+import service.persister.courseEvent.CourseEventPersisterJSON;
 import service.retriever.calendar.CalendarRetriever;
 import service.retriever.location.LocationRetrieverJSON;
 import service.retriever.promotion.PromotionRetrieverJSON;
@@ -102,6 +104,27 @@ public class AddCourseEventPageController implements Initializable {
         }
         courseEventTypeChoiceBox.getItems().addAll(eventTypes);
         courseEventPromotionChoiceBox.getItems().addAll(FiltersManager.getPromotions(allCourseEvents));
+
+        addCourseEventButton.setOnAction(event -> onAddCourseEventButtonCLick());
+    }
+
+    private void onAddCourseEventButtonCLick() {
+        addCourseEventButton.setDisable(true);
+        if(!verifyFields()) {
+            showErrorMessage();
+            return;
+        }
+        formVBox.getChildren().remove(errorMessageLabel);
+
+        CourseEventPersister courseEventPersister = new CourseEventPersisterJSON();
+        courseEvent = buildCourseEvent();
+        if(courseEventPersister.persist(courseEvent)) {
+            System.out.println("Course event persisted");
+        } else {
+            System.err.println("Failed to persist course event");
+        }
+        closeWindow();
+        addCourseEventButton.setDisable(false);
     }
 
     private void onAddPromotionButtonCLick() {

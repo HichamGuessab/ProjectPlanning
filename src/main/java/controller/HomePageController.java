@@ -18,6 +18,8 @@ import net.fortuna.ical4j.model.Calendar;
 import node.AutoCompleteTextField;
 import service.*;
 import service.retriever.calendar.CalendarRetriever;
+import service.retriever.courseEvent.CourseEventRetriever;
+import service.retriever.courseEvent.CourseEventRetrieverJSON;
 import service.retriever.customEvent.CustomEventRetriever;
 import service.retriever.customEvent.CustomEventRetrieverJSON;
 import service.retriever.location.LocationRetriever;
@@ -250,9 +252,23 @@ public class HomePageController implements Initializable {
             case MONTHLY -> newEvents.addAll(CalendarFilterer.getEventsForMonthOfYear(this.calendar, timePeriod));
         }
         CustomEventRetriever customEventRetriever = new CustomEventRetrieverJSON();
+        CourseEventRetriever courseEventRetriever = new CourseEventRetrieverJSON();
+
         List<Event> customEvents = new ArrayList<>();
         customEvents.addAll(customEventRetriever.retrieveFromUserIdentifier(userManager.getCurrentUser().getIdentifier()));
         newEvents.addAll(CalendarFilterer.filterEventsByPeriod(this.viewMode, timePeriod, customEvents));
+
+        List<Event> courseEvents = new ArrayList<>();
+        switch (calendarType) {
+            case USER -> {
+                courseEvents.addAll(courseEventRetriever.retrieveFromTeacherName(userManager.getCurrentUser().getName()));
+            }
+            case LOCATION -> {
+                courseEvents.addAll(courseEventRetriever.retrieveFromLocationName(calendarName));
+            }
+        }
+        newEvents.addAll(CalendarFilterer.filterEventsByPeriod(this.viewMode, timePeriod, courseEvents));
+
         events = CalendarFilterer.filterEvents(getFilters(), newEvents);
     }
 

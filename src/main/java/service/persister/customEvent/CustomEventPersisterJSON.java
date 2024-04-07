@@ -27,7 +27,6 @@ public class CustomEventPersisterJSON implements CustomEventPersister {
         CustomEventRetrieverJSON customEventRetrieverJSON = new CustomEventRetrieverJSON();
         List<CustomEvent> customEvents = customEventRetrieverJSON.retrieveAll();
         customEvents.add(customEvent);
-        System.out.println(customEvents);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             objectMapper.writeValue(new File(this.pathToJSONCustomEvents), customEvents);
