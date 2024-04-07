@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Location;
 import entity.Promotion;
 import main.Main;
+import service.persister.JSONPersister;
 import service.retriever.location.LocationRetrieverJSON;
 import service.retriever.promotion.PromotionRetrieverJSON;
 
@@ -25,16 +26,6 @@ public class PromotionPersisterJSON implements PromotionPersister {
 
     @Override
     public boolean persist(Promotion promotion) {
-        PromotionRetrieverJSON promotionRetriever = new PromotionRetrieverJSON();
-        List<Promotion> promotions = promotionRetriever.retrieveAll();
-        promotions.add(promotion);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(new File(this.pathToJSONPromotions), promotions);
-            return true;
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
+        return JSONPersister.persist(this.pathToJSONPromotions, promotion, Promotion.class);
     }
 }
