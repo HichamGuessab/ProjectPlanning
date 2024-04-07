@@ -3,19 +3,28 @@ package controller;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import service.DayEventComponentBuilder;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class WeeklyCalendarComponentController extends AbstractCalendarController implements Initializable {
     @FXML
     private GridPane calendarGridPane;
+    @FXML
+    private Label mondayLabel;
+    @FXML
+    private Label tuesdayLabel;
+    @FXML
+    private Label wednesdayLabel;
+    @FXML
+    private Label thursdayLabel;
+    @FXML
+    private Label fridayLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -23,6 +32,7 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
     }
 
     public void displayEvents() throws IOException {
+        initDayLabels();
         if(this.events == null) {
             return;
         }
@@ -41,6 +51,28 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
                 }
             }
         }
+    }
+
+    private void initDayLabels() {
+        int weekOfYear = timePeriod;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.WEEK_OF_YEAR, weekOfYear);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        Date monday = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date tuesday = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date wednesday = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date thursday = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date friday = calendar.getTime();
+
+        mondayLabel.setText("Lundi " + monday.getDate() + "/" + ((monday.getMonth() + 1)<10 ? "0":"")  + (monday.getMonth() + 1));
+        tuesdayLabel.setText("Mardi " + tuesday.getDate() + "/" + ((tuesday.getMonth() + 1)<10 ? "0":"") + (tuesday.getMonth() + 1));
+        wednesdayLabel.setText("Mercredi " + wednesday.getDate() + "/" + ((wednesday.getMonth() + 1)<10 ? "0":"") + (wednesday.getMonth() + 1));
+        thursdayLabel.setText("Jeudi " + thursday.getDate() + "/" + ((thursday.getMonth() + 1)<10 ? "0":"") + (thursday.getMonth() + 1));
+        fridayLabel.setText("Vendredi " + friday.getDate() + "/" + ((friday.getMonth() + 1)<10 ? "0":"") + (friday.getMonth() + 1));
     }
 
     private List<Event> getAllEventsForDayOfWeek(int dayOfWeek) {
