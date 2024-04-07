@@ -29,7 +29,9 @@ public class LoginPageController implements Initializable {
     private Button loginButton;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // When enter key pressed, onLoginButtonClick is called
+        identifierTextField.setOnAction(event -> onLoginButtonClick());
+        passwordTextField.setOnAction(event -> onLoginButtonClick());
     }
 
     @FXML
