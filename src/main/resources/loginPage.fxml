@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginPageController" stylesheets="style.css">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginPageController">
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -24,8 +24,8 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                   </ImageView>
-                  <TextField styleClass="text-field-connection" fx:id="identifierTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" promptText="Identifiant" />
-                  <PasswordField styleClass="text-field-connection" fx:id="passwordTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" promptText="Mot de passe" />
+                  <TextField fx:id="identifierTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" promptText="Identifiant" styleClass="text-field-connection" />
+                  <PasswordField fx:id="passwordTextField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="190.0" promptText="Mot de passe" styleClass="text-field-connection" />
                   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Se connecter" />
                </children>
                <opaqueInsets>

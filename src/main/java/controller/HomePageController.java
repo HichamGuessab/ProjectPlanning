@@ -9,6 +9,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import model.CalendarType;
 import model.CalendarUrl;
 import model.ViewAndController;
@@ -34,7 +35,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class HomePageController implements Initializable {
+public class HomePageController implements Initializable, ThemeApplyer {
     public HBox searchHBox;
     @FXML
     private AnchorPane calendarAnchorPane;
@@ -54,6 +55,8 @@ public class HomePageController implements Initializable {
     private ChoiceBox<String> courseTypeFilterChoiceBox;
     @FXML
     private Button dependentActionButton;
+    @FXML
+    private AnchorPane anchorPane;
 
     private Calendar calendar = null;
     private List<Event> events;
@@ -348,5 +351,15 @@ public class HomePageController implements Initializable {
             filters.put("courseType", courseTypeFilterChoiceBox.getValue());
         }
         return filters;
+    }
+
+    @Override
+    public void applyTheme(Color[] colors, Themes theme) {
+        anchorPane.getStylesheets().clear();
+        if(theme == Themes.LIGHT) {
+            anchorPane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        } else {
+            anchorPane.getStylesheets().add(getClass().getResource("/styleDark.css").toExternalForm());
+        }
     }
 }
