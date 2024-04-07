@@ -2,10 +2,10 @@ package service;
 
 import controller.EventComponentController;
 import entity.Event;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
+import javafx.animation.*;
+import javafx.scene.Node;
+import javafx.scene.layout.*;
+import javafx.util.Duration;
 import model.ViewAndController;
 import service.eventComponentStylizer.EventComponentStylizer;
 
@@ -53,7 +53,9 @@ public class DayEventComponentBuilder {
             rowConstraints.setPrefHeight(30);
             dayGridPane.getRowConstraints().add(rowConstraints);
         }
-        for(Event event : events) {
+
+        List<AnchorPane> eventComponents = new ArrayList<>();
+        for (Event event : events) {
             int eventYStartCoordinate = calculateYStartCoordinate(event.getStart());
             int eventYEndCoordinate = calculateYEndCoordinate(event.getEnd());
             int depth = eventDepths.get(event);
@@ -64,13 +66,24 @@ public class DayEventComponentBuilder {
                 EventComponentStylizer eventComponentStylizer = new EventComponentStylizer();
                 eventComponentStylizer.applyStyleToEventComponentController(event, eventComponentController);
 
-                dayGridPane.add(viewAndController.node, depth, eventYStartCoordinate, 1, eventYEndCoordinate - eventYStartCoordinate);
+                AnchorPane node = (AnchorPane) viewAndController.node;
+                dayGridPane.add(node, depth, eventYStartCoordinate, 1, eventYEndCoordinate - eventYStartCoordinate);
+                eventComponents.add(node);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
+        animateEventComponents(eventComponents);
         gridPane.add(dayGridPane, xCoordinate, yStartCoordinate, 1, yEndCoordinate - yStartCoordinate);
+    }
+
+    private void animateEventComponents(List<AnchorPane> eventComponents) {
+        for (AnchorPane eventComponent : eventComponents) {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), eventComponent);
+            scaleTransition.setFromX(0);
+            scaleTransition.setToX(1);
+            scaleTransition.play();
+        }
     }
 
     private int getYStartCoordinatesFromEventList(Event event, List<List<Event>> eventDepths) {
