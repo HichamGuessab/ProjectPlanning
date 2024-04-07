@@ -267,7 +267,12 @@ public class HomePageController implements Initializable {
         CourseEventRetriever courseEventRetriever = new CourseEventRetrieverJSON();
 
         List<Event> customEvents = new ArrayList<>();
-        customEvents.addAll(customEventRetriever.retrieveFromUserIdentifier(userManager.getCurrentUser().getIdentifier()));
+        switch (calendarType) {
+            case USER -> {
+                customEvents.addAll(customEventRetriever.retrieveFromUserIdentifier(userManager.getCurrentUser().getIdentifier()));
+            }
+        }
+
         newEvents.addAll(CalendarFilterer.filterEventsByPeriod(this.viewMode, timePeriod, customEvents));
 
         List<Event> courseEvents = new ArrayList<>();
