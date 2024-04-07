@@ -3,6 +3,7 @@ package controller;
 import entity.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.ViewAndController;
 import service.ViewLoader;
@@ -15,6 +16,8 @@ import java.util.*;
 public class MonthlyCalendarComponentController extends AbstractCalendarController implements Initializable {
     @FXML
     private GridPane calendarGridPane;
+    @FXML
+    private Label currentMonthLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -75,6 +78,11 @@ public class MonthlyCalendarComponentController extends AbstractCalendarControll
 
     public void setTimePeriod(int timePeriod) {
         this.timePeriod = timePeriod;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, timePeriod);
+        // Display the current month in french language in currentMonthLabel
+        currentMonthLabel.setText(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRANCE).toUpperCase());
+
         putDayComponentsInGridPane();
     }
 
