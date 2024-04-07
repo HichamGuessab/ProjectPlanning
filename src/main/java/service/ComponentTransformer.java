@@ -11,6 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ComponentTransformer {
+    /**
+     * Transform a component to an event
+     * @param component
+     * @return Event
+     */
     public static Event componentToEvent(Component component) {
         Date dtstamp = parseDatePropertyFromName(EventProperties.DTSTAMP.name(), component);
         Date lastModified = parseDatePropertyFromName(EventProperties.LAST_MODIFIED.name(), component);

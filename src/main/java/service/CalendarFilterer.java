@@ -15,6 +15,12 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public class CalendarFilterer {
+    /**
+     * Get all the events for the week of the year
+     * @param calendar
+     * @param weekOfYear
+     * @return List of events
+     */
     public static List<Event> getEventsForWeekOfYear(Calendar calendar, int weekOfYear) {
         if(calendar == null) {
             return List.of();
@@ -33,6 +39,12 @@ public class CalendarFilterer {
         return getEvents(calendar, currentWeekStart, currentWeekEnd.getTime());
     }
 
+    /**
+     * Get all the events for the day of the year
+     * @param calendar
+     * @param dayOfYear
+     * @return List of events
+     */
     public static List<Event> getEventsForDayOfYear(Calendar calendar, int dayOfYear) {
         if(calendar == null) {
             return List.of();
@@ -51,6 +63,12 @@ public class CalendarFilterer {
         return getEvents(calendar, currentDay, nextDay.getTime());
     }
 
+    /**
+     * Get all the events for the month of the year
+     * @param calendar
+     * @param monthOfYear
+     * @return List of events
+     */
     public static List<Event> getEventsForMonthOfYear(Calendar calendar, int monthOfYear) {
         if(calendar == null) {
             return List.of();
@@ -70,6 +88,11 @@ public class CalendarFilterer {
         return getEvents(calendar, currentMonth, nextMonth.getTime());
     }
 
+    /**
+     * Get all the course events
+     * @param calendar
+     * @return List of course events
+     */
     public static List<CourseEvent> getAllCourseEvents(Calendar calendar) {
         Filter filter = new Filter();
 
@@ -91,6 +114,13 @@ public class CalendarFilterer {
         return componentsToEvents(eventsOfTheDayCollection);
     }
 
+    /**
+     * Filter the events by the view mode and the time period
+     * @param viewMode
+     * @param timePeriod
+     * @param events
+     * @return List of events
+     */
     public static List<Event> filterEventsByPeriod(ViewModes viewMode, int timePeriod, List<Event> events) {
         List<Event> filteredEvents = new ArrayList<>();
         Date startDate = new Date();
@@ -163,6 +193,13 @@ public class CalendarFilterer {
         return filteredEvents;
     }
 
+    /**
+     * Filter the events by the filters. Filters key is the name of the attribute and the value is the value of the attribute.
+     * Attribute must have a getter in the CourseEvent class.
+     * @param filters
+     * @param events
+     * @return List of events
+     */
     public static List<Event> filterEvents(Map<String, String> filters, List<Event> events) {
         Class<CourseEvent> cls = CourseEvent.class;
         List<Method> methods = new ArrayList<>();

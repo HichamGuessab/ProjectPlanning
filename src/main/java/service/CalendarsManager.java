@@ -22,6 +22,12 @@ public class CalendarsManager {
     private final LocationRetriever locationRetriever;
     private final PromotionRetriever promotionRetriever;
 
+    /**
+     * Constructor
+     * @param userRetriever
+     * @param locationRetriever
+     * @param promotionRetriever
+     */
     public CalendarsManager(
             UserRetriever userRetriever,
             LocationRetriever locationRetriever,
@@ -33,6 +39,10 @@ public class CalendarsManager {
         updateCalendarsMaps();
     }
 
+    /**
+     * Get all the calendar names
+     * @return List of calendar names
+     */
     public List<String> getAllCalendarNames() {
         List<String> names = new ArrayList<>();
         names.addAll(userCalendars.keySet());
@@ -42,6 +52,11 @@ public class CalendarsManager {
         return names;
     }
 
+    /**
+     * Get the calendar url and type from the name
+     * @param name
+     * @return CalendarUrl
+     */
     public CalendarUrl getCalendarUrlAndTypeFromName(String name) {
         if(userCalendars.containsKey(name)) {
             return new CalendarUrl(userCalendars.get(name), CalendarType.USER);
@@ -53,12 +68,18 @@ public class CalendarsManager {
         return null;
     }
 
+    /**
+     * Update the calendars maps
+     */
     public void updateCalendarsMaps() {
         buildLocationsMap();
         buildUsersMap();
         buildPromotionsMap();
     }
 
+    /**
+     * Build the locations map
+     */
     private void buildLocationsMap() {
         List<Location> locations = locationRetriever.retrieveAll();
             for(Location location : locations) {
@@ -66,6 +87,9 @@ public class CalendarsManager {
             }
     }
 
+    /**
+     * Build the promotions map
+     */
     private void buildPromotionsMap() {
         List<Promotion> promotions = promotionRetriever.retrieveAll();
         for(Promotion promotion : promotions) {
@@ -73,6 +97,9 @@ public class CalendarsManager {
         }
     }
 
+    /**
+     * Build the users map
+     */
     private void buildUsersMap() {
         userCalendars.putAll(userRetriever.retrieveUserNamesAndCalendarUrls());
     }

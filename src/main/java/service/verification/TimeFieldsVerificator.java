@@ -1,6 +1,12 @@
 package service.verification;
 
 public class TimeFieldsVerificator {
+    /**
+     * Check if the time fields are correct. If they are of the format HH:MM and the start time is before the end time
+     * @param startTime
+     * @param endTime
+     * @return the error message if there is one
+     */
     public static String getErrorMessage(String startTime, String endTime) {
         String errorMessage = isStringCorrectTimeFormat(endTime);
         if(!errorMessage.isEmpty()) {

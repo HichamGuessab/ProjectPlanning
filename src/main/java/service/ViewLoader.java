@@ -8,7 +8,13 @@ import model.ViewAndController;
 import java.io.IOException;
 
 public class ViewLoader {
-    // Retourne une vue et un contrôleur
+
+    /**
+     * Load the view and controller from the fxml file
+     * @param fxmlFileName
+     * @return ViewAndController
+     * @throws IOException
+     */
     public static ViewAndController getViewAndController(String fxmlFileName) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/"+fxmlFileName+".fxml"));

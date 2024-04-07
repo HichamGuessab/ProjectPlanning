@@ -13,6 +13,15 @@ import java.util.*;
 
 public class DayEventComponentBuilder {
     private int yStartCoordinate;
+
+    /**
+     * Build a gridpane will all the events of the day and add it to the given gridpane at the given coordinates
+     * @param gridPane
+     * @param xCoordinate
+     * @param yStartCoordinate
+     * @param yEndCoordinate
+     * @param givenEvents
+     */
     public void buildDay(GridPane gridPane, int xCoordinate, int yStartCoordinate, int yEndCoordinate, List<Event> givenEvents) {
         this.yStartCoordinate = yStartCoordinate;
 
@@ -77,6 +86,10 @@ public class DayEventComponentBuilder {
         gridPane.add(dayGridPane, xCoordinate, yStartCoordinate, 1, yEndCoordinate - yStartCoordinate);
     }
 
+    /**
+     * Animate the event components
+     * @param eventComponents
+     */
     private void animateEventComponents(List<AnchorPane> eventComponents) {
         for (AnchorPane eventComponent : eventComponents) {
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), eventComponent);
@@ -86,6 +99,12 @@ public class DayEventComponentBuilder {
         }
     }
 
+    /**
+     * Get the y start coordinates of the event in the eventDepths list
+     * @param event
+     * @param eventDepths
+     * @return y start coordinates
+     */
     private int getYStartCoordinatesFromEventList(Event event, List<List<Event>> eventDepths) {
         for(int i=yStartCoordinate; i<eventDepths.size(); i++) {
             if(eventDepths.get(i).contains(event)) {
@@ -95,6 +114,12 @@ public class DayEventComponentBuilder {
         return -1;
     }
 
+    /**
+     * Get the y end coordinates of the event in the eventDepths list
+     * @param event
+     * @param eventDepths
+     * @return y end coordinates
+     */
     private int getYEndCoordinatesFromEventList(Event event, List<List<Event>> eventDepths) {
         for(int i=eventDepths.size()-1; i>=yStartCoordinate; i--) {
             if(eventDepths.get(i).contains(event)) {
@@ -104,6 +129,11 @@ public class DayEventComponentBuilder {
         return -1;
     }
 
+    /**
+     * Get the maximum depth of the events
+     * @param eventDepths
+     * @return the maximum depth
+     */
     private int getMaxDepth(Map<Event, Integer> eventDepths) {
         int maxDepth = 0;
         for (Map.Entry<Event, Integer> entry : eventDepths.entrySet()) {
@@ -114,6 +144,12 @@ public class DayEventComponentBuilder {
         return maxDepth;
     }
 
+    /**
+     * Set the horizontal depth of the events
+     * @param eventDepths
+     * @param events
+     * @param yCoordinate
+     */
     private void setEventsHorizontalDepth(Map<Event, Integer> eventDepths, List<Event> events, int yCoordinate) {
         for (Event event : events) {
             if(calculateYStartCoordinate(event.getStart()) <= yCoordinate && calculateYEndCoordinate(event.getEnd()) > yCoordinate) {
@@ -128,6 +164,14 @@ public class DayEventComponentBuilder {
         }
     }
 
+    /**
+     * Check if the depth is available for the event
+     * @param event
+     * @param eventDepths
+     * @param yCoordinate
+     * @param depth
+     * @return true if the depth is available, false otherwise
+     */
     private boolean depthAvailable(Event event, Map<Event, Integer> eventDepths, int yCoordinate, int depth) {
         if(eventDepths.get(event) != -1) {
             return false;
@@ -146,6 +190,11 @@ public class DayEventComponentBuilder {
         return true;
     }
 
+    /**
+     * Calculate the y start coordinate of the event
+     * @param date
+     * @return the y start coordinate
+     */
     private int calculateYStartCoordinate(Date date) {
         int startHour = date.getHours();
         if(startHour < 8) {
@@ -154,6 +203,11 @@ public class DayEventComponentBuilder {
         return ((startHour - 8) * 2 + 2) + calculateAdjustment(date.getMinutes());
     }
 
+    /**
+     * Calculate the y end coordinate of the event
+     * @param date
+     * @return the y end coordinate
+     */
     private int calculateYEndCoordinate(Date date) {
         int endHour = date.getHours();
         if(endHour > 20 || endHour < 8) {
@@ -162,6 +216,11 @@ public class DayEventComponentBuilder {
         return ((endHour - 8) * 2 + 2) + calculateAdjustment(date.getMinutes());
     }
 
+    /**
+     * Calculate the adjustment of the event depending on the minutes
+     * @param minutes
+     * @return the adjustment
+     */
     private int calculateAdjustment(int minutes) {
         int adjustment = 0;
         if(minutes > 15 && minutes < 45) {

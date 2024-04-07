@@ -20,6 +20,10 @@ public class UserManager {
         return INSTANCE;
     }
 
+    /**
+     * Set the user retriever that will be used to retrieve the user. The default user retriever is UserRetrieverJSON
+     * @param userRetriever
+     */
     public void setUserRetriever(UserRetriever userRetriever) {
         if(userRetriever == null) {
             throw new IllegalArgumentException("UserRetriever cannot be null");

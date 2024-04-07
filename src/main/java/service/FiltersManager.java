@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FiltersManager {
+    /**
+     * Get all the course names from the list of events
+     * @param events
+     * @return List of course names
+     */
     public static List<String> getCourseNames(List<CourseEvent> events) {
         List<String> courseNames = new ArrayList<>();
         for (CourseEvent event : events) {
@@ -22,6 +27,11 @@ public class FiltersManager {
         return courseNames;
     }
 
+    /**
+     * Get all the promotions from the list of events
+     * @param events
+     * @return List of promotions
+     */
     public static List<String> getPromotions(List<CourseEvent> events) {
         List<String> groups = new ArrayList<>();
         for (CourseEvent event : events) {
@@ -40,6 +50,11 @@ public class FiltersManager {
         return groups;
     }
 
+    /**
+     * Get all the locations from the list of events
+     * @param events
+     * @return List of locations
+     */
     public static List<String> getLocations(List<CourseEvent> events) {
         List<String> locations = new ArrayList<>();
         for (CourseEvent event : events) {
@@ -55,6 +70,11 @@ public class FiltersManager {
         return locations;
     }
 
+    /**
+     * Get all the course types from the list of events
+     * @param events
+     * @return List of course types
+     */
     public static List<String> getCourseTypes(List<CourseEvent> events) {
         List<String> courseTypes = new ArrayList<>();
         for (CourseEvent event : events) {
