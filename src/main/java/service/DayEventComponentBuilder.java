@@ -138,7 +138,7 @@ public class DayEventComponentBuilder {
         if(startHour < 8) {
             startHour = 8;
         }
-        return ((startHour - 8) * 2) + calculateAdjustment(date.getMinutes());
+        return ((startHour - 8) * 2 + 2) + calculateAdjustment(date.getMinutes());
     }
 
     private int calculateYEndCoordinate(Date date) {
@@ -146,7 +146,7 @@ public class DayEventComponentBuilder {
         if(endHour > 20 || endHour < 8) {
             endHour = 19;
         }
-        return ((endHour - 8) * 2) + calculateAdjustment(date.getMinutes());
+        return ((endHour - 8) * 2 + 2) + calculateAdjustment(date.getMinutes());
     }
 
     private int calculateAdjustment(int minutes) {
