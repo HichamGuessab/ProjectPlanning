@@ -20,4 +20,5 @@ module main {
     opens entity to com.fasterxml.jackson.databind;
     exports model;
     opens model to com.fasterxml.jackson.databind;
+    exports service;
 }
