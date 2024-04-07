@@ -172,6 +172,7 @@ public class MainLayoutController implements Initializable, ThemeApplyer {
 
     @Override
     public void applyTheme(Color[] colors, Themes theme) {
+        themeChoiceBox.setValue(theme);
         anchorPane.getStylesheets().clear();
         if(theme == Themes.LIGHT) {
             anchorPane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());

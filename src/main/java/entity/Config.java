@@ -2,22 +2,34 @@ package entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import model.Themes;
 
 public class Config {
-    private String calendarUrl;
+    private Themes theme;
+    private String userIdentifier;
 
     @JsonCreator
     public Config(
-            @JsonProperty("calendarUrl") String calendarUrl
+            @JsonProperty("theme") Themes theme,
+            @JsonProperty("userIdentifier") String userIdentifier
     ) {
-        this.calendarUrl = calendarUrl;
+        this.theme = theme;
+        this.userIdentifier = userIdentifier;
     }
 
-    public String getCalendarUrl() {
-        return calendarUrl;
+    public Themes getTheme() {
+        return theme;
     }
 
-    public void setCalendarUrl(String calendarUrl) {
-        this.calendarUrl = calendarUrl;
+    public void setTheme(Themes theme) {
+        this.theme = theme;
+    }
+
+    public String getUserIdentifier() {
+        return userIdentifier;
+    }
+
+    public void setUserIdentifier(String userIdentifier) {
+        this.userIdentifier = userIdentifier;
     }
 }

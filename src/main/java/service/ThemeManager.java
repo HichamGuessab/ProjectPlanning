@@ -1,10 +1,15 @@
 package service;
 
 import controller.ThemeApplyer;
+import entity.Config;
 import javafx.scene.paint.Color;
 import model.DarkModeColors;
 import model.LightModeColors;
 import model.Themes;
+import service.persister.config.ConfigPersister;
+import service.persister.config.ConfigPersisterJSON;
+import service.retriever.config.ConfigRetriever;
+import service.retriever.config.ConfigRetrieverJSON;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +23,7 @@ public class ThemeManager {
     private final Map<DarkModeColors, Color> darkModeColorsMap = new HashMap<>();
     private final Map<LightModeColors, Color> lightModeColorsMap = new HashMap<>();
     private Themes currentTheme = Themes.LIGHT;
+    private UserManager userManager = UserManager.getInstance();
 
     private ThemeManager() {
         darkModeColorsMap.put(DarkModeColors.COLOR1, Color.rgb(133, 133, 133));
@@ -31,6 +37,8 @@ public class ThemeManager {
         lightModeColorsMap.put(LightModeColors.COLOR3, Color.rgb(200, 200, 200));
         lightModeColorsMap.put(LightModeColors.COLOR4, Color.rgb(180, 180, 180));
         lightModeColorsMap.put(LightModeColors.COLOR5, Color.rgb(160, 160, 160));
+
+        updateCurrentThemeByCurrentUser();
     }
 
     public static ThemeManager getInstance() {
@@ -38,6 +46,17 @@ public class ThemeManager {
             INSTANCE = new ThemeManager();
         }
         return INSTANCE;
+    }
+
+    public void updateCurrentThemeByCurrentUser() {
+        if(userManager.getCurrentUser() != null) {
+            ConfigRetriever configRetriever = new ConfigRetrieverJSON();
+            Config config = configRetriever.retrieveByUserIdentifier(userManager.getCurrentUser().getIdentifier());
+            if(config != null) {
+                currentTheme = config.getTheme();
+            }
+        }
+        applyTheme(currentTheme);
     }
 
     public Color getColorForDarkMode(DarkModeColors darkModeColor) {
@@ -59,6 +78,18 @@ public class ThemeManager {
 
     public void applyTheme(Themes theme) {
         currentTheme = theme;
+
+        if(userManager.getCurrentUser() != null) {
+            ConfigRetriever configRetriever = new ConfigRetrieverJSON();
+            Config config = configRetriever.retrieveByUserIdentifier(userManager.getCurrentUser().getIdentifier());
+            if(config == null) {
+                config = new Config(currentTheme, userManager.getCurrentUser().getIdentifier());
+            }
+            config.setTheme(theme);
+            ConfigPersister configPersister = new ConfigPersisterJSON();
+            configPersister.persist(config);
+        }
+
         Color[] colors = getcurrentColors();
         for(ThemeApplyer themeApplyer : themeApplyers) {
             themeApplyer.applyTheme(colors, currentTheme);

@@ -56,7 +56,7 @@ public class LoginPageController implements Initializable, ThemeApplyer {
             vboxChildren.add(identifierTextFieldIndex, label);
             return;
         }
-
+        themeManager.updateCurrentThemeByCurrentUser();
         this.mainController.changeView("homePage");
     }
 
