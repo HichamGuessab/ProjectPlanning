@@ -34,7 +34,7 @@
 }
 
 .button {
-    -fx-background-color: #0583fd;
+    -fx-background-color: #ff6100;
     -fx-border-color: #ffffff;
     -fx-border-radius: 4;
     -fx-text-fill: #ffffff;
@@ -45,7 +45,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #3d9fff;
+    -fx-background-color: #ff9658;
 }
 
 .button:pressed {
@@ -53,7 +53,7 @@
 }
 
 .choice-box {
-    -fx-background-color: #0583fd;
+    -fx-background-color: #ff6100;
     -fx-mark-color: #000000;
     -fx-border-color: #ffffff;
     -fx-text-fill: #000000;
@@ -63,7 +63,7 @@
 }
 
 .choice-box:hover {
-    -fx-background-color: #3d9fff;
+    -fx-background-color: #ff9658;
 }
 
 .month-day {

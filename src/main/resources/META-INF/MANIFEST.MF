@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Main-Class: main.Launcher
+Class-Path: jackson-annotations-2.16.0.jar commons-collections4-4.4.jar 
+ javafx-fxml-19.jar controlsfx-11.1.1.jar javafx-graphics-19-win.jar jav
+ afx-fxml-19-win.jar javafx-controls-19.jar slf4j-api-2.0.0-alpha0.jar c
+ ommons-digester-2.1.jar javafx-base-19-win.jar javafx-controls-19-win.j
+ ar bootstrapfx-core-0.4.0.jar commons-lang3-3.12.0.jar javafx-graphics-
+ 19.jar ikonli-javafx-12.3.1.jar jackson-dataformat-xml-2.16.0.jar ical4
+ j-3.2.16.jar commons-codec-1.15.jar commons-logging-1.2.jar jackson-cor
+ e-2.16.0.jar jackson-databind-2.16.0.jar commons-beanutils-1.9.4.jar st
+ ax2-api-4.2.1.jar commons-validator-1.7.jar formsfx-core-11.5.0.jar iko
+ nli-core-12.3.1.jar woodstox-core-6.5.1.jar javafx-base-19.jar slf4j-no
+ p-2.0.0-alpha0.jar
+

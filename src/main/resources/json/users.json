@@ -7,6 +7,13 @@
     "calendarUrl": "https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def50200cf99c752cf69a913bf8f4ca3e12b5446581bfd0a57425b61ed9f3dcb59abc536758e9bb42eef63d2fbb594616b4be217a41dfc6c5d0d821b4da74650559b51847bec8732a5e2c8bffa4d7368f292e1ad0c3895cf"
   },
   {
+    "name": "Jean Michel",
+    "identifier": "michel",
+    "password": "123",
+    "type": "STUDENT",
+    "calendarUrl": "https://edt-api.univ-avignon.fr/api/exportAgenda/tdoption/def50200cd92587ce8c8d368c52d29e8a1df8ce1ca52a3dfcb3a5dc7981d96df4850dd04621eb820bd1194e53ec203be9635ac9258c50313a487605a28c9a5ef180ee7b4e9dcd56bad55e76aa7aa5ce885df79a893bac958"
+  },
+  {
     "name": "Test",
     "identifier": "",
     "password": "",
