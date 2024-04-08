@@ -29,7 +29,7 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="By Otter" />
+                  <Label styleClass="text" text="By Otter" />
                   <ImageView fitHeight="50.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/otter_logo.png" />
