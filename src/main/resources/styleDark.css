@@ -117,3 +117,20 @@
 .transparent-background {
     -fx-background-color: rgba(0,0,0,0);
 }
+
+#weeklyCalendarAnchorPane, #weeklyCalendarGridPane{
+    -fx-background-color: #2c2c2c;
+}
+
+#nameLabel, #typeLabel, #locationLabel {
+    -fx-text-fill: #ffffff;
+}
+
+#mondayLabel, #tuesdayLabel, #wednesdayLabel, #thursdayLabel, #fridayLabel, #saturdayLabel, #sundayLabel {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2c2c2c;
+}
+
+.text-light {
+    -fx-text-fill: #ffffff;
+}

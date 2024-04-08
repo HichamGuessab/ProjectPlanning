@@ -14,7 +14,7 @@ import java.util.*;
 
 public class WeeklyCalendarComponentController extends AbstractCalendarController implements Initializable {
     @FXML
-    private GridPane calendarGridPane;
+    private GridPane weeklyCalendarGridPane;
     @FXML
     private Label mondayLabel;
     @FXML
@@ -41,13 +41,13 @@ public class WeeklyCalendarComponentController extends AbstractCalendarControlle
 
         for(int i=1; i<6; i++) {
             List<Event> currentDayEvents = getAllEventsForDayOfWeek(i);
-            dayEventComponentBuilder.buildDay(calendarGridPane, i, 1, 26, currentDayEvents);
+            dayEventComponentBuilder.buildDay(weeklyCalendarGridPane, i, 1, 26, currentDayEvents);
             for (int hour = 8; hour <= 19; hour++) {
                 int rowIndex = (hour - 8) * 2 + 2;
-                if (rowIndex > 0 && rowIndex < calendarGridPane.getRowConstraints().size()) {
+                if (rowIndex > 0 && rowIndex < weeklyCalendarGridPane.getRowConstraints().size()) {
                     Pane line = new Pane();
                     line.getStyleClass().add("hour-separator");
-                    calendarGridPane.add(line, 1, rowIndex, GridPane.REMAINING, 1); // Span across all columns
+                    weeklyCalendarGridPane.add(line, 1, rowIndex, GridPane.REMAINING, 1); // Span across all columns
                 }
             }
         }
